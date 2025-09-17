@@ -3,729 +3,450 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ark Bio Energies | Invest in India's 2G Ethanol Revolution</title>
-    <meta name="description" content="Transforming agricultural waste into clean energy. Invest in our 2G Ethanol plant in Ballari, Karnataka.">
+    <title>Ark Bio Energies | 10 KLPD 2G Ethanol Plant Feasibility Study</title>
+    <meta name="description" content="An interactive dashboard presenting the feasibility study for a 10 KLPD 2G Ethanol Plant in Ballari, Karnataka.">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #F8F9FA; color: #333333; }
-        .bg-hero-pattern { background-image: url('https://placehold.co/1920x1080/D1D5DB/A1A1AA?text=Sustainable+Energy'); background-size: cover; background-position: center; }
+        body { font-family: 'Inter', sans-serif; background-color: #FDFBF7; color: #1F2937; }
+        .chart-container { position: relative; width: 100%; max-width: 800px; margin-left: auto; margin-right: auto; height: 400px; max-height: 50vh; }
+        @media (max-width: 768px) { .chart-container { height: 300px; max-height: 60vh; } }
+        .nav-link { transition: color 0.3s, border-bottom-color 0.3s; border-bottom: 2px solid transparent; }
+        .nav-link:hover, .nav-link.active { color: #D97706; border-bottom-color: #D97706; }
+        .kpi-card { background-color: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); transition: transform 0.3s, box-shadow 0.3s; }
+        .kpi-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+        .process-step { cursor: pointer; transition: background-color 0.3s, color 0.3s; }
+        .process-step.active { background-color: #1E40AF; color: white; }
+        html { scroll-behavior: smooth; }
+        .risk-item.expanded .risk-mitigation { display: block; }
+        .risk-mitigation { display: none; }
+        
+        .bg-hero-pattern { background-image: linear-gradient(135deg, #065F46 0%, #16A34A 100%); }
         .card { padding: 1.5rem; border-radius: 0.75rem; background-color: white; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); }
         .card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.05); }
     </style>
 </head>
-<body class="min-h-screen">
+<body class="antialiased">
 
-    <!-- Navigation -->
-    <nav class="fixed w-full bg-white/80 backdrop-blur z-40 shadow-sm">
-        <div class="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
-            <a href="#home" class="flex items-center gap-4">
-                <img src="Arkbioenergies logo.png" alt="Ark Bio Energies Logo" class="h-10">
-                <div>
-                    <h1 class="text-lg font-semibold">Ark Bio Energies</h1>
-                    <p class="text-xs text-gray-600">2G Ethanol from Agricultural Residues</p>
+    <!-- Header & Navigation -->
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm border-b border-gray-200">
+        <nav class="container mx-auto px-4 lg:px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <img src="Arkbioenergies logo.png" alt="Ark Bio Energies Logo" class="h-8">
+                    <span class="text-xl font-bold text-gray-800">Ark Bio Energies</span>
                 </div>
-            </a>
-            <nav class="hidden md:flex items-center gap-6 text-sm">
-                <a href="#about" class="hover:underline">About</a>
-                <a href="#solution" class="hover:underline">Project</a>
-                <a href="#market" class="hover:underline">Market</a>
-                <a href="#financials" class="hover:underline">Financials</a>
-                <a href="#team" class="hover:underline">Team</a>
-                <a href="#dpr" class="hover:underline">DPR</a>
-                <button onclick="document.getElementById('investor-modal').classList.remove('hidden')" class="bg-green-600 text-white px-4 py-2 rounded-md text-sm shadow hover:opacity-95">Investor Access</button>
-            </nav>
-            <div class="md:hidden">
-                <a href="#contact" class="text-sm text-green-600">Contact</a>
+                <div class="hidden lg:flex space-x-8">
+                    <a href="#overview" class="nav-link text-gray-600 font-medium pb-1">Overview</a>
+                    <a href="#market" class="nav-link text-gray-600 font-medium pb-1">Market</a>
+                    <a href="#financials" class="nav-link text-gray-600 font-medium pb-1">Financials</a>
+                    <a href="#impact" class="nav-link text-gray-600 font-medium pb-1">Impact</a>
+                    <a href="#risk" class="nav-link text-gray-600 font-medium pb-1">Risks</a>
+                    <a href="#roadmap" class="nav-link text-gray-600 font-medium pb-1">Roadmap</a>
+                    <a href="#reports" class="nav-link text-gray-600 font-medium pb-1">Reports</a>
+                    <button onclick="document.getElementById('investor-modal').classList.remove('hidden')" class="bg-green-600 text-white px-4 py-2 rounded-md text-sm shadow hover:opacity-95">Investor Access</button>
+                </div>
+                <div class="lg:hidden">
+                    <button id="menu-btn" class="text-gray-600 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    </button>
+                </div>
             </div>
-        </div>
-    </nav>
+            <div id="mobile-menu" class="hidden lg:hidden mt-4 space-y-2">
+                <a href="#overview" class="block nav-link text-gray-600 font-medium py-1">Overview</a>
+                <a href="#market" class="block nav-link text-gray-600 font-medium py-1">Market</a>
+                <a href="#financials" class="block nav-link text-gray-600 font-medium py-1">Financials</a>
+                <a href="#impact" class="block nav-link text-gray-600 font-medium py-1">Impact</a>
+                <a href="#risk" class="block nav-link text-gray-600 font-medium py-1">Risks</a>
+                <a href="#roadmap" class="block nav-link text-gray-600 font-medium py-1">Roadmap</a>
+                <a href="#reports" class="block nav-link text-gray-600 font-medium py-1">Reports</a>
+            </div>
+        </nav>
+    </header>
 
-    <main class="pt-24">
-        <!-- Hero Section -->
-        <section id="home" class="relative overflow-hidden bg-hero-pattern">
-            <div class="max-w-6xl mx-auto px-6 py-20 bg-white/80 backdrop-blur-sm rounded-xl my-20">
-                <div class="animate-fade-in-left text-center">
-                    <img src="Arkbioenergies logo.png" alt="Ark Bio Energies Logo" class="h-40 mx-auto mb-8 drop-shadow-lg">
-                    <h2 class="text-4xl md:text-5xl font-extrabold leading-tight text-gray-800 drop-shadow-lg">Powering India’s Future with 2G Ethanol</h2>
-                    <p class="mt-6 text-lg text-gray-700">Turning agricultural residue into clean fuel, creating farmer prosperity, and delivering strong investor returns.</p>
-                    <div class="mt-8 flex gap-4 justify-center">
-                        <a href="#contact" class="bg-green-600 text-white px-5 py-3 rounded-md font-semibold shadow hover:opacity-95">Invest Now</a>
-                        <a href="Feasibility study Arkbioenergies.pdf" target="_blank" class="border border-green-600 text-green-600 px-5 py-3 rounded-md font-semibold hover:bg-green-50 transition-colors duration-300">Download Project Report</a>
+    <main class="container mx-auto px-4 lg:px-6 py-8 md:py-12">
+        <!-- Title Section -->
+        <section class="text-center mb-12 md:mb-16">
+            <h1 class="text-3xl md:text-5xl font-bold text-gray-900 mb-4">10 KLPD 2G Ethanol Plant Feasibility Study</h1>
+            <p class="text-lg md:text-xl text-gray-600">Ark Bio Energies Pvt. Ltd. | Ballari, Karnataka</p>
+        </section>
+
+        <!-- Section 1: Project Overview -->
+        <section id="overview" class="mb-16 scroll-mt-24">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-2 text-gray-800">Project At-a-Glance</h2>
+            <p class="text-center text-gray-600 mb-10 max-w-3xl mx-auto">This dashboard summarizes the key findings of our feasibility study. The proposed 2G ethanol plant is a technically viable, financially robust, and environmentally beneficial project, poised to capitalize on India's growing biofuel demand. Explore the key performance indicators below for a quick overview.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="kpi-card">
+                    <h3 class="font-semibold text-gray-500 mb-2">Projected CAPEX</h3>
+                    <p class="text-4xl font-bold text-blue-700">₹50 Cr</p>
+                    <p class="text-sm text-gray-500 mt-1">Total capital expenditure</p>
+                </div>
+                <div class="kpi-card">
+                    <h3 class="font-semibold text-gray-500 mb-2">Annual Revenue</h3>
+                    <p class="text-4xl font-bold text-green-600">₹27.15 Cr</p>
+                    <p class="text-sm text-gray-500 mt-1">At steady-state operation</p>
+                </div>
+                <div class="kpi-card">
+                    <h3 class="font-semibold text-gray-500 mb-2">Internal Rate of Return (IRR)</h3>
+                    <p class="text-4xl font-bold text-amber-600">23-25%</p>
+                    <p class="text-sm text-gray-500 mt-1">Indicating strong profitability</p>
+                </div>
+                <div class="kpi-card">
+                    <h3 class="font-semibold text-gray-500 mb-2">Payback Period</h3>
+                    <p class="text-4xl font-bold text-amber-600">3.5-4 Yrs</p>
+                    <p class="text-sm text-gray-500 mt-1">Post-subsidy investment recovery</p>
+                </div>
+                <div class="kpi-card">
+                    <h3 class="font-semibold text-gray-500 mb-2">GHG Savings</h3>
+                    <p class="text-4xl font-bold text-green-600">>95%</p>
+                    <p class="text-sm text-gray-500 mt-1">Compared to conventional gasoline</p>
+                </div>
+                <div class="kpi-card">
+                    <h3 class="font-semibold text-gray-500 mb-2">Local Impact</h3>
+                    <p class="text-4xl font-bold text-blue-700">100+ Jobs</p>
+                    <p class="text-sm text-gray-500 mt-1">Direct employment creation</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Market Opportunity -->
+        <section id="market" class="mb-16 scroll-mt-24">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-2 text-gray-800">Market Opportunity</h2>
+            <p class="text-center text-gray-600 mb-10 max-w-3xl mx-auto">India's commitment to the Ethanol Blended Petrol (EBP) program creates a massive, stable demand for ethanol. The 2G ethanol sector is a key focus for the government, providing a significant growth opportunity for projects like ours that utilize agricultural waste, ensuring energy security while supporting the rural economy.</p>
+            <div class="bg-white p-6 rounded-lg shadow-md border">
+                <div class="chart-container">
+                    <canvas id="marketDemandChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Financials -->
+        <section id="financials" class="mb-16 scroll-mt-24">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-2 text-gray-800">Financial Deep Dive</h2>
+            <p class="text-center text-gray-600 mb-10 max-w-3xl mx-auto">Our financial model indicates a highly profitable venture, bolstered by strong revenues from both ethanol and by-products, manageable operational costs, and significant government incentives. Explore the cost breakdowns and use the interactive calculator to see how price fluctuations impact revenue.</p>
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+                <div class="lg:col-span-3 bg-white p-6 rounded-lg shadow-md border">
+                    <h3 class="text-xl font-semibold text-center mb-4">Interactive Revenue Projection</h3>
+                    <div class="mb-6">
+                        <label for="ethanolPrice" class="block mb-2 font-medium text-gray-700">Adjust Ethanol Price (₹/L): <span id="priceValue" class="font-bold text-blue-700">₹65</span></label>
+                        <input type="range" id="ethanolPrice" min="55" max="80" value="65" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
                     </div>
-                    <div class="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4">
-                        <div class="card bg-white text-gray-800">
-                            <div class="text-sm text-gray-500">Capacity</div>
-                            <div class="text-lg font-semibold">10 KLPD</div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-gray-600">Projected Ethanol Revenue</h4>
+                            <p id="ethanolRevenue" class="text-3xl font-bold text-blue-800 mt-1">₹19.50 Cr</p>
                         </div>
-                        <div class="card bg-white text-gray-800">
-                            <div class="text-sm text-gray-500">CAPEX</div>
-                            <div class="text-lg font-semibold">₹50 Cr</div>
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-gray-600">Total Annual Revenue</h4>
+                            <p id="totalRevenue" class="text-3xl font-bold text-green-700 mt-1">₹27.15 Cr</p>
                         </div>
-                        <div class="card bg-white text-gray-800">
-                            <div class="text-sm text-gray-500">Equity</div>
-                            <div class="text-lg font-semibold">₹20 Cr</div>
+                    </div>
+                    <p class="text-xs text-center text-gray-500 mt-4">Total revenue includes a fixed ₹7.65 Cr from by-products like CO2 and lignin.</p>
+                </div>
+                <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md border">
+                        <h3 class="text-xl font-semibold text-center mb-4">CAPEX Breakdown (Total: ₹50 Cr)</h3>
+                        <div class="chart-container !h-64 !max-h-64">
+                            <canvas id="capexChart"></canvas>
                         </div>
-                        <div class="card bg-white text-gray-800">
-                            <div class="text-sm text-gray-500">Payback</div>
-                            <div class="text-lg font-semibold">3.5 yrs</div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md border">
+                        <h3 class="text-xl font-semibold text-center mb-4">OPEX Breakdown (Total: ₹15 Cr)</h3>
+                        <div class="chart-container !h-64 !max-h-64">
+                            <canvas id="opexChart"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- About Section -->
-        <section id="about" class="max-w-6xl mx-auto px-6 py-16">
-            <div class="grid md:grid-cols-2 gap-10 items-center">
-                <div>
-                    <h3 class="text-2xl font-bold">About Ark Bio Energies</h3>
-                    <p class="mt-4 text-gray-700">Ark Bio Energies is building a 10 KLPD second-generation (2G) ethanol plant in Ballari, Karnataka. Our mission is to convert agricultural residues — primarily rice straw and husk — into ethanol, reducing open-field burning, improving farmer incomes, and supporting India’s ethanol blending targets.</p>
-                    <ul class="mt-6 space-y-3 text-sm text-gray-700">
-                        <li>• Proven business model with strong policy tailwinds.</li>
-                        <li>• Focus on sustainable feedstock sourcing and local farmer engagement.</li>
-                        <li>• Clear path to commercial operations with experienced advisors.</li>
-                    </ul>
-                    <div class="mt-6 flex gap-4">
-                        <a href="#solution" class="text-green-600 font-semibold hover:underline">Learn about the project →</a>
-                        <a href="#contact" class="text-gray-600 hover:underline">Contact us</a>
+        
+        <!-- Section 4: Process & Impact -->
+        <section id="impact" class="mb-16 scroll-mt-24">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-2 text-gray-800">Process & Impact</h2>
+            <p class="text-center text-gray-600 mb-10 max-w-3xl mx-auto">Our project employs a proven technological process to convert agricultural waste into valuable biofuel. This not only creates a high-value product but also generates significant positive environmental and social impacts, from reducing air pollution to boosting the rural economy in the Ballari region. Click on each process step to learn more.</p>
+            <div class="bg-white p-6 rounded-lg shadow-md border mb-8">
+                <h3 class="text-xl font-semibold text-center mb-6">Ethanol Production Process</h3>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4">
+                    <div id="step1" class="process-step active text-center p-4 border rounded-lg flex-1">
+                        <h4 class="font-bold">1. Collection & Pre-treatment</h4>
+                    </div>
+                    <div class="text-2xl text-gray-400 font-thin">&rarr;</div>
+                    <div id="step2" class="process-step text-center p-4 border rounded-lg flex-1">
+                        <h4 class="font-bold">2. Hydrolysis</h4>
+                    </div>
+                    <div class="text-2xl text-gray-400 font-thin">&rarr;</div>
+                    <div id="step3" class="process-step text-center p-4 border rounded-lg flex-1">
+                        <h4 class="font-bold">3. Fermentation</h4>
+                    </div>
+                    <div class="text-2xl text-gray-400 font-thin">&rarr;</div>
+                    <div id="step4" class="process-step text-center p-4 border rounded-lg flex-1">
+                        <h4 class="font-bold">4. Distillation</h4>
                     </div>
                 </div>
-                <div class="space-y-4">
-                    <div class="card">
-                        <h4 class="font-semibold">Why 2G Ethanol?</h4>
-                        <div class="mt-2 text-sm text-gray-700">2G ethanol uses non-food agricultural residues, avoids food vs fuel conflicts and reduces greenhouse gas emissions compared to fossil fuels.</div>
+                <div id="process-details" class="mt-6 p-4 bg-gray-50 rounded-md min-h-[100px]">
+                    <p class="text-gray-700">Baling and shredding of rice straw, followed by steam explosion at high pressure and temperature to break down the complex structure.</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-green-50 p-6 rounded-lg">
+                    <h3 class="text-lg font-semibold text-green-800 mb-2">Air Quality Improvement</h3>
+                    <p class="text-gray-700">Prevents stubble burning of over 50,000 tons of rice straw annually, reducing PM2.5 pollution and avoiding 30,000 tons of CO2 emissions.</p>
+                </div>
+                <div class="bg-blue-50 p-6 rounded-lg">
+                    <h3 class="text-lg font-semibold text-blue-800 mb-2">Rural Economy Boost</h3>
+                    <p class="text-gray-700">Creates a new revenue stream for over 5,000 farmers in the Ballari region through the buy-back of agricultural waste.</p>
+                </div>
+                <div class="bg-amber-50 p-6 rounded-lg">
+                    <h3 class="text-lg font-semibold text-amber-800 mb-2">Resource Efficiency</h3>
+                    <p class="text-gray-700">The plant is designed for 80% water recycling and will utilize lignin by-product to meet its own power requirements, ensuring a circular economy.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Risks & Mitigation -->
+        <section id="risk" class="mb-16 scroll-mt-24">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-2 text-gray-800">Risk & Mitigation</h2>
+            <p class="text-center text-gray-600 mb-10 max-w-3xl mx-auto">A thorough risk assessment has been conducted to identify potential challenges. Proactive mitigation strategies are in place for each identified risk, ensuring the project's stability and long-term success. Click on each risk to view the corresponding mitigation plan.</p>
+            <div class="space-y-4">
+                <div class="risk-item bg-white rounded-lg shadow-sm border cursor-pointer">
+                    <div class="risk-header p-4 flex justify-between items-center">
+                        <h3 class="font-semibold text-gray-800">Feedstock Volatility</h3>
+                        <span class="text-sm font-medium text-red-600 bg-red-100 px-2 py-1 rounded-full">Medium/High</span>
                     </div>
-                    <div class="card">
-                        <h4 class="font-semibold">Policy Tailwinds</h4>
-                        <div class="mt-2 text-sm text-gray-700">Supported by the JI-VAN scheme and state incentives. Ethanol blending mandates create guaranteed demand for off-takers.</div>
+                    <div class="risk-mitigation p-4 border-t bg-gray-50">
+                        <p class="text-gray-700">Establish long-term MoUs with farmer cooperatives; maintain a 10,000-ton buffer stock; research diversification to other local biomass like cotton stalk.</p>
+                    </div>
+                </div>
+                <div class="risk-item bg-white rounded-lg shadow-sm border cursor-pointer">
+                    <div class="risk-header p-4 flex justify-between items-center">
+                        <h3 class="font-semibold text-gray-800">Technical Yield Drop</h3>
+                        <span class="text-sm font-medium text-amber-600 bg-amber-100 px-2 py-1 rounded-full">Medium/Medium</span>
+                    </div>
+                    <div class="risk-mitigation p-4 border-t bg-gray-50">
+                        <p class="text-gray-700">Engage in a strong technical partnership with a proven technology provider like Praj Industries; conduct extensive pilot testing before full-scale commissioning.</p>
+                    </div>
+                </div>
+                <div class="risk-item bg-white rounded-lg shadow-sm border cursor-pointer">
+                    <div class="risk-header p-4 flex justify-between items-center">
+                        <h3 class="font-semibold text-gray-800">Regulatory Delays</h3>
+                        <span class="text-sm font-medium text-amber-600 bg-amber-100 px-2 py-1 rounded-full">Medium/Medium</span>
+                    </div>
+                    <div class="risk-mitigation p-4 border-t bg-gray-50">
+                        <p class="text-gray-700">Utilize Karnataka's single-window clearance system; engage in pre-consultation with SEIAA and other regulatory bodies; hire an experienced environmental consultant.</p>
+                    </div>
+                </div>
+                <div class="risk-item bg-white rounded-lg shadow-sm border cursor-pointer">
+                    <div class="risk-header p-4 flex justify-between items-center">
+                        <h3 class="font-semibold text-gray-800">Market Price Fluctuation</h3>
+                        <span class="text-sm font-medium text-green-600 bg-green-100 px-2 py-1 rounded-full">Low/Medium</span>
+                    </div>
+                    <div class="risk-mitigation p-4 border-t bg-gray-50">
+                        <p class="text-gray-700">Secure fixed-price off-take agreements with Oil Marketing Companies (OMCs); diversify and maximize revenue from by-products.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Solution / Process Section -->
-        <section id="solution" class="bg-white/60 py-16">
-            <div class="max-w-6xl mx-auto px-6">
-                <h3 class="text-2xl font-bold">The Solution — Ballari 2G Ethanol Plant</h3>
-                <p class="mt-3 text-gray-700">A fully integrated plant that converts rice straw & husk to ethanol using pre-treatment, enzymatic hydrolysis, fermentation and distillation. The process also produces lignin for power generation and other by-products.</p>
-                <div class="mt-8 grid md:grid-cols-3 gap-6">
-                    <div class="card">
-                        <div class="text-sm text-green-600 font-bold">Step 1</div>
-                        <h4 class="mt-2 font-semibold">Feedstock Collection</h4>
-                        <p class="mt-2 text-sm text-gray-600">Sourcing rice straw & husk from local farms via aggregators and MoUs.</p>
-                    </div>
-                    <div class="card">
-                        <div class="text-sm text-green-600 font-bold">Step 2</div>
-                        <h4 class="mt-2 font-semibold">Pre-treatment</h4>
-                        <p class="mt-2 text-sm text-gray-600">Breaking down lignocellulosic structure for enzyme access.</p>
-                    </div>
-                    <div class="card">
-                        <div class="text-sm text-green-600 font-bold">Step 3</div>
-                        <h4 class="mt-2 font-semibold">Hydrolysis & Fermentation</h4>
-                        <p class="mt-2 text-sm text-gray-600">Enzymatic conversion to sugars followed by fermentation to ethanol.</p>
-                    </div>
-                    <div class="card">
-                        <div class="text-sm text-green-600 font-bold">Step 4</div>
-                        <h4 class="mt-2 font-semibold">Distillation & Purification</h4>
-                        <p class="mt-2 text-sm text-gray-600">Produce fuel-grade ethanol meeting industry specs.</p>
-                    </div>
-                    <div class="card">
-                        <div class="text-sm text-green-600 font-bold">Step 5</div>
-                        <h4 class="mt-2 font-semibold">By-products</h4>
-                        <p class="mt-2 text-sm text-gray-600">Lignin retained for captive power; CO2 purification and other streams monetized.</p>
-                    </div>
-                    <div class="card">
-                        <div class="text-sm text-green-600 font-bold">Step 6</div>
-                        <h4 class="mt-2 font-semibold">Dispatch</h4>
-                        <p class="mt-2 text-sm text-gray-600">Quality-assured ethanol supplied to OMCs and industrial buyers.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Market Section -->
-        <section id="market" class="max-w-6xl mx-auto px-6 py-16">
-            <div class="grid md:grid-cols-2 gap-10 items-center">
-                <div>
-                    <h3 class="text-2xl font-bold">Market Opportunity</h3>
-                    <p class="mt-4 text-gray-700">India is rapidly increasing ethanol blending targets. Demand outpaces current supply, creating a material opportunity for 2G ethanol producers. Policy incentives and supportive state frameworks magnify returns for early movers.</p>
-                    <ul class="mt-6 space-y-2 text-sm text-gray-700">
-                        <li>• Ethanol blending target: policy-driven demand growth.</li>
-                        <li>• OMCs & industrial buyers seek reliable domestic supply.</li>
-                        <li>• Carbon credits and ESG demand add upside.</li>
-                    </ul>
-                </div>
-                <div class="p-6 rounded-xl border border-gray-100 shadow-sm bg-white">
-                    <h4 class="font-semibold">Supply / Demand Snapshot</h4>
-                    <p class="mt-2 text-sm text-gray-600">India's ethanol demand is projected to grow from 10.16 Bn L in 2025 to 13.5 Bn L by 2030 (16% CAGR).</p>
-                    <div class="mt-4 grid grid-cols-2 gap-3">
-                        <div class="p-3 bg-gray-50 rounded">
-                            <div class="text-xs text-gray-500">Demand Growth</div>
-                            <div class="font-semibold">16% CAGR</div>
+        <!-- Section 6: Roadmap -->
+        <section id="roadmap" class="scroll-mt-24">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-2 text-gray-800">Implementation Roadmap</h2>
+            <p class="text-center text-gray-600 mb-10 max-w-3xl mx-auto">We have developed a clear and achievable timeline for project implementation, from final planning through to commissioning. The roadmap ensures a structured approach to meet our target of being operational by mid-2027.</p>
+            <div class="relative">
+                <div class="absolute left-1/2 h-full w-0.5 bg-gray-300 hidden md:block"></div>
+                <div class="space-y-8 md:space-y-0">
+                    <div class="md:grid md:grid-cols-2 md:gap-8 items-center">
+                        <div class="md:text-right md:pr-8">
+                            <p class="font-bold text-lg text-blue-700">Q4 2025</p>
+                            <p class="text-gray-700">Finalize DPR, secure land, and initiate funding discussions.</p>
                         </div>
-                        <div class="p-3 bg-gray-50 rounded">
-                            <div class="text-xs text-gray-500">Current Supply Gap</div>
-                            <div class="font-semibold">Significant</div>
+                        <div class="relative md:pl-8">
+                            <div class="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-4 h-4 bg-blue-700 rounded-full border-4 border-white hidden md:block"></div>
                         </div>
-                        <div class="p-3 bg-gray-50 rounded">
-                            <div class="text-xs text-gray-500">Policy Support</div>
-                            <div class="font-semibold">High</div>
+                    </div>
+                    <div class="md:grid md:grid-cols-2 md:gap-8 items-center">
+                        <div class="relative md:pr-8">
+                            <div class="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-4 h-4 bg-blue-700 rounded-full border-4 border-white hidden md:block"></div>
                         </div>
-                        <div class="p-3 bg-gray-50 rounded">
-                            <div class="text-xs text-gray-500">ESG Interest</div>
-                            <div class="font-semibold">Rising</div>
+                        <div class="md:text-left md:pl-8">
+                            <p class="font-bold text-lg text-blue-700">Q1-Q2 2026</p>
+                            <p class="text-gray-700">Finalize EPC contract and secure key technology partnerships.</p>
+                        </div>
+                    </div>
+                    <div class="md:grid md:grid-cols-2 md:gap-8 items-center">
+                        <div class="md:text-right md:pr-8">
+                            <p class="font-bold text-lg text-blue-700">Q3 2026 - Q1 2027</p>
+                            <p class="text-gray-700">Commence construction, civil works, and machinery installation.</p>
+                        </div>
+                        <div class="relative md:pl-8">
+                            <div class="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-4 h-4 bg-blue-700 rounded-full border-4 border-white hidden md:block"></div>
+                        </div>
+                    </div>
+                    <div class="md:grid md:grid-cols-2 md:gap-8 items-center">
+                        <div class="relative md:pr-8">
+                            <div class="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-4 h-4 bg-green-600 rounded-full border-4 border-white hidden md:block"></div>
+                        </div>
+                        <div class="md:text-left md:pl-8">
+                            <p class="font-bold text-lg text-green-600">Q2 2027</p>
+                            <p class="text-gray-700">Plant commissioning and commencement of trial runs.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- Feasibility & Financial Reports -->
-        <section id="reports" class="bg-green-50 py-16">
-            <div class="max-w-6xl mx-auto px-6 text-center">
-                <h3 class="text-2xl font-bold">Feasibility & Financial Reports</h3>
-                <p class="mt-3 text-gray-700">Download our comprehensive reports to understand the project's viability, market, and financial projections.</p>
-                <div class="mt-8 grid md:grid-cols-3 gap-6">
-                    <div class="card">
-                        <h4 class="font-semibold">Detailed Feasibility Study</h4>
-                        <p class="mt-2 text-sm text-gray-600">A full analysis of the market, technology, and operational plan for the 2G ethanol plant.</p>
-                        <a href="Feasibility study Arkbioenergies.pdf" target="_blank" class="mt-4 inline-block bg-green-600 text-white px-4 py-2 rounded-md font-semibold">
-                            <span class="mr-2">📄</span>
-                            Download Report
-                        </a>
-                    </div>
-                    <div class="card">
-                        <h4 class="font-semibold">Detailed Financial Report</h4>
-                        <p class="mt-2 text-sm text-gray-600">Access our full financial analysis, including CAPEX, OPEX, P&L, cash flow projections, and valuation metrics.</p>
-                        <a href="Financial report Arkbioenergies.pdf" target="_blank" class="mt-4 inline-block bg-green-600 text-white px-4 py-2 rounded-md font-semibold">
-                            <span class="mr-2">📊</span>
-                            Download Report
-                        </a>
-                    </div>
-                    <div class="card">
-                        <h4 class="font-semibold">Detailed Project Report</h4>
-                        <p class="mt-2 text-sm text-gray-600">Access our full project report including project details, implementation roadmap and regulatory framework.</p>
-                        <a href="detail project report.pdf" target="_blank" class="mt-4 inline-block bg-green-600 text-white px-4 py-2 rounded-md font-semibold">
-                            <span class="mr-2">📝</span>
-                            Download Report
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Financials Section -->
-        <section id="financials" class="max-w-6xl mx-auto px-6 py-16">
-            <h3 class="text-2xl font-bold">Financial Highlights</h3>
-            <p class="mt-3 text-gray-700">High-level financials, use of funds and scenarios. For detailed models and reports, use the Investor Access button.</p>
-            <div class="mt-6 grid md:grid-cols-3 gap-6">
-                <div class="card">
-                    <div class="text-sm text-gray-500">Total CAPEX</div>
-                    <div class="text-lg font-semibold">₹50 Crore</div>
-                </div>
-                <div class="card">
-                    <div class="text-sm text-gray-500">Equity Ask</div>
-                    <div class="text-lg font-semibold">₹20 Crore</div>
-                </div>
-                <div class="card">
-                    <div class="text-sm text-gray-500">Payback Period</div>
-                    <div class="text-lg font-semibold">3.5 years</div>
-                </div>
-            </div>
-            <div class="mt-8">
-                <h4 class="font-semibold">Use of Funds</h4>
-                <div class="mt-4 grid md:grid-cols-4 gap-4">
-                    <div class="card text-center">
-                        <div class="text-sm text-gray-500">Land & Site</div>
-                        <div class="mt-3 text-2xl font-bold">15%</div>
-                    </div>
-                    <div class="card text-center">
-                        <div class="text-sm text-gray-500">Machinery & EPC</div>
-                        <div class="mt-3 text-2xl font-bold">45%</div>
-                    </div>
-                    <div class="card text-center">
-                        <div class="text-sm text-gray-500">Working Capital</div>
-                        <div class="mt-3 text-2xl font-bold">20%</div>
-                    </div>
-                    <div class="card text-center">
-                        <div class="text-sm text-gray-500">Contingency</div>
-                        <div class="mt-3 text-2xl font-bold">20%</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Team Section -->
-        <section id="team" class="bg-white/60 py-16">
-            <div class="max-w-6xl mx-auto px-6">
-                <h3 class="text-2xl font-bold">Team & Advisors</h3>
-                <p class="mt-3 text-gray-700">Experienced team with backgrounds in bioenergy, engineering and project finance. Advisors bring commercial and technical credibility.</p>
-                <div class="mt-6 grid md:grid-cols-3 gap-6">
-                    <div class="card flex items-center gap-4">
-                        <img src="https://placehold.co/150x150/E2E8F0/1F2937?text=AK" alt="Arjun K" class="w-14 h-14 rounded-full">
-                        <div>
-                            <div class="font-semibold">Arjun K</div>
-                            <div class="text-sm text-gray-500">Founder</div>
-                        </div>
-                    </div>
-                    <div class="card flex items-center gap-4">
-                        <div class="w-14 h-14 rounded-full bg-gray-200 flex items-center justify-center font-bold text-gray-600">A1</div>
-                        <div>
-                            <div class="font-semibold">Advisor 1</div>
-                            <div class="text-sm text-gray-500">Technical Advisor</div>
-                        </div>
-                    </div>
-                    <div class="card flex items-center gap-4">
-                        <div class="w-14 h-14 rounded-full bg-gray-200 flex items-center justify-center font-bold text-gray-600">A2</div>
-                        <div>
-                            <div class="font-semibold">Advisor 2</div>
-                            <div class="text-sm text-gray-500">Finance Advisor</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="bg-gray-900 text-white py-16">
-            <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-8">
-                <div>
-                    <h3 class="text-2xl font-bold">Get in Touch</h3>
-                    <p class="mt-3 text-gray-300">For investor inquiries, partnership discussions and media — reach out to our Investor Relations team.</p>
-                    <div class="mt-6 space-y-3 text-sm text-gray-300">
-                        <div><strong>Email:</strong> <a href="mailto:arjun@arkbioenergies.in" class="text-green-400">arjun@arkbioenergies.in</a></div>
-                        <div><strong>Phone:</strong> +91-XXXXXXXXXX</div>
-                        <div><strong>Office:</strong> Ballari, Karnataka (site)</div>
-                    </div>
-                </div>
-                <div class="card">
-                    <form action="https://api.web3forms.com/submit" method="POST" class="space-y-4">
-                        <input type="hidden" name="access_key" value="f051ff9c-8407-4933-ab46-908314449555">
-                        <input name="name" class="w-full p-3 border rounded text-gray-800" placeholder="Your name" required>
-                        <input name="email" type="email" class="w-full p-3 border rounded text-gray-800" placeholder="Email" required>
-                        <input name="subject" class="w-full p-3 border rounded text-gray-800" placeholder="Subject">
-                        <textarea name="message" class="w-full p-3 border rounded text-gray-800" rows="4" placeholder="Message" required></textarea>
-                        <div class="flex items-center gap-3">
-                            <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded font-semibold">Send Message</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer class="border-t py-8 mt-8">
-            <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-                <div class="text-sm text-gray-600">© 2025 Ark Bio Energies. All rights reserved.</div>
-                <div class="flex items-center gap-4 text-sm">
-                    <a href="https://www.linkedin.com/in/ark-bioenergies-524071384/" target="_blank" class="text-gray-600 hover:text-green-600 transition-colors duration-300">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.763s.784-1.763 1.75-1.763 1.75.79 1.75 1.763-.783 1.763-1.75 1.763zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                        </svg>
-                    </a>
-                    <a href="#" class="hover:underline">Privacy</a>
-                    <a href="#" class="hover:underline">Terms</a>
-                </div>
-            </div>
-        </footer>
     </main>
-    
-    <!-- Investor Modal -->
-    <div id="investor-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-        <div class="w-full max-w-md p-6 bg-white rounded-lg shadow">
-            <h4 class="text-lg font-semibold">Investor Access</h4>
-            <p class="text-sm text-gray-600 mt-2">Enter the access password to view detailed reports.</p>
-            <form id="investor-form" class="mt-4 space-y-3">
-                <input id="investor-password" type="password" class="w-full p-3 border rounded text-gray-800" placeholder="Password" />
-                <div class="flex justify-end gap-3">
-                    <button type="button" onclick="document.getElementById('investor-modal').classList.add('hidden')" class="px-4 py-2 border rounded">Cancel</button>
-                    <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded">Enter</button>
-                </div>
-            </form>
-        </div>
-    </div>
 
+    <!-- Footer -->
+    <footer class="bg-white border-t mt-16">
+        <div class="container mx-auto px-6 py-8 text-center text-gray-600">
+            <p class="font-semibold text-lg mb-2">Ark Bio Energies Pvt. Ltd.</p>
+            <p>For further details and a customized business plan, please contact <a href="mailto:arjun@arkbioenergies.in" class="text-blue-600 hover:underline">arjun@arkbioenergies.in</a>.</p>
+            <p class="text-sm mt-4">&copy; 2025 Ark Bio Energies. All rights reserved.</p>
+        </div>
+    </footer>
     <script>
-        document.getElementById('investor-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const password = document.getElementById('investor-password').value.trim();
-            if (password === 'arkinvest') {
-                alert('Access Granted! Redirecting to reports...');
-                document.getElementById('investor-modal').classList.add('hidden');
-                document.getElementById('investor-reports').classList.remove('hidden');
-            } else {
-                alert('Incorrect password. For demo use: arkinvest');
-            }
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const mobileMenuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section[id]');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href').substring(1) === entry.target.id) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, { rootMargin: '-30% 0px -70% 0px' });
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+            const marketData = {
+                labels: ['2025', '2027', '2030'],
+                datasets: [{
+                    label: 'National Ethanol Demand (Billion L)',
+                    data: [10.16, 11.8, 13.5],
+                    borderColor: '#1E40AF',
+                    backgroundColor: 'rgba(30, 64, 175, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            };
+            const marketCtx = document.getElementById('marketDemandChart').getContext('2d');
+            const marketChart = new Chart(marketCtx, {
+                type: 'line',
+                data: marketData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            title: {
+                                display: true,
+                                text: 'Volume (Billion Liters)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'top' },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.dataset.label}: ${context.raw} Bn L`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            const capexData = {
+                labels: ['Plant & Machinery', 'Land & Site Development', 'Utilities', 'Contingencies'],
+                datasets: [{
+                    data: [60, 20, 10, 10],
+                    backgroundColor: ['#1E40AF', '#3B82F6', '#60A5FA', '#93C5FD'],
+                }]
+            };
+            const opexData = {
+                labels: ['Utilities/Labor', 'Feedstock', 'Enzymes/Chemicals', 'Maintenance'],
+                datasets: [{
+                    data: [33, 27, 20, 20],
+                    backgroundColor: ['#16A34A', '#4ADE80', '#86EFAC', '#BBF7D0'],
+                }]
+            };
+            const chartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom', labels: { boxWidth: 12, padding: 15 } },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.label || '';
+                                if (label) { label += ': '; }
+                                if (context.parsed !== null) { label += context.parsed + '%'; }
+                                return label;
+                            }
+                        }
+                    }
+                }
+            };
+            const capexCtx = document.getElementById('capexChart').getContext('2d');
+            new Chart(capexCtx, { type: 'doughnut', data: capexData, options: chartOptions });
+            const opexCtx = document.getElementById('opexChart').getContext('2d');
+            new Chart(opexCtx, { type: 'doughnut', data: opexData, options: chartOptions });
+            const priceSlider = document.getElementById('ethanolPrice');
+            const priceValue = document.getElementById('priceValue');
+            const ethanolRevenueEl = document.getElementById('ethanolRevenue');
+            const totalRevenueEl = document.getElementById('totalRevenue');
+            priceSlider.addEventListener('input', (e) => {
+                const price = parseFloat(e.target.value);
+                const ethanolVolume = 3; 
+                const byProductsRevenue = 7.65;
+                const ethanolRevenue = ethanolVolume * price;
+                const totalRevenue = ethanolRevenue + byProductsRevenue;
+                priceValue.textContent = `₹${price}`;
+                ethanolRevenueEl.textContent = `₹${ethanolRevenue.toFixed(2)} Cr`;
+                totalRevenueEl.textContent = `₹${totalRevenue.toFixed(2)} Cr`;
+            });
+            const processSteps = document.querySelectorAll('.process-step');
+            const processDetailsEl = document.getElementById('process-details');
+            const processDetailsContent = {
+                step1: 'Baling and shredding of rice straw, followed by steam explosion at high pressure and temperature to break down the complex structure.',
+                step2: 'Enzymatic hydrolysis using cellulase enzymes to break down cellulose into simple glucose sugars. This step is critical for high yield.',
+                step3: 'Fermentation of glucose sugars using specialized yeast strains (like S. cerevisiae) to produce a broth with approximately 12% ethanol concentration.',
+                step4: 'Multi-column distillation to separate and purify the ethanol to 99.9% purity, suitable for fuel blending. Waste heat is recovered for efficiency.'
+            };
+            processSteps.forEach(step => {
+                step.addEventListener('click', () => {
+                    processSteps.forEach(s => s.classList.remove('active'));
+                    step.classList.add('active');
+                    processDetailsEl.innerHTML = `<p class="text-gray-700">${processDetailsContent[step.id]}</p>`;
+                });
+            });
+            const riskItems = document.querySelectorAll('.risk-item');
+            riskItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    item.classList.toggle('expanded');
+                });
+            });
+            const mobileMenuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
         });
     </script>
 </body>
 </html>
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ark Bio Energies | Invest in India's 2G Ethanol Revolution</title>
-    <meta name="description" content="Transforming agricultural waste into clean energy. Invest in our 2G Ethanol plant in Ballari, Karnataka.">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; background-color: #F8F9FA; color: #333333; }
-        .card { padding: 1.5rem; border-radius: 0.75rem; background-color: white; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); }
-        .card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.05); }
-    </style>
-</head>
-<body class="min-h-screen">
-
-    <!-- Navigation -->
-    <nav class="fixed w-full bg-white/80 backdrop-blur z-40 shadow-sm">
-        <div class="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
-            <a href="#home" class="flex items-center gap-4">
-                <img src="Arkbioenergies logo.png" alt="Ark Bio Energies Logo" class="h-10">
-                <div>
-                    <h1 class="text-lg font-semibold">Ark Bio Energies</h1>
-                    <p class="text-xs text-gray-600">2G Ethanol from Agricultural Residues</p>
-                </div>
-            </a>
-            <nav class="hidden md:flex items-center gap-6 text-sm">
-                <a href="#about" class="hover:underline">About</a>
-                <a href="#solution" class="hover:underline">Project</a>
-                <a href="#market" class="hover:underline">Market</a>
-                <a href="#financials" class="hover:underline">Financials</a>
-                <a href="#team" class="hover:underline">Team</a>
-                <button onclick="document.getElementById('investor-modal').classList.remove('hidden')" class="bg-green-600 text-white px-4 py-2 rounded-md text-sm shadow hover:opacity-95">Investor Access</button>
-            </nav>
-            <div class="md:hidden">
-                <a href="#contact" class="text-sm text-green-600">Contact</a>
-            </div>
-        </div>
-    </nav>
-
-    <main class="pt-24">
-        <!-- Hero Section -->
-        <section id="home" class="relative overflow-hidden bg-gradient-header">
-            <div class="max-w-6xl mx-auto px-6 py-20 grid lg:grid-cols-2 gap-12 items-center">
-                <div class="animate-fade-in-left">
-                    <img src="Arkbioenergies logo.png" alt="Ark Bio Energies Logo" class="h-40 mx-auto mb-8 drop-shadow-lg">
-                    <h2 class="text-4xl md:text-5xl font-extrabold leading-tight text-white drop-shadow-lg">Powering India’s Future with 2G Ethanol</h2>
-                    <p class="mt-6 text-lg text-white">Turning agricultural residue into clean fuel, creating farmer prosperity, and delivering strong investor returns.</p>
-                    <div class="mt-8 flex gap-4">
-                        <a href="#contact" class="bg-white text-green-600 px-5 py-3 rounded-md font-semibold shadow hover:opacity-95">Invest Now</a>
-                        <a href="Feasibility study Arkbioenergies.pdf" target="_blank" class="border border-white text-white px-5 py-3 rounded-md font-semibold hover:bg-white hover:text-green-600 transition-colors duration-300">Download Project Report</a>
-                    </div>
-                    <div class="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4">
-                        <div class="card bg-white text-gray-800">
-                            <div class="text-sm text-gray-500">Capacity</div>
-                            <div class="text-lg font-semibold">10 KLPD</div>
-                        </div>
-                        <div class="card bg-white text-gray-800">
-                            <div class="text-sm text-gray-500">CAPEX</div>
-                            <div class="text-lg font-semibold">₹50 Cr</div>
-                        </div>
-                        <div class="card bg-white text-gray-800">
-                            <div class="text-sm text-gray-500">Equity</div>
-                            <div class="text-lg font-semibold">₹20 Cr</div>
-                        </div>
-                        <div class="card bg-white text-gray-800">
-                            <div class="text-sm text-gray-500">Payback</div>
-                            <div class="text-lg font-semibold">3.5 yrs</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- About Section -->
-        <section id="about" class="max-w-6xl mx-auto px-6 py-16">
-            <div class="grid md:grid-cols-2 gap-10 items-center">
-                <div>
-                    <h3 class="text-2xl font-bold">About Ark Bio Energies</h3>
-                    <p class="mt-4 text-gray-700">Ark Bio Energies is building a 10 KLPD second-generation (2G) ethanol plant in Ballari, Karnataka. Our mission is to convert agricultural residues — primarily rice straw and husk — into ethanol, reducing open-field burning, improving farmer incomes, and supporting India’s ethanol blending targets.</p>
-                    <ul class="mt-6 space-y-3 text-sm text-gray-700">
-                        <li>• Proven business model with strong policy tailwinds.</li>
-                        <li>• Focus on sustainable feedstock sourcing and local farmer engagement.</li>
-                        <li>• Clear path to commercial operations with experienced advisors.</li>
-                    </ul>
-                    <div class="mt-6 flex gap-4">
-                        <a href="#solution" class="text-green-600 font-semibold hover:underline">Learn about the project →</a>
-                        <a href="#contact" class="text-gray-600 hover:underline">Contact us</a>
-                    </div>
-                </div>
-                <div class="space-y-4">
-                    <div class="card">
-                        <h4 class="font-semibold">Why 2G Ethanol?</h4>
-                        <div class="mt-2 text-sm text-gray-700">2G ethanol uses non-food agricultural residues, avoids food vs fuel conflicts and reduces greenhouse gas emissions compared to fossil fuels.</div>
-                    </div>
-                    <div class="card">
-                        <h4 class="font-semibold">Policy Tailwinds</h4>
-                        <div class="mt-2 text-sm text-gray-700">Supported by the JI-VAN scheme and state incentives. Ethanol blending mandates create guaranteed demand for off-takers.</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Solution / Process Section -->
-        <section id="solution" class="bg-white/60 py-16">
-            <div class="max-w-6xl mx-auto px-6">
-                <h3 class="text-2xl font-bold">The Solution — Ballari 2G Ethanol Plant</h3>
-                <p class="mt-3 text-gray-700">A fully integrated plant that converts rice straw & husk to ethanol using pre-treatment, enzymatic hydrolysis, fermentation and distillation. The process also produces lignin for power generation and other by-products.</p>
-                <div class="mt-8 grid md:grid-cols-3 gap-6">
-                    <div class="card">
-                        <div class="text-sm text-green-600 font-bold">Step 1</div>
-                        <h4 class="mt-2 font-semibold">Feedstock Collection</h4>
-                        <p class="mt-2 text-sm text-gray-600">Sourcing rice straw & husk from local farms via aggregators and MoUs.</p>
-                    </div>
-                    <div class="card">
-                        <div class="text-sm text-green-600 font-bold">Step 2</div>
-                        <h4 class="mt-2 font-semibold">Pre-treatment</h4>
-                        <p class="mt-2 text-sm text-gray-600">Breaking down lignocellulosic structure for enzyme access.</p>
-                    </div>
-                    <div class="card">
-                        <div class="text-sm text-green-600 font-bold">Step 3</div>
-                        <h4 class="mt-2 font-semibold">Hydrolysis & Fermentation</h4>
-                        <p class="mt-2 text-sm text-gray-600">Enzymatic conversion to sugars followed by fermentation to ethanol.</p>
-                    </div>
-                    <div class="card">
-                        <div class="text-sm text-green-600 font-bold">Step 4</div>
-                        <h4 class="mt-2 font-semibold">Distillation & Purification</h4>
-                        <p class="mt-2 text-sm text-gray-600">Produce fuel-grade ethanol meeting industry specs.</p>
-                    </div>
-                    <div class="card">
-                        <div class="text-sm text-green-600 font-bold">Step 5</div>
-                        <h4 class="mt-2 font-semibold">By-products</h4>
-                        <p class="mt-2 text-sm text-gray-600">Lignin retained for captive power; CO2 purification and other streams monetized.</p>
-                    </div>
-                    <div class="card">
-                        <div class="text-sm text-green-600 font-bold">Step 6</div>
-                        <h4 class="mt-2 font-semibold">Dispatch</h4>
-                        <p class="mt-2 text-sm text-gray-600">Quality-assured ethanol supplied to OMCs and industrial buyers.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Market Section -->
-        <section id="market" class="max-w-6xl mx-auto px-6 py-16">
-            <div class="grid md:grid-cols-2 gap-10 items-center">
-                <div>
-                    <h3 class="text-2xl font-bold">Market Opportunity</h3>
-                    <p class="mt-4 text-gray-700">India is rapidly increasing ethanol blending targets. Demand outpaces current supply, creating a material opportunity for 2G ethanol producers. Policy incentives and supportive state frameworks magnify returns for early movers.</p>
-                    <ul class="mt-6 space-y-2 text-sm text-gray-700">
-                        <li>• Ethanol blending target: policy-driven demand growth.</li>
-                        <li>• OMCs & industrial buyers seek reliable domestic supply.</li>
-                        <li>• Carbon credits and ESG demand add upside.</li>
-                    </ul>
-                </div>
-                <div class="p-6 rounded-xl border border-gray-100 shadow-sm bg-white">
-                    <h4 class="font-semibold">Supply / Demand Snapshot</h4>
-                    <p class="mt-2 text-sm text-gray-600">India's ethanol demand is projected to grow from 10.16 Bn L in 2025 to 13.5 Bn L by 2030 (16% CAGR).</p>
-                    <div class="mt-4 grid grid-cols-2 gap-3">
-                        <div class="p-3 bg-gray-50 rounded">
-                            <div class="text-xs text-gray-500">Demand Growth</div>
-                            <div class="font-semibold">16% CAGR</div>
-                        </div>
-                        <div class="p-3 bg-gray-50 rounded">
-                            <div class="text-xs text-gray-500">Current Supply Gap</div>
-                            <div class="font-semibold">Significant</div>
-                        </div>
-                        <div class="p-3 bg-gray-50 rounded">
-                            <div class="text-xs text-gray-500">Policy Support</div>
-                            <div class="font-semibold">High</div>
-                        </div>
-                        <div class="p-3 bg-gray-50 rounded">
-                            <div class="text-xs text-gray-500">ESG Interest</div>
-                            <div class="font-semibold">Rising</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Feasibility & Financial Reports -->
-        <section id="reports" class="bg-green-50 py-16">
-            <div class="max-w-6xl mx-auto px-6 text-center">
-                <h3 class="text-2xl font-bold">Feasibility & Financial Reports</h3>
-                <p class="mt-3 text-gray-700">Download our comprehensive reports to understand the project's viability, market, and financial projections.</p>
-                <div class="mt-8 grid md:grid-cols-3 gap-6">
-                    <div class="card">
-                        <h4 class="font-semibold">Detailed Feasibility Study</h4>
-                        <p class="mt-2 text-sm text-gray-600">A full analysis of the market, technology, and operational plan for the 2G ethanol plant.</p>
-                        <a href="Feasibility study Arkbioenergies.pdf" target="_blank" class="mt-4 inline-block bg-green-600 text-white px-4 py-2 rounded-md font-semibold">
-                            <span class="mr-2">📄</span>
-                            Download Report
-                        </a>
-                    </div>
-                    <div class="card">
-                        <h4 class="font-semibold">Detailed Financial Report</h4>
-                        <p class="mt-2 text-sm text-gray-600">Access our full financial analysis, including CAPEX, OPEX, P&L, cash flow projections, and valuation metrics.</p>
-                        <a href="Financial report Arkbioenergies.pdf" target="_blank" class="mt-4 inline-block bg-green-600 text-white px-4 py-2 rounded-md font-semibold">
-                            <span class="mr-2">📊</span>
-                            Download Report
-                        </a>
-                    </div>
-                    <div class="card">
-                        <h4 class="font-semibold">Detailed Project Report</h4>
-                        <p class="mt-2 text-sm text-gray-600">Access our full project report including project details, implementation roadmap and regulatory framework.</p>
-                        <a href="Detail project report.pdf" target="_blank" class="mt-4 inline-block bg-green-600 text-white px-4 py-2 rounded-md font-semibold">
-                            <span class="mr-2">📝</span>
-                            Download Report
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Financials Section -->
-        <section id="financials" class="max-w-6xl mx-auto px-6 py-16">
-            <h3 class="text-2xl font-bold">Financial Highlights</h3>
-            <p class="mt-3 text-gray-700">High-level financials, use of funds and scenarios. For detailed models and reports, use the Investor Access button.</p>
-            <div class="mt-6 grid md:grid-cols-3 gap-6">
-                <div class="card">
-                    <div class="text-sm text-gray-500">Total CAPEX</div>
-                    <div class="text-lg font-semibold">₹50 Crore</div>
-                </div>
-                <div class="card">
-                    <div class="text-sm text-gray-500">Equity Ask</div>
-                    <div class="text-lg font-semibold">₹20 Crore</div>
-                </div>
-                <div class="card">
-                    <div class="text-sm text-gray-500">Payback Period</div>
-                    <div class="text-lg font-semibold">3.5 years</div>
-                </div>
-            </div>
-            <div class="mt-8">
-                <h4 class="font-semibold">Use of Funds</h4>
-                <div class="mt-4 grid md:grid-cols-4 gap-4">
-                    <div class="card text-center">
-                        <div class="text-sm text-gray-500">Land & Site</div>
-                        <div class="mt-3 text-2xl font-bold">15%</div>
-                    </div>
-                    <div class="card text-center">
-                        <div class="text-sm text-gray-500">Machinery & EPC</div>
-                        <div class="mt-3 text-2xl font-bold">45%</div>
-                    </div>
-                    <div class="card text-center">
-                        <div class="text-sm text-gray-500">Working Capital</div>
-                        <div class="mt-3 text-2xl font-bold">20%</div>
-                    </div>
-                    <div class="card text-center">
-                        <div class="text-sm text-gray-500">Contingency</div>
-                        <div class="mt-3 text-2xl font-bold">20%</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Team Section -->
-        <section id="team" class="bg-white/60 py-16">
-            <div class="max-w-6xl mx-auto px-6">
-                <h3 class="text-2xl font-bold">Team & Advisors</h3>
-                <p class="mt-3 text-gray-700">Experienced team with backgrounds in bioenergy, engineering and project finance. Advisors bring commercial and technical credibility.</p>
-                <div class="mt-6 grid md:grid-cols-3 gap-6">
-                    <div class="card flex items-center gap-4">
-                        <img src="https://placehold.co/150x150/E2E8F0/1F2937?text=AK" alt="Arjun K" class="w-14 h-14 rounded-full">
-                        <div>
-                            <div class="font-semibold">Arjun K</div>
-                            <div class="text-sm text-gray-500">Founder</div>
-                        </div>
-                    </div>
-                    <div class="card flex items-center gap-4">
-                        <div class="w-14 h-14 rounded-full bg-gray-200 flex items-center justify-center font-bold text-gray-600">A1</div>
-                        <div>
-                            <div class="font-semibold">Advisor 1</div>
-                            <div class="text-sm text-gray-500">Technical Advisor</div>
-                        </div>
-                    </div>
-                    <div class="card flex items-center gap-4">
-                        <div class="w-14 h-14 rounded-full bg-gray-200 flex items-center justify-center font-bold text-gray-600">A2</div>
-                        <div>
-                            <div class="font-semibold">Advisor 2</div>
-                            <div class="text-sm text-gray-500">Finance Advisor</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="bg-gray-900 text-white py-16">
-            <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-8">
-                <div>
-                    <h3 class="text-2xl font-bold">Get in Touch</h3>
-                    <p class="mt-3 text-gray-300">For investor inquiries, partnership discussions and media — reach out to our Investor Relations team.</p>
-                    <div class="mt-6 space-y-3 text-sm text-gray-300">
-                        <div><strong>Email:</strong> <a href="mailto:arjun@arkbioenergies.in" class="text-green-400">arjun@arkbioenergies.in</a></div>
-                        <div><strong>Phone:</strong> +91-9448088419</div>
-                        <div><strong>Office:</strong> Ballari, Karnataka (site)</div>
-                    </div>
-                </div>
-                <div class="card">
-                    <form action="https://api.web3forms.com/submit" method="POST" class="space-y-4">
-                        <input type="hidden" name="access_key" value="f051ff9c-8407-4933-ab46-908314449555">
-                        <input name="name" class="w-full p-3 border rounded text-gray-800" placeholder="Your name" required>
-                        <input name="email" type="email" class="w-full p-3 border rounded text-gray-800" placeholder="Email" required>
-                        <input name="subject" class="w-full p-3 border rounded text-gray-800" placeholder="Subject">
-                        <textarea name="message" class="w-full p-3 border rounded text-gray-800" rows="4" placeholder="Message" required></textarea>
-                        <div class="flex items-center gap-3">
-                            <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded font-semibold">Send Message</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer class="border-t py-8 mt-8">
-            <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-                <div class="text-sm text-gray-600">© 2025 Ark Bio Energies. All rights reserved.</div>
-                <div class="flex items-center gap-4 text-sm">
-                    <a href="https://www.linkedin.com/in/ark-bioenergies-524071384/" target="_blank" class="text-gray-600 hover:text-green-600 transition-colors duration-300">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.763s.784-1.763 1.75-1.763 1.75.79 1.75 1.763-.783 1.763-1.75 1.763zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                        </svg>
-                    </a>
-                    <a href="#" class="hover:underline">Privacy</a>
-                    <a href="#" class="hover:underline">Terms</a>
-                </div>
-            </div>
-        </footer>
-    </main>
-    
-    <!-- Investor Modal -->
-    <div id="investor-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-        <div class="w-full max-w-md p-6 bg-white rounded-lg shadow">
-            <h4 class="text-lg font-semibold">Investor Access</h4>
-            <p class="text-sm text-gray-600 mt-2">Enter the access password to view detailed reports.</p>
-            <form id="investor-form" class="mt-4 space-y-3">
-                <input id="investor-password" type="password" class="w-full p-3 border rounded text-gray-800" placeholder="Password" />
-                <div class="flex justify-end gap-3">
-                    <button type="button" onclick="document.getElementById('investor-modal').classList.add('hidden')" class="px-4 py-2 border rounded">Cancel</button>
-                    <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded">Enter</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        document.getElementById('investor-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const password = document.getElementById('investor-password').value.trim();
-            if (password === 'arkinvest') {
-                alert('Access Granted! Redirecting to reports...');
-                document.getElementById('investor-modal').classList.add('hidden');
-                document.getElementById('investor-reports').classList.remove('hidden');
-            } else {
-                alert('Incorrect password. For demo use: arkinvest');
-            }
-        });
-    </script>
-</body>
-</html>
-
-
-
