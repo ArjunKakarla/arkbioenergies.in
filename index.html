@@ -9,16 +9,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Warm Neutrals with Green and Amber Accents -->
-    <!-- Application Structure Plan: A single-page dashboard application with a sticky top navigation bar to allow users to jump between thematic sections. The structure prioritizes a top-down information flow, starting with a high-level KPI dashboard (Executive Summary), followed by deeper dives into Market Opportunity, Financial Projections, Process & Impact, and Risks & Roadmap. This non-linear, thematic structure is more user-friendly than the original report's format, allowing stakeholders (e.g., investors, technical experts) to quickly access relevant information. Key interactions include a dynamic revenue calculator and interactive charts to foster exploration and understanding of the project's viability. -->
-    <!-- Visualization & Content Choices: 
-        - KPI Cards: Goal: Inform. Method: Styled HTML/CSS cards for quick consumption of key metrics like CAPEX, IRR, and Revenue. Justification: Provides an immediate, high-impact overview from the Executive Summary.
-        - Market Demand Chart: Goal: Compare/Show Change. Method: Chart.js Line Chart. Interaction: Toggles to switch between National and State level demand projections. Justification: Visualizes market growth dynamically, making the opportunity more tangible than a static table.
-        - Financial Breakdown Charts: Goal: Show Proportions. Method: Chart.js Donut Charts for CAPEX/OPEX. Justification: Offers a clear, at-a-glance understanding of cost structures.
-        - Interactive Revenue Calculator: Goal: Explore Relationships. Method: HTML slider + JS. Interaction: User adjusts ethanol price to see real-time impact on revenue. Justification: Creates an engaging way to test financial sensitivities.
-        - Process Flow Diagram: Goal: Organize/Explain Process. Method: HTML/CSS Flexbox. Interaction: Clickable steps to reveal details. Justification: Simplifies the complex technical process into an easy-to-digest visual flow. No SVG/Mermaid used.
-        - Risk Matrix: Goal: Organize/Inform. Method: Interactive HTML grid. Interaction: Click to expand and view mitigation strategies. Justification: Presents complex risk data in a structured, accessible format. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -81,50 +71,47 @@
 </head>
 <body class="antialiased">
 
-    <!-- Header & Navigation -->
     <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm border-b border-gray-200">
         <nav class="container mx-auto px-4 lg:px-6 py-4">
             <div class="flex justify-between items-center">
                 <div class="flex items-center space-x-2">
                      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM5 9a1 1 0 000 2h2a1 1 0 100-2H5zm3 0a1 1 0 000 2h2a1 1 0 100-2H8zm3 0a1 1 0 000 2h2a1 1 0 100-2h-2z" clip-rule="evenodd" />
-                    </svg>
-                    <span class="text-xl font-bold text-gray-800">Ark Bio Energies</span>
+                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM5 9a1 1 0 000 2h2a1 1 0 100-2H5zm3 0a1 1 0 000 2h2a1 1 0 100-2H8zm3 0a1 1 0 000 2h2a1 1 0 100-2h-2z" clip-rule="evenodd" />
+                     </svg>
+                     <span class="text-xl font-bold text-gray-800">Ark Bio Energies</span>
                 </div>
                 <div class="hidden lg:flex space-x-8">
-                    <a href="#overview" class="nav-link text-gray-600 font-medium pb-1">Overview</a>
-                    <a href="#market" class="nav-link text-gray-600 font-medium pb-1">Market</a>
-                    <a href="#financials" class="nav-link text-gray-600 font-medium pb-1">Financials</a>
-                    <a href="#impact" class="nav-link text-gray-600 font-medium pb-1">Impact</a>
-                    <a href="#risk" class="nav-link text-gray-600 font-medium pb-1">Risks</a>
-                    <a href="#roadmap" class="nav-link text-gray-600 font-medium pb-1">Roadmap</a>
+                     <a href="#overview" class="nav-link text-gray-600 font-medium pb-1">Overview</a>
+                     <a href="#market" class="nav-link text-gray-600 font-medium pb-1">Market</a>
+                     <a href="#financials" class="nav-link text-gray-600 font-medium pb-1">Financials</a>
+                     <a href="#impact" class="nav-link text-gray-600 font-medium pb-1">Impact</a>
+                     <a href="#risk" class="nav-link text-gray-600 font-medium pb-1">Risks</a>
+                     <a href="#roadmap" class="nav-link text-gray-600 font-medium pb-1">Roadmap</a>
                 </div>
                  <div class="lg:hidden">
-                    <button id="menu-btn" class="text-gray-600 focus:outline-none">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-                    </button>
-                </div>
+                     <button id="menu-btn" class="text-gray-600 focus:outline-none">
+                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                     </button>
+                 </div>
             </div>
-             <div id="mobile-menu" class="hidden lg:hidden mt-4 space-y-2">
-                <a href="#overview" class="block nav-link text-gray-600 font-medium py-1">Overview</a>
-                <a href="#market" class="block nav-link text-gray-600 font-medium py-1">Market</a>
-                <a href="#financials" class="block nav-link text-gray-600 font-medium py-1">Financials</a>
-                <a href="#impact" class="block nav-link text-gray-600 font-medium py-1">Impact</a>
-                <a href="#risk" class="block nav-link text-gray-600 font-medium py-1">Risks</a>
-                <a href="#roadmap" class="block nav-link text-gray-600 font-medium py-1">Roadmap</a>
+            <div id="mobile-menu" class="hidden lg:hidden mt-4 space-y-2">
+                 <a href="#overview" class="block nav-link text-gray-600 font-medium py-1">Overview</a>
+                 <a href="#market" class="block nav-link text-gray-600 font-medium py-1">Market</a>
+                 <a href="#financials" class="block nav-link text-gray-600 font-medium py-1">Financials</a>
+                 <a href="#impact" class="block nav-link text-gray-600 font-medium py-1">Impact</a>
+                 <a href="#risk" class="block nav-link text-gray-600 font-medium py-1">Risks</a>
+                 <a href="#roadmap" class="block nav-link text-gray-600 font-medium py-1">Roadmap</a>
             </div>
         </nav>
     </header>
 
     <main class="container mx-auto px-4 lg:px-6 py-8 md:py-12">
 
-        <!-- Title Section -->
         <section class="text-center mb-12 md:mb-16">
             <h1 class="text-3xl md:text-5xl font-bold text-gray-900 mb-4">10 KLPD 2G Ethanol Plant Feasibility Study</h1>
             <p class="text-lg md:text-xl text-gray-600">Ark Bio Energies Pvt. Ltd. | Ballari, Karnataka</p>
         </section>
 
-        <!-- Section 1: Project Overview -->
         <section id="overview" class="mb-16 scroll-mt-24">
             <h2 class="text-2xl md:text-3xl font-bold text-center mb-2 text-gray-800">Project At-a-Glance</h2>
             <p class="text-center text-gray-600 mb-10 max-w-3xl mx-auto">This dashboard summarizes the key findings of our feasibility study. The proposed 2G ethanol plant is a technically viable, financially robust, and environmentally beneficial project, poised to capitalize on India's growing biofuel demand. Explore the key performance indicators below for a quick overview.</p>
@@ -162,7 +149,23 @@
             </div>
         </section>
 
-        <!-- Section 2: Market Opportunity -->
+        <section id="reports" class="mb-16 scroll-mt-24">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-2 text-gray-800">Access Detailed Reports</h2>
+            <p class="text-center text-gray-600 mb-10 max-w-3xl mx-auto">Click on the links below to access the full-length financial analysis and techno-economic feasibility study.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-lg shadow-md border text-center">
+                    <h3 class="text-xl font-semibold mb-2">Financial Analysis</h3>
+                    <p class="text-gray-600 mb-4">A detailed breakdown of financial metrics, projections, and returns for investors.</p>
+                    <a href="ark_bio_energies_financials.html" class="inline-block bg-green-600 text-white font-bold py-2 px-6 rounded-lg shadow-lg hover:bg-green-700 transition duration-300">View Financial Report</a>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md border text-center">
+                    <h3 class="text-xl font-semibold mb-2">Feasibility Study</h3>
+                    <p class="text-gray-600 mb-4">A comprehensive techno-economic and environmental assessment of the project.</p>
+                    <a href="feasibility_infographic.html" class="inline-block bg-green-600 text-white font-bold py-2 px-6 rounded-lg shadow-lg hover:bg-green-700 transition duration-300">View Feasibility Study</a>
+                </div>
+            </div>
+        </section>
+
         <section id="market" class="mb-16 scroll-mt-24">
             <h2 class="text-2xl md:text-3xl font-bold text-center mb-2 text-gray-800">Market Opportunity</h2>
             <p class="text-center text-gray-600 mb-10 max-w-3xl mx-auto">India's commitment to the Ethanol Blended Petrol (EBP) program creates a massive, stable demand for ethanol. The 2G ethanol sector is a key focus for the government, providing a significant growth opportunity for projects like ours that utilize agricultural waste, ensuring energy security while supporting the rural economy.</p>
@@ -173,7 +176,6 @@
             </div>
         </section>
 
-        <!-- Section 3: Financials -->
         <section id="financials" class="mb-16 scroll-mt-24">
             <h2 class="text-2xl md:text-3xl font-bold text-center mb-2 text-gray-800">Financial Deep Dive</h2>
             <p class="text-center text-gray-600 mb-10 max-w-3xl mx-auto">Our financial model indicates a highly profitable venture, bolstered by strong revenues from both ethanol and by-products, manageable operational costs, and significant government incentives. Explore the cost breakdowns and use the interactive calculator to see how price fluctuations impact revenue.</p>
@@ -213,7 +215,6 @@
             </div>
         </section>
         
-        <!-- Section 4: Process & Impact -->
         <section id="impact" class="mb-16 scroll-mt-24">
             <h2 class="text-2xl md:text-3xl font-bold text-center mb-2 text-gray-800">Process & Impact</h2>
             <p class="text-center text-gray-600 mb-10 max-w-3xl mx-auto">Our project employs a proven technological process to convert agricultural waste into valuable biofuel. This not only creates a high-value product but also generates significant positive environmental and social impacts, from reducing air pollution to boosting the rural economy in the Ballari region. Click on each process step to learn more.</p>
@@ -257,7 +258,6 @@
             </div>
         </section>
 
-        <!-- Section 5: Risks & Mitigation -->
         <section id="risk" class="mb-16 scroll-mt-24">
             <h2 class="text-2xl md:text-3xl font-bold text-center mb-2 text-gray-800">Risk & Mitigation</h2>
             <p class="text-center text-gray-600 mb-10 max-w-3xl mx-auto">A thorough risk assessment has been conducted to identify potential challenges. Proactive mitigation strategies are in place for each identified risk, ensuring the project's stability and long-term success. Click on each risk to view the corresponding mitigation plan.</p>
@@ -301,7 +301,6 @@
             </div>
         </section>
 
-        <!-- Section 6: Roadmap -->
         <section id="roadmap" class="scroll-mt-24">
             <h2 class="text-2xl md:text-3xl font-bold text-center mb-2 text-gray-800">Implementation Roadmap</h2>
             <p class="text-center text-gray-600 mb-10 max-w-3xl mx-auto">We have developed a clear and achievable timeline for project implementation, from final planning through to commissioning. The roadmap ensures a structured approach to meet our target of being operational by mid-2027.</p>
@@ -350,7 +349,6 @@
 
     </main>
 
-    <!-- Footer -->
     <footer class="bg-white border-t mt-16">
         <div class="container mx-auto px-6 py-8 text-center text-gray-600">
             <p class="font-semibold text-lg mb-2">Ark Bio Energies Pvt. Ltd.</p>
@@ -358,7 +356,6 @@
             <p class="text-sm mt-4">&copy; 2025 Ark Bio Energies. All rights reserved.</p>
         </div>
     </footer>
-
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -490,7 +487,7 @@
 
             priceSlider.addEventListener('input', (e) => {
                 const price = parseFloat(e.target.value);
-                const ethanolVolume = 3; 
+                const ethanolVolume = 3;  
                 const byProductsRevenue = 7.65;
 
                 const ethanolRevenue = ethanolVolume * price;
