@@ -229,9 +229,9 @@ function App() {
     const renderContent = () => {
         switch (currentPage) {
             case 'financials':
-                return <ReportViewer title="Financial Analysis Report" pdfSrc="Financial report Arkbioenergies.pdf.pdf" onBack={() => setCurrentPage('dashboard')} />;
+                return <ReportViewer title="Financial Analysis Report" pdfSrc="Financial_analysis.html" onBack={() => setCurrentPage('dashboard')} />;
             case 'feasibility':
-                return <ReportViewer title="10LPD 2G Ethanol Plant" pdfSrc="Feasibility study Arkbioenergies.pdf.pdf" onBack={() => setCurrentPage('dashboard')} />;
+                return <ReportViewer title="10LPD 2G Ethanol Plant" pdfSrc="Feasibility_report.html" onBack={() => setCurrentPage('dashboard')} />;
             default:
                 return (
                     <main className="container mx-auto px-4 lg:px-6 py-8 md:py-12">
@@ -419,4 +419,5 @@ function App() {
 }
 
 export default App;
+
 
