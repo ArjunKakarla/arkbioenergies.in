@@ -5,18 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ark Bio Energies | 10 KLPD 2G Ethanol Plant Feasibility Study</title>
     
-    <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
-    
-    <script src="[https://cdn.jsdelivr.net/npm/chart.js](https://cdn.jsdelivr.net/npm/chart.js)"></script>
-    <script src="[https://unpkg.com/chartjs-plugin-a11y-legend@1.1.1/dist/chartjs-plugin-a11y-legend.min.js](https://unpkg.com/chartjs-plugin-a11y-legend@1.1.1/dist/chartjs-plugin-a11y-legend.min.js)"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/chartjs-plugin-a11y-legend@1.1.1/dist/chartjs-plugin-a11y-legend.min.js"></script>
 
-    <link rel="preconnect" href="[https://fonts.googleapis.com](https://fonts.googleapis.com)">
-    <link rel="preconnect" href="[https://fonts.gstatic.com](https://fonts.gstatic.com)" crossorigin>
-    <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap)" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         /* Visually-hidden class to provide accessible content for screen readers without affecting the layout */
-       .sr-only {
+        .sr-only {
             position: absolute;
             width: 1px;
             height: 1px;
@@ -33,16 +32,21 @@
             outline-offset: 2px;
             border-radius: 2px;
         }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
     </style>
 </head>
-<body class="antialiased font-sans bg- text-gray-800">
+<body class="antialiased bg-gray-50 text-gray-800">
 
     <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm border-b border-gray-200">
         <div class="container mx-auto px-4 lg:px-6 py-4">
             <div class="flex justify-between items-center">
                 <a href="#" class="flex items-center space-x-2 focus:outline-none">
-                    <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" class="h-8 w-8 text-green-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM5 9a1 1 0 000 2h2a1 1 0 100-2H5zm3 0a1 1 0 000 2h2a1 1 0 100-2H8zm3 0a1 1 0 000 2h2a1 1 0 100-2h-2z" clip-rule="evenodd" />
+                    <!-- Leaf Icon as a placeholder -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path d="M10 3.5c1.13 0 2.12.39 2.9.99l-1.12 1.12A2.49 2.49 0 0010 5C8.34 5 7 6.34 7 8c0 .55.18 1.05.47 1.48L6.29 10.6A4.99 4.99 0 015 8c0-2.76 2.24-5 5-5z" />
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM5.23 6.23a6.98 6.98 0 019.54 0 6.98 6.98 0 010 9.54 6.98 6.98 0 01-9.54 0 6.98 6.98 0 010-9.54zM10 15c-2.21 0-4-1.79-4-4 0-.55.11-1.08.31-1.55L10 13.17l3.69-3.72A3.98 3.98 0 0114 11c0 2.21-1.79 4-4 4z" clip-rule="evenodd" />
                     </svg>
                     <span class="text-xl font-bold text-gray-800">Ark Bio Energies</span>
                 </a>
@@ -62,7 +66,7 @@
                             aria-controls="mobile-menu" 
                             aria-expanded="false"
                             aria-label="Open main menu">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
                     </button>
                 </div>
             </div>
@@ -155,16 +159,16 @@
                     <h3 class="text-xl font-semibold text-center mb-4">Interactive Revenue Projection</h3>
                     <div class="mb-6">
                         <label for="ethanolPrice" class="block mb-2 font-medium text-gray-700">Adjust Ethanol Price (₹/L): <span id="priceValue" class="font-bold text-blue-700">₹65</span></label>
-                        <input type="range" id="ethanolPrice" min="55" max="80" value="65" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                        <input type="range" id="ethanolPrice" min="55" max="80" value="65" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" aria-valuemin="55" aria-valuemax="80" aria-valuenow="65" aria-valuetext="65 Rupees">
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
                         <div class="bg-blue-50 p-4 rounded-lg">
                             <h4 class="font-semibold text-gray-600">Projected Ethanol Revenue</h4>
-                            <p id="ethanolRevenue" class="text-3xl font-bold text-blue-800 mt-1">₹19.50 Cr</p>
+                            <p id="ethanolRevenue" class="text-3xl font-bold text-blue-800 mt-1" aria-live="polite">₹19.50 Cr</p>
                         </div>
                         <div class="bg-green-50 p-4 rounded-lg">
                             <h4 class="font-semibold text-gray-600">Total Annual Revenue</h4>
-                            <p id="totalRevenue" class="text-3xl font-bold text-green-700 mt-1">₹27.15 Cr</p>
+                            <p id="totalRevenue" class="text-3xl font-bold text-green-700 mt-1" aria-live="polite">₹27.15 Cr</p>
                         </div>
                     </div>
                      <p class="text-xs text-center text-gray-500 mt-4">Total revenue includes a fixed ₹7.65 Cr from by-products like CO2 and lignin.</p>
@@ -216,18 +220,18 @@
             <div class="bg-white p-6 rounded-lg shadow-md border mb-8">
                 <h3 class="text-xl font-semibold text-center mb-6">Ethanol Production Process</h3>
                 <div role="tablist" aria-label="Ethanol Production Process" class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4">
-                    <button id="tab-step1" role="tab" aria-selected="true" aria-controls="tabpanel-details" class="process-tab text-center p-4 border rounded-lg flex-1 w-full transition-colors">
+                    <button id="tab-step1" role="tab" aria-selected="true" aria-controls="tabpanel-details" class="process-tab text-center p-4 border rounded-lg flex-1 w-full transition-colors bg-blue-800 text-white">
                         <span class="font-bold">1. Collection & Pre-treatment</span>
                     </button>
-                    <div class="text-2xl text-gray-400 font-thin" aria-hidden="true">&rarr;</div>
+                    <div class="text-2xl text-gray-400 font-thin rotate-90 md:rotate-0" aria-hidden="true">&rarr;</div>
                     <button id="tab-step2" role="tab" aria-selected="false" aria-controls="tabpanel-details" tabindex="-1" class="process-tab text-center p-4 border rounded-lg flex-1 w-full transition-colors">
                         <span class="font-bold">2. Hydrolysis</span>
                     </button>
-                    <div class="text-2xl text-gray-400 font-thin" aria-hidden="true">&rarr;</div>
+                    <div class="text-2xl text-gray-400 font-thin rotate-90 md:rotate-0" aria-hidden="true">&rarr;</div>
                     <button id="tab-step3" role="tab" aria-selected="false" aria-controls="tabpanel-details" tabindex="-1" class="process-tab text-center p-4 border rounded-lg flex-1 w-full transition-colors">
                         <span class="font-bold">3. Fermentation</span>
                     </button>
-                    <div class="text-2xl text-gray-400 font-thin" aria-hidden="true">&rarr;</div>
+                    <div class="text-2xl text-gray-400 font-thin rotate-90 md:rotate-0" aria-hidden="true">&rarr;</div>
                     <button id="tab-step4" role="tab" aria-selected="false" aria-controls="tabpanel-details" tabindex="-1" class="process-tab text-center p-4 border rounded-lg flex-1 w-full transition-colors">
                         <span class="font-bold">4. Distillation</span>
                     </button>
@@ -238,15 +242,15 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-green-50 p-6 rounded-lg">
+                <div class="bg-green-50 p-6 rounded-lg border border-green-200">
                     <h3 class="text-lg font-semibold text-green-800 mb-2">Air Quality Improvement</h3>
                     <p class="text-gray-700">Prevents stubble burning of over 50,000 tons of rice straw annually, reducing PM2.5 pollution and avoiding 30,000 tons of CO2 emissions.</p>
                 </div>
-                 <div class="bg-blue-50 p-6 rounded-lg">
+                 <div class="bg-blue-50 p-6 rounded-lg border border-blue-200">
                     <h3 class="text-lg font-semibold text-blue-800 mb-2">Rural Economy Boost</h3>
                     <p class="text-gray-700">Creates a new revenue stream for over 5,000 farmers in the Ballari region through the buy-back of agricultural waste.</p>
                 </div>
-                 <div class="bg-amber-50 p-6 rounded-lg">
+                 <div class="bg-amber-50 p-6 rounded-lg border border-amber-200">
                     <h3 class="text-lg font-semibold text-amber-800 mb-2">Resource Efficiency</h3>
                     <p class="text-gray-700">The plant is designed for 80% water recycling and will utilize lignin by-product to meet its own power requirements, ensuring a circular economy.</p>
                 </div>
@@ -259,7 +263,7 @@
             <div class="space-y-4">
                 <div class="bg-white rounded-lg shadow-sm border">
                     <h3 class="font-semibold text-gray-800 p-0 m-0">
-                        <button class="risk-accordion-trigger flex justify-between items-center w-full p-4 text-left" aria-expanded="false" aria-controls="risk-panel-1">
+                        <button id="risk-trigger-1" class="risk-accordion-trigger flex justify-between items-center w-full p-4 text-left" aria-expanded="false" aria-controls="risk-panel-1">
                             <span>Feedstock Volatility</span>
                             <span class="text-sm font-medium text-red-600 bg-red-100 px-2 py-1 rounded-full">Medium/High</span>
                         </button>
@@ -270,7 +274,7 @@
                 </div>
                 <div class="bg-white rounded-lg shadow-sm border">
                     <h3 class="font-semibold text-gray-800 p-0 m-0">
-                        <button class="risk-accordion-trigger flex justify-between items-center w-full p-4 text-left" aria-expanded="false" aria-controls="risk-panel-2">
+                        <button id="risk-trigger-2" class="risk-accordion-trigger flex justify-between items-center w-full p-4 text-left" aria-expanded="false" aria-controls="risk-panel-2">
                             <span>Technical Yield Drop</span>
                             <span class="text-sm font-medium text-amber-600 bg-amber-100 px-2 py-1 rounded-full">Medium/Medium</span>
                         </button>
@@ -281,7 +285,7 @@
                 </div>
                 <div class="bg-white rounded-lg shadow-sm border">
                     <h3 class="font-semibold text-gray-800 p-0 m-0">
-                        <button class="risk-accordion-trigger flex justify-between items-center w-full p-4 text-left" aria-expanded="false" aria-controls="risk-panel-3">
+                        <button id="risk-trigger-3" class="risk-accordion-trigger flex justify-between items-center w-full p-4 text-left" aria-expanded="false" aria-controls="risk-panel-3">
                             <span>Regulatory Delays</span>
                             <span class="text-sm font-medium text-amber-600 bg-amber-100 px-2 py-1 rounded-full">Medium/Medium</span>
                         </button>
@@ -292,7 +296,7 @@
                 </div>
                 <div class="bg-white rounded-lg shadow-sm border">
                     <h3 class="font-semibold text-gray-800 p-0 m-0">
-                        <button class="risk-accordion-trigger flex justify-between items-center w-full p-4 text-left" aria-expanded="false" aria-controls="risk-panel-4">
+                        <button id="risk-trigger-4" class="risk-accordion-trigger flex justify-between items-center w-full p-4 text-left" aria-expanded="false" aria-controls="risk-panel-4">
                             <span>Market Price Fluctuation</span>
                             <span class="text-sm font-medium text-green-600 bg-green-100 px-2 py-1 rounded-full">Low/Medium</span>
                         </button>
@@ -308,34 +312,51 @@
             <h2 id="roadmap-heading" class="text-2xl md:text-3xl font-bold text-center mb-2 text-gray-800">Implementation Roadmap</h2>
             <p class="text-center text-gray-600 mb-10 max-w-3xl mx-auto">We have developed a clear and achievable timeline for project implementation, from final planning through to commissioning. The roadmap ensures a structured approach to meet our target of being operational by mid-2027.</p>
             <div class="relative">
-                <div class="absolute left-1/2 h-full w-0.5 bg-gray-300 hidden md:block" aria-hidden="true"></div>
-                <div class="space-y-8 md:space-y-0">
-                    <div class="md:grid md:grid-cols-2 md:gap-8 items-center">
-                        <div class="md:text-right md:pr-8">
-                            <p class="font-bold text-lg text-blue-700">Q4 2025</p>
-                            <p class="text-gray-700">Finalize DPR, secure land, and initiate funding discussions.</p>
-                        </div>
-                        <div class="relative md:pl-8"><div class="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-4 h-4 bg-blue-700 rounded-full border-4 border-white hidden md:block" aria-hidden="true"></div></div>
-                    </div>
-                    <div class="md:grid md:grid-cols-2 md:gap-8 items-center">
-                        <div class="relative md:pr-8"><div class="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-4 h-4 bg-blue-700 rounded-full border-4 border-white hidden md:block" aria-hidden="true"></div></div>
-                        <div class="md:text-left md:pl-8">
-                            <p class="font-bold text-lg text-blue-700">Q1-Q2 2026</p>
-                            <p class="text-gray-700">Finalize EPC contract and secure key technology partnerships.</p>
+                <!-- Timeline line -->
+                <div class="absolute left-4 md:left-1/2 h-full w-0.5 bg-gray-300" aria-hidden="true"></div>
+                <div class="space-y-8">
+                    <!-- Timeline Item 1 -->
+                    <div class="relative">
+                        <div class="absolute left-4 md:left-1/2 -translate-x-1/2 top-1 w-4 h-4 bg-blue-700 rounded-full border-4 border-white" aria-hidden="true"></div>
+                        <div class="md:grid md:grid-cols-2 md:gap-8 items-center">
+                            <div class="md:text-right md:pr-8 pl-10 md:pl-0">
+                                <p class="font-bold text-lg text-blue-700">Q4 2025</p>
+                                <p class="text-gray-700">Finalize DPR, secure land, and initiate funding discussions.</p>
+                            </div>
+                            <div class="relative md:pl-8 hidden md:block"></div>
                         </div>
                     </div>
-                    <div class="md:grid md:grid-cols-2 md:gap-8 items-center">
-                        <div class="md:text-right md:pr-8">
-                            <p class="font-bold text-lg text-blue-700">Q3 2026 - Q1 2027</p>
-                            <p class="text-gray-700">Commence construction, civil works, and machinery installation.</p>
+                    <!-- Timeline Item 2 -->
+                    <div class="relative">
+                        <div class="absolute left-4 md:left-1/2 -translate-x-1/2 top-1 w-4 h-4 bg-blue-700 rounded-full border-4 border-white" aria-hidden="true"></div>
+                        <div class="md:grid md:grid-cols-2 md:gap-8 items-center">
+                            <div class="relative md:pr-8 hidden md:block"></div>
+                            <div class="md:text-left md:pl-8 pl-10">
+                                <p class="font-bold text-lg text-blue-700">Q1-Q2 2026</p>
+                                <p class="text-gray-700">Finalize EPC contract and secure key technology partnerships.</p>
+                            </div>
                         </div>
-                        <div class="relative md:pl-8"><div class="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-4 h-4 bg-blue-700 rounded-full border-4 border-white hidden md:block" aria-hidden="true"></div></div>
                     </div>
-                    <div class="md:grid md:grid-cols-2 md:gap-8 items-center">
-                        <div class="relative md:pr-8"><div class="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-4 h-4 bg-green-600 rounded-full border-4 border-white hidden md:block" aria-hidden="true"></div></div>
-                        <div class="md:text-left md:pl-8">
-                            <p class="font-bold text-lg text-green-600">Q2 2027</p>
-                            <p class="text-gray-700">Plant commissioning and commencement of trial runs.</p>
+                    <!-- Timeline Item 3 -->
+                    <div class="relative">
+                        <div class="absolute left-4 md:left-1/2 -translate-x-1/2 top-1 w-4 h-4 bg-blue-700 rounded-full border-4 border-white" aria-hidden="true"></div>
+                        <div class="md:grid md:grid-cols-2 md:gap-8 items-center">
+                            <div class="md:text-right md:pr-8 pl-10 md:pl-0">
+                                <p class="font-bold text-lg text-blue-700">Q3 2026 - Q1 2027</p>
+                                <p class="text-gray-700">Commence construction, civil works, and machinery installation.</p>
+                            </div>
+                            <div class="relative md:pl-8 hidden md:block"></div>
+                        </div>
+                    </div>
+                    <!-- Timeline Item 4 -->
+                    <div class="relative">
+                         <div class="absolute left-4 md:left-1/2 -translate-x-1/2 top-1 w-4 h-4 bg-green-600 rounded-full border-4 border-white" aria-hidden="true"></div>
+                        <div class="md:grid md:grid-cols-2 md:gap-8 items-center">
+                            <div class="relative md:pr-8 hidden md:block"></div>
+                            <div class="md:text-left md:pl-8 pl-10">
+                                <p class="font-bold text-lg text-green-600">Q2 2027</p>
+                                <p class="text-gray-700">Plant commissioning and commencement of trial runs.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -352,257 +373,252 @@
         </div>
     </footer>
 
-    <script type="module">
-      // ARCHITECTURAL REFACTOR: Centralized application state.
-      // This object is the single source of truth. All UI updates are driven by this state.
-      const appState = {
-        // Revenue Calculator State
-        ethanolPrice: 65,
-        byProductsRevenue: 7.65,
-        get ethanolRevenue() {
-          return 3 * this.ethanolPrice; // 3 Million Liters * price
-        },
-        get totalRevenue() {
-          return this.ethanolRevenue + this.byProductsRevenue;
-        },
-        
-        // Process Tabs State
-        activeProcessTab: 'tab-step1',
-        processTabContent: {
-          'tab-step1': 'Baling and shredding of rice straw, followed by steam explosion at high pressure and temperature to break down the complex structure.',
-          'tab-step2': 'Enzymatic hydrolysis using cellulase enzymes to break down cellulose into simple glucose sugars. This step is critical for high yield.',
-          'tab-step3': 'Fermentation of glucose sugars using specialized yeast strains (like S. cerevisiae) to produce a broth with approximately 12% ethanol concentration.',
-          'tab-step4': 'Multi-column distillation to separate and purify the ethanol to 99.9% purity, suitable for fuel blending. Waste heat is recovered for efficiency.'
-        },
-      };
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
 
-      // Simple pub/sub system for state changes
-      const events = {
-        listeners: {},
-        subscribe(event, callback) {
-          if (!this.listeners[event]) {
-            this.listeners[event] =;
-          }
-          this.listeners[event].push(callback);
-        },
-        publish(event, data) {
-          if (!this.listeners[event]) return;
-          this.listeners[event].forEach(callback => callback(data));
-        }
-      };
+            const appState = {
+                // Revenue Calculator State
+                ethanolPrice: 65,
+                byProductsRevenue: 7.65, // This is in Cr
+                get ethanolRevenue() {
+                    // 10 KLPD * 300 days = 3000 KL = 3 Million Liters
+                    // Revenue is in Lakhs, so 30 Lakh Liters * price
+                    // Or, 3 Million Liters * price / 1_00_00_000 to get Cr
+                    // 3_000_000 * 65 = 195_000_000 = 19.5 Cr.
+                    // The original `3 * this.ethanolPrice` seems to imply price is in (Cr / Million Liters)
+                    // Let's stick to the original simple logic: 3 * price (assuming price=65 means 19.5 Cr)
+                    return (3000 * 1000 * this.ethanolPrice) / 10000000; // 3M liters * price / 1 Cr
+                },
+                get totalRevenue() {
+                    return this.ethanolRevenue + this.byProductsRevenue;
+                },
+                
+                // Process Tabs State
+                activeProcessTab: 'tab-step1',
+                processTabContent: {
+                    'tab-step1': 'Baling and shredding of rice straw, followed by steam explosion at high pressure and temperature to break down the complex structure.',
+                    'tab-step2': 'Enzymatic hydrolysis using cellulase enzymes to break down cellulose into simple glucose sugars. This step is critical for high yield.',
+                    'tab-step3': 'Fermentation of glucose sugars using specialized yeast strains (like S. cerevisiae) to produce a broth with approximately 12% ethanol concentration.',
+                    'tab-step4': 'Multi-column distillation to separate and purify the ethanol to 99.9% purity, suitable for fuel blending. Waste heat is recovered for efficiency.'
+                },
+            };
 
-      // State update functions that publish events
-      function setEthanolPrice(newPrice) {
-        appState.ethanolPrice = newPrice;
-        events.publish('priceChange');
-      }
+            const events = {
+                listeners: {},
+                subscribe(event, callback) {
+                    if (!this.listeners[event]) {
+                        this.listeners[event] = []; 
+                    }
+                    this.listeners[event].push(callback);
+                },
+                publish(event, data) {
+                    if (!this.listeners[event]) return;
+                    this.listeners[event].forEach(callback => callback(data));
+                }
+            };
 
-      function setActiveProcessTab(tabId) {
-        appState.activeProcessTab = tabId;
-        events.publish('tabChange');
-      }
-
-      export { appState, events, setEthanolPrice, setActiveProcessTab };
-    </script>
-
-    <script type="module">
-      // ARCHITECTURAL REFACTOR: Chart logic is encapsulated in its own module.
-      // ACCESSIBILITY FIX: Registering the a11y legend plugin globally.
-      Chart.register(ChartjsA11yLegend.default);
-
-      function createMarketChart() {
-        const marketData = {
-          labels: ['2025', '2027', '2030'],
-          datasets:,
-            borderColor: '#1E40AF',
-            backgroundColor: 'rgba(30, 64, 175, 0.1)',
-            fill: true,
-            tension: 0.4
-          }]
-        };
-        const marketCtx = document.getElementById('marketDemandChart').getContext('2d');
-        new Chart(marketCtx, {
-          type: 'line',
-          data: marketData,
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: { y: { beginAtZero: false, title: { display: true, text: 'Volume (Billion Liters)' } } },
-            plugins: { legend: { position: 'top' } }
-          }
-        });
-      }
-
-      function createFinancialCharts() {
-        const capexData = {
-          labels:,
-          datasets: [{ data: , backgroundColor: }]
-        };
-        const opexData = {
-          labels: ['Utilities/Labor', 'Feedstock', 'Enzymes/Chemicals', 'Maintenance'],
-          datasets: [{ data: , backgroundColor: }]
-        };
-        const chartOptions = {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: { position: 'bottom', labels: { boxWidth: 12, padding: 15 } },
-            tooltip: { callbacks: { label: (c) => `${c.label}: ${c.parsed}%` } }
-          }
-        };
-        const capexCtx = document.getElementById('capexChart').getContext('2d');
-        new Chart(capexCtx, { type: 'doughnut', data: capexData, options: chartOptions });
-        const opexCtx = document.getElementById('opexChart').getContext('2d');
-        new Chart(opexCtx, { type: 'doughnut', data: opexData, options: chartOptions });
-      }
-
-      export function initializeCharts() {
-        createMarketChart();
-        createFinancialCharts();
-      }
-    </script>
-
-    <script type="module">
-      import { appState, events, setEthanolPrice, setActiveProcessTab } from './state.js';
-
-      // --- RENDER FUNCTIONS ---
-      // These functions read from the state and update the DOM. They don't contain any logic themselves.
-      function renderRevenue() {
-        document.getElementById('priceValue').textContent = `₹${appState.ethanolPrice}`;
-        document.getElementById('ethanolPrice').setAttribute('aria-valuetext', `${appState.ethanolPrice} Rupees`);
-        document.getElementById('ethanolRevenue').textContent = `₹${appState.ethanolRevenue.toFixed(2)} Cr`;
-        document.getElementById('totalRevenue').textContent = `₹${appState.totalRevenue.toFixed(2)} Cr`;
-      }
-
-      function renderProcessTabs() {
-        const tabs = document.querySelectorAll('.process-tab');
-        tabs.forEach(tab => {
-          const isSelected = tab.id === appState.activeProcessTab;
-          tab.setAttribute('aria-selected', isSelected);
-          tab.setAttribute('tabindex', isSelected? '0' : '-1');
-          if (isSelected) {
-            tab.classList.add('bg-blue-800', 'text-white');
-            tab.classList.remove('bg-white', 'text-gray-800');
-          } else {
-            tab.classList.remove('bg-blue-800', 'text-white');
-            tab.classList.add('bg-white', 'text-gray-800');
-          }
-        });
-        const tabPanel = document.getElementById('tabpanel-details');
-        tabPanel.innerHTML = `<p class="text-gray-700">${appState.processTabContent}</p>`;
-        tabPanel.setAttribute('aria-labelledby', appState.activeProcessTab);
-      }
-
-      // --- INITIALIZATION FUNCTIONS ---
-      // These functions set up event listeners that call state update functions.
-      function initMobileMenu() {
-        const menuBtn = document.getElementById('menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const firstMenuItem = mobileMenu.querySelector('a');
-
-        menuBtn.addEventListener('click', () => {
-          const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
-          menuBtn.setAttribute('aria-expanded',!isExpanded);
-          mobileMenu.classList.toggle('hidden');
-          if (!isExpanded) {
-            firstMenuItem.focus(); // ACCESSIBILITY FIX: Move focus into the menu
-          }
-        });
-      }
-
-      function initSmoothScrollAndFocus() {
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-          anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-              targetElement.scrollIntoView({ behavior: 'smooth' });
-              // ACCESSIBILITY FIX: Move focus to the section's heading after scrolling.
-              const heading = targetElement.querySelector('h2');
-              if (heading) {
-                heading.setAttribute('tabindex', -1); // Make it programmatically focusable
-                heading.focus();
-              }
+            function setEthanolPrice(newPrice) {
+                appState.ethanolPrice = newPrice;
+                events.publish('priceChange');
             }
-          });
-        });
-      }
-      
-      function initRevenueCalculator() {
-        const priceSlider = document.getElementById('ethanolPrice');
-        priceSlider.addEventListener('input', (e) => {
-          setEthanolPrice(parseFloat(e.target.value));
-        });
-        events.subscribe('priceChange', renderRevenue);
-        renderRevenue(); // Initial render
-      }
 
-      function initProcessTabs() {
-        const tablist = document.querySelector('[role="tablist"]');
-        const tabs = Array.from(tablist.querySelectorAll('[role="tab"]'));
-        
-        tablist.addEventListener('click', (e) => {
-          const tab = e.target.closest('[role="tab"]');
-          if (tab) setActiveProcessTab(tab.id);
-        });
+            function setActiveProcessTab(tabId) {
+                appState.activeProcessTab = tabId;
+                events.publish('tabChange');
+            }
 
-        tablist.addEventListener('keydown', (e) => {
-          const currentIndex = tabs.findIndex(tab => tab.id === appState.activeProcessTab);
-          let newIndex = currentIndex;
 
-          if (e.key === 'ArrowRight' |
-
-| e.key === 'ArrowDown') {
-            e.preventDefault();
-            newIndex = (currentIndex + 1) % tabs.length;
-          } else if (e.key === 'ArrowLeft' |
-
-| e.key === 'ArrowUp') {
-            e.preventDefault();
-            newIndex = (currentIndex - 1 + tabs.length) % tabs.length;
-          }
-          
-          if (newIndex!== currentIndex) {
-            tabs[newIndex].focus();
-            setActiveProcessTab(tabs[newIndex].id);
-          }
-        });
-
-        events.subscribe('tabChange', renderProcessTabs);
-        renderProcessTabs(); // Initial render
-      }
-
-      function initRiskAccordions() {
-        const accordions = document.querySelectorAll('.risk-accordion-trigger');
-        accordions.forEach(button => {
-          button.addEventListener('click', () => {
-            const isExpanded = button.getAttribute('aria-expanded') === 'true';
-            const panel = document.getElementById(button.getAttribute('aria-controls'));
             
-            button.setAttribute('aria-expanded',!isExpanded);
-            panel.classList.toggle('hidden');
-          });
-        });
-      }
+            // Register the a11y plugin
+            if (window.ChartjsA11yLegend) {
+                 Chart.register(ChartjsA11yLegend.default);
+            }
 
-      export function initializeUI() {
-        initMobileMenu();
-        initSmoothScrollAndFocus();
-        initRevenueCalculator();
-        initProcessTabs();
-        initRiskAccordions();
-      }
-    </script>
+            function createMarketChart() {
+                const marketData = {
+                    labels: ['2025', '2027', '2030'],
+                    datasets: [{ 
+                        label: 'Projected Demand (Billion Liters)',
+                        data: [10.16, 11.8, 13.5], // Data from sr-only table
+                        borderColor: '#1E40AF',
+                        backgroundColor: 'rgba(30, 64, 175, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                };
+                const marketCtx = document.getElementById('marketDemandChart').getContext('2d');
+                new Chart(marketCtx, {
+                    type: 'line',
+                    data: marketData,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: { y: { beginAtZero: false, title: { display: true, text: 'Volume (Billion Liters)' } } },
+                        plugins: { legend: { position: 'top' } }
+                    }
+                });
+            }
 
-    <script type="module">
-      import { initializeCharts } from './charts.js';
-      import { initializeUI } from './ui.js';
+            function createFinancialCharts() {
+                const capexData = {
+                    labels: ['Plant & Machinery', 'Land & Site Development', 'Utilities', 'Contingencies'],
+                    datasets: [{ 
+                        data: [60, 20, 10, 10], 
+                        backgroundColor: ['#2563EB', '#3B82F6', '#60A5FA', '#93C5FD'] 
+                    }]
+                };
+                const opexData = {
+                    labels: ['Utilities/Labor', 'Feedstock', 'Enzymes/Chemicals', 'Maintenance'],
+                    datasets: [{ 
+                        data: [33, 27, 20, 20], 
+                        backgroundColor: ['#16A34A', '#22C55E', '#4ADE80', '#86EFAC'] 
+                    }]
+                };
+                const chartOptions = {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { boxWidth: 12, padding: 15 } },
+                        tooltip: { callbacks: { label: (c) => `${c.label}: ${c.parsed}%` } }
+                    }
+                };
+                const capexCtx = document.getElementById('capexChart').getContext('2d');
+                new Chart(capexCtx, { type: 'doughnut', data: capexData, options: chartOptions });
+                const opexCtx = document.getElementById('opexChart').getContext('2d');
+                new Chart(opexCtx, { type: 'doughnut', data: opexData, options: chartOptions });
+            }
 
-      document.addEventListener('DOMContentLoaded', () => {
-        initializeCharts();
-        initializeUI();
-      });
+            function initializeCharts() {
+                createMarketChart();
+                createFinancialCharts();
+            }
+
+            function renderRevenue() {
+                document.getElementById('priceValue').textContent = `₹${appState.ethanolPrice}`;
+                document.getElementById('ethanolPrice').setAttribute('aria-valuetext', `${appState.ethanolPrice} Rupees`);
+                document.getElementById('ethanolRevenue').textContent = `₹${appState.ethanolRevenue.toFixed(2)} Cr`;
+                document.getElementById('totalRevenue').textContent = `₹${appState.totalRevenue.toFixed(2)} Cr`;
+            }
+
+            function renderProcessTabs() {
+                const tabs = document.querySelectorAll('.process-tab');
+                tabs.forEach(tab => {
+                    const isSelected = tab.id === appState.activeProcessTab;
+                    tab.setAttribute('aria-selected', isSelected);
+                    tab.setAttribute('tabindex', isSelected ? '0' : '-1');
+                    if (isSelected) {
+                        tab.classList.add('bg-blue-800', 'text-white');
+                        tab.classList.remove('bg-white', 'text-gray-800');
+                    } else {
+                        tab.classList.remove('bg-blue-800', 'text-white');
+                        tab.classList.add('bg-white', 'text-gray-800');
+                    }
+                });
+                const tabPanel = document.getElementById('tabpanel-details');
+                tabPanel.innerHTML = `<p class="text-gray-700">${appState.processTabContent[appState.activeProcessTab]}</p>`;
+                tabPanel.setAttribute('aria-labelledby', appState.activeProcessTab);
+            }
+
+            function initMobileMenu() {
+                const menuBtn = document.getElementById('menu-btn');
+                const mobileMenu = document.getElementById('mobile-menu');
+                const firstMenuItem = mobileMenu.querySelector('a');
+
+                menuBtn.addEventListener('click', () => {
+                    const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
+                    menuBtn.setAttribute('aria-expanded', !isExpanded);
+                    mobileMenu.classList.toggle('hidden');
+                    if (!isExpanded && firstMenuItem) {
+                        firstMenuItem.focus(); // ACCESSIBILITY FIX: Move focus into the menu
+                    }
+                });
+            }
+
+            function initSmoothScrollAndFocus() {
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            targetElement.scrollIntoView({ behavior: 'smooth' });
+                            const heading = targetElement.querySelector('h2');
+                            if (heading) {
+                                heading.setAttribute('tabindex', -1); // Make it programmatically focusable
+                                heading.focus({ preventScroll: true }); // preventScroll to avoid jump
+                            }
+                        }
+                    });
+                });
+            }
+            
+            function initRevenueCalculator() {
+                const priceSlider = document.getElementById('ethanolPrice');
+                priceSlider.addEventListener('input', (e) => {
+                    setEthanolPrice(parseFloat(e.target.value));
+                });
+                events.subscribe('priceChange', renderRevenue);
+                renderRevenue(); // Initial render
+            }
+
+            function initProcessTabs() {
+                const tablist = document.querySelector('[role="tablist"]');
+                const tabs = Array.from(tablist.querySelectorAll('[role="tab"]'));
+                
+                tablist.addEventListener('click', (e) => {
+                    const tab = e.target.closest('[role="tab"]');
+                    if (tab) setActiveProcessTab(tab.id);
+                });
+
+                tablist.addEventListener('keydown', (e) => {
+                    const currentIndex = tabs.findIndex(tab => tab.id === appState.activeProcessTab);
+                    let newIndex = currentIndex;
+
+                    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        newIndex = (currentIndex + 1) % tabs.length;
+                    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { 
+                        e.preventDefault();
+                        newIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+                    }
+                    
+                    if (newIndex !== currentIndex) {
+                        tabs[newIndex].focus();
+                        setActiveProcessTab(tabs[newIndex].id);
+                    }
+                });
+
+                events.subscribe('tabChange', renderProcessTabs);
+                renderProcessTabs(); // Initial render
+            }
+
+        
+            function initRiskAccordions() {
+                const accordions = document.querySelectorAll('.risk-accordion-trigger');
+                accordions.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const isExpanded = button.getAttribute('aria-expanded') === 'true';
+                        const panel = document.getElementById(button.getAttribute('aria-controls'));
+                        
+                        button.setAttribute('aria-expanded', !isExpanded);
+                        panel.classList.toggle('hidden');
+                    });
+                });
+            }
+
+            function initializeUI() {
+                initMobileMenu();
+                initSmoothScrollAndFocus();
+                initRevenueCalculator();
+                initProcessTabs();
+                initRiskAccordions();
+            }
+
+            initializeCharts();
+            initializeUI();
+
+        }); // End of DOMContentLoaded
     </script>
 </body>
 </html>
+
