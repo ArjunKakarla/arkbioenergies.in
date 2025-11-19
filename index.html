@@ -3,622 +3,497 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ark Bio Energies | 10 KLPD 2G Ethanol Plant Feasibility Study</title>
+    <title>Ark Bio Energies | Next-Gen 2G Ethanol Production</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://unpkg.com/chartjs-plugin-a11y-legend@1.1.1/dist/chartjs-plugin-a11y-legend.min.js"></script>
-
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        heading: ['"Outfit"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            green: '#10B981',   // Biomass/Eco
+                            dark: '#0F172A',    // Industrial Dark
+                            blue: '#3B82F6',    // Tech/Water
+                            accent: '#F59E0B',  // Energy/Ethanol
+                        }
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://www.transparenttextures.com/patterns/cubes.png')",
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        /* Visually-hidden class to provide accessible content for screen readers without affecting the layout */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border-width: 0;
+        /* Custom Utilities */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
         }
-        /* Custom focus ring style for better visibility, aligned with brand colors */
-        :focus-visible {
-            outline: 3px solid #D97706;
-            outline-offset: 2px;
+        
+        .bento-card {
+            transition: all 0.3s ease;
+        }
+        .bento-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Range Slider Styling */
+        input[type=range] {
+            -webkit-appearance: none; 
+            background: transparent; 
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: #10B981;
+            cursor: pointer;
+            margin-top: -10px;
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #E2E8F0;
             border-radius: 2px;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
         }
     </style>
 </head>
-<body class="antialiased bg-gray-50 text-gray-800">
+<body class="antialiased bg-slate-50 text-slate-800 font-sans selection:bg-brand-green selection:text-white">
 
-    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm border-b border-gray-200">
-        <div class="container mx-auto px-4 lg:px-6 py-4">
-            <div class="flex justify-between items-center">
-                <a href="#" class="flex items-center space-x-2 focus:outline-none">
-                    <!-- Leaf Icon as a placeholder -->
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                      <path d="M10 3.5c1.13 0 2.12.39 2.9.99l-1.12 1.12A2.49 2.49 0 0010 5C8.34 5 7 6.34 7 8c0 .55.18 1.05.47 1.48L6.29 10.6A4.99 4.99 0 015 8c0-2.76 2.24-5 5-5z" />
-                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM5.23 6.23a6.98 6.98 0 019.54 0 6.98 6.98 0 010 9.54 6.98 6.98 0 01-9.54 0 6.98 6.98 0 010-9.54zM10 15c-2.21 0-4-1.79-4-4 0-.55.11-1.08.31-1.55L10 13.17l3.69-3.72A3.98 3.98 0 0114 11c0 2.21-1.79 4-4 4z" clip-rule="evenodd" />
-                    </svg>
-                    <span class="text-xl font-bold text-gray-800">Ark Bio Energies</span>
-                </a>
-                
-                <nav class="hidden lg:flex space-x-8" aria-label="Main">
-                    <a href="#overview" class="nav-link text-gray-600 font-medium pb-1 border-b-2 border-transparent transition-colors hover:text-amber-600 hover:border-amber-600">Overview</a>
-                    <a href="#market" class="nav-link text-gray-600 font-medium pb-1 border-b-2 border-transparent transition-colors hover:text-amber-600 hover:border-amber-600">Market</a>
-                    <a href="#financials" class="nav-link text-gray-600 font-medium pb-1 border-b-2 border-transparent transition-colors hover:text-amber-600 hover:border-amber-600">Financials</a>
-                    <a href="#impact" class="nav-link text-gray-600 font-medium pb-1 border-b-2 border-transparent transition-colors hover:text-amber-600 hover:border-amber-600">Impact</a>
-                    <a href="#risk" class="nav-link text-gray-600 font-medium pb-1 border-b-2 border-transparent transition-colors hover:text-amber-600 hover:border-amber-600">Risks</a>
-                    <a href="#roadmap" class="nav-link text-gray-600 font-medium pb-1 border-b-2 border-transparent transition-colors hover:text-amber-600 hover:border-amber-600">Roadmap</a>
-                </nav>
-
-                <div class="lg:hidden">
-                    <button id="menu-btn" 
-                            class="text-gray-600 p-1 rounded-md" 
-                            aria-controls="mobile-menu" 
-                            aria-expanded="false"
-                            aria-label="Open main menu">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-                    </button>
+    <nav class="fixed w-full z-50 top-0 start-0 border-b border-white/20 bg-white/80 backdrop-blur-md transition-all">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+            <a href="#" class="flex items-center space-x-2 rtl:space-x-reverse">
+                <div class="bg-brand-green/10 p-2 rounded-lg">
+                    <i class="ph-fill ph-plant text-2xl text-brand-green"></i>
                 </div>
+                <span class="self-center text-xl font-heading font-bold whitespace-nowrap text-slate-900">Ark Bio Energies</span>
+            </a>
+            <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+                <a href="#financials" class="text-white bg-slate-900 hover:bg-slate-800 focus:ring-4 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-sm px-4 py-2 text-center transition-colors">
+                    Invest Now
+                </a>
+                <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none" aria-controls="navbar-sticky" aria-expanded="false" id="menu-toggle">
+                    <span class="sr-only">Open main menu</span>
+                    <i class="ph ph-list text-2xl"></i>
+                </button>
             </div>
-            
-            <div id="mobile-menu" class="hidden lg:hidden mt-4">
-                <nav class="space-y-2" aria-label="Main mobile">
-                    <a href="#overview" class="block nav-link text-gray-600 font-medium py-1">Overview</a>
-                    <a href="#market" class="block nav-link text-gray-600 font-medium py-1">Market</a>
-                    <a href="#financials" class="block nav-link text-gray-600 font-medium py-1">Financials</a>
-                    <a href="#impact" class="block nav-link text-gray-600 font-medium py-1">Impact</a>
-                    <a href="#risk" class="block nav-link text-gray-600 font-medium py-1">Risks</a>
-                    <a href="#roadmap" class="block nav-link text-gray-600 font-medium py-1">Roadmap</a>
-                </nav>
+            <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+                <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent">
+                    <li><a href="#overview" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-brand-green md:p-0">Vision</a></li>
+                    <li><a href="#market" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-brand-green md:p-0">Market</a></li>
+                    <li><a href="#tech" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-brand-green md:p-0">Technology</a></li>
+                    <li><a href="#financials" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-brand-green md:p-0">Financials</a></li>
+                </ul>
             </div>
         </div>
-    </header>
+    </nav>
 
-    <main class="container mx-auto px-4 lg:px-6 py-8 md:py-12">
+    <section class="relative pt-32 pb-20 lg:pt-40 lg:pb-28 bg-slate-50 overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full bg-hero-pattern opacity-5"></div>
+        <div class="absolute -top-24 -right-24 w-96 h-96 bg-brand-green/20 rounded-full blur-3xl"></div>
+        <div class="absolute top-1/2 -left-24 w-72 h-72 bg-brand-blue/20 rounded-full blur-3xl"></div>
 
-        <section class="text-center mb-12 md:mb-16">
-            <h1 class="text-3xl md:text-5xl font-bold text-gray-900 mb-4">10 KLPD 2G Ethanol Plant Feasibility Study</h1>
-            <p class="text-lg md:text-xl text-gray-600">Ark Bio Energies Pvt. Ltd. | Ballari, Karnataka</p>
-        </section>
+        <div class="container mx-auto px-4 relative z-10 text-center">
+            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-green/10 text-brand-green text-xs font-bold uppercase tracking-wider mb-6 border border-brand-green/20">
+                <span class="w-2 h-2 rounded-full bg-brand-green animate-pulse"></span>
+                Ballari Project Phase I
+            </span>
+            <h1 class="text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-slate-900 tracking-tight mb-6">
+                Fueling India's Future <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-green to-brand-blue">From Rice to Revolution</span>
+            </h1>
+            <p class="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto mb-10 leading-relaxed">
+                Ark Bio Energies is establishing a state-of-the-art <strong>10 KLPD 2G Ethanol Plant</strong> in Karnataka. We turn agricultural waste into clean energy, solving the stubble burning crisis while powering the nation.
+            </p>
+            
+            
 
-        <section id="overview" aria-labelledby="overview-heading" class="mb-16 scroll-mt-24">
-            <h2 id="overview-heading" class="text-2xl md:text-3xl font-bold text-center mb-2 text-gray-800">Project At-a-Glance</h2>
-            <p class="text-center text-gray-600 mb-10 max-w-3xl mx-auto">This dashboard summarizes the key findings of our feasibility study. The proposed 2G ethanol plant is a technically viable, financially robust, and environmentally beneficial project, poised to capitalize on India's growing biofuel demand. Explore the key performance indicators below for a quick overview.</p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
-                    <h3 class="font-semibold text-gray-500 mb-2">Projected CAPEX</h3>
-                    <p class="text-4xl font-bold text-blue-700">₹50 Cr</p>
-                    <p class="text-sm text-gray-500 mt-1">Total capital expenditure</p>
-                </div>
-                <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
-                    <h3 class="font-semibold text-gray-500 mb-2">Annual Revenue</h3>
-                    <p class="text-4xl font-bold text-green-600">₹27.15 Cr</p>
-                    <p class="text-sm text-gray-500 mt-1">At steady-state operation</p>
-                </div>
-                <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
-                    <h3 class="font-semibold text-gray-500 mb-2">Internal Rate of Return (IRR)</h3>
-                    <p class="text-4xl font-bold text-amber-600">23-25%</p>
-                    <p class="text-sm text-gray-500 mt-1">Indicating strong profitability</p>
-                </div>
-                <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
-                    <h3 class="font-semibold text-gray-500 mb-2">Payback Period</h3>
-                    <p class="text-4xl font-bold text-amber-600">3.5-4 Yrs</p>
-                    <p class="text-sm text-gray-500 mt-1">Post-subsidy investment recovery</p>
-                </div>
-                <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
-                    <h3 class="font-semibold text-gray-500 mb-2">GHG Savings</h3>
-                    <p class="text-4xl font-bold text-green-600">>95%</p>
-                    <p class="text-sm text-gray-500 mt-1">Compared to conventional gasoline</p>
-                </div>
-                <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
-                    <h3 class="font-semibold text-gray-500 mb-2">Local Impact</h3>
-                    <p class="text-4xl font-bold text-blue-700">100+ Jobs</p>
-                    <p class="text-sm text-gray-500 mt-1">Direct employment creation</p>
-                </div>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
+                <a href="#financials" class="w-full sm:w-auto px-8 py-4 bg-slate-900 text-white rounded-xl font-semibold hover:bg-slate-800 transition-all shadow-lg shadow-slate-900/20 flex items-center justify-center gap-2">
+                    View Feasibility Study
+                    <i class="ph-bold ph-arrow-right"></i>
+                </a>
+                <a href="#tech" class="w-full sm:w-auto px-8 py-4 bg-white text-slate-700 border border-slate-200 rounded-xl font-semibold hover:bg-gray-50 transition-all flex items-center justify-center gap-2">
+                    How It Works
+                    <i class="ph-bold ph-play-circle"></i>
+                </a>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="market" aria-labelledby="market-heading" class="mb-16 scroll-mt-24">
-            <h2 id="market-heading" class="text-2xl md:text-3xl font-bold text-center mb-2 text-gray-800">Market Opportunity</h2>
-            <p class="text-center text-gray-600 mb-10 max-w-3xl mx-auto">India's commitment to the Ethanol Blended Petrol (EBP) program creates a massive, stable demand for ethanol. The 2G ethanol sector is a key focus for the government, providing a significant growth opportunity for projects like ours that utilize agricultural waste, ensuring energy security while supporting the rural economy.</p>
-            <div class="bg-white p-6 rounded-lg shadow-md border">
-                <div class="relative mx-auto w-full max-w-4xl h-[400px] md:h-[50vh]">
-                    <canvas id="marketDemandChart" role="img" aria-label="A line chart showing the projected national ethanol demand in India, rising from 10.16 billion liters in 2025 to 13.5 billion liters in 2030."></canvas>
-                </div>
-                <div class="sr-only">
-                    <h3>National Ethanol Demand Data</h3>
-                    <table class="w-full text-left">
-                        <thead>
-                            <tr><th>Year</th><th>Demand (Billion Liters)</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>2025</td><td>10.16</td></tr>
-                            <tr><td>2027</td><td>11.8</td></tr>
-                            <tr><td>2030</td><td>13.5</td></tr>
-                        </tbody>
-                    </table>
-                </div>
+    <section id="overview" class="py-20 bg-white border-y border-slate-100">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-heading font-bold text-slate-900 mb-4">Feasibility at a Glance</h2>
+                <p class="text-slate-500">Key Performance Indicators (KPIs) based on Q3 2025 Projections.</p>
             </div>
-        </section>
 
-        <section id="financials" aria-labelledby="financials-heading" class="mb-16 scroll-mt-24">
-            <h2 id="financials-heading" class="text-2xl md:text-3xl font-bold text-center mb-2 text-gray-800">Financial Deep Dive</h2>
-            <p class="text-center text-gray-600 mb-10 max-w-3xl mx-auto">Our financial model indicates a highly profitable venture, bolstered by strong revenues from both ethanol and by-products, manageable operational costs, and significant government incentives. Explore the cost breakdowns and use the interactive calculator to see how price fluctuations impact revenue.</p>
-            <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
-                <div class="lg:col-span-3 bg-white p-6 rounded-lg shadow-md border">
-                    <h3 class="text-xl font-semibold text-center mb-4">Interactive Revenue Projection</h3>
-                    <div class="mb-6">
-                        <label for="ethanolPrice" class="block mb-2 font-medium text-gray-700">Adjust Ethanol Price (₹/L): <span id="priceValue" class="font-bold text-blue-700">₹65</span></label>
-                        <input type="range" id="ethanolPrice" min="55" max="80" value="65" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" aria-valuemin="55" aria-valuemax="80" aria-valuenow="65" aria-valuetext="65 Rupees">
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 auto-rows-[minmax(180px,auto)]">
+                
+                <div class="col-span-1 md:col-span-2 lg:col-span-2 row-span-2 bg-slate-900 rounded-3xl p-8 text-white relative overflow-hidden bento-card group">
+                    <div class="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i class="ph-fill ph-factory text-9xl"></i>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
-                        <div class="bg-blue-50 p-4 rounded-lg">
-                            <h4 class="font-semibold text-gray-600">Projected Ethanol Revenue</h4>
-                            <p id="ethanolRevenue" class="text-3xl font-bold text-blue-800 mt-1" aria-live="polite">₹19.50 Cr</p>
+                    <div class="relative z-10 h-full flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-slate-400 font-medium mb-1">Total CAPEX Investment</h3>
+                            <div class="text-6xl font-bold tracking-tight">₹50 <span class="text-3xl text-slate-400">Cr</span></div>
                         </div>
-                        <div class="bg-green-50 p-4 rounded-lg">
-                            <h4 class="font-semibold text-gray-600">Total Annual Revenue</h4>
-                            <p id="totalRevenue" class="text-3xl font-bold text-green-700 mt-1" aria-live="polite">₹27.15 Cr</p>
+                        <div class="space-y-4">
+                            <div class="w-full bg-slate-800 rounded-full h-2">
+                                <div class="bg-brand-blue h-2 rounded-full" style="width: 60%"></div>
+                            </div>
+                            <div class="flex justify-between text-sm text-slate-400">
+                                <span>Machinery (60%)</span>
+                                <span>Land/Civil (40%)</span>
+                            </div>
+                            <p class="text-sm text-slate-300 mt-4">Designed for 10 KLPD capacity with modular expansion capability.</p>
                         </div>
                     </div>
-                     <p class="text-xs text-center text-gray-500 mt-4">Total revenue includes a fixed ₹7.65 Cr from by-products like CO2 and lignin.</p>
                 </div>
-                <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-8">
-                    <div class="bg-white p-6 rounded-lg shadow-md border">
-                        <h3 class="text-xl font-semibold text-center mb-4">CAPEX Breakdown (Total: ₹50 Cr)</h3>
-                        <div class="relative mx-auto w-full h-64">
-                            <canvas id="capexChart" role="img" aria-label="Doughnut chart of CAPEX breakdown: Plant & Machinery 60%, Land & Site Development 20%, Utilities 10%, and Contingencies 10%."></canvas>
+
+                <div class="bg-green-50 rounded-3xl p-6 border border-green-100 bento-card">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-2 bg-green-100 rounded-lg text-green-700">
+                            <i class="ph-bold ph-currency-inr text-xl"></i>
                         </div>
-                        <div class="sr-only">
-                            <h3>CAPEX Breakdown Data</h3>
-                            <table>
-                                <thead><tr><th>Category</th><th>Percentage</th></tr></thead>
-                                <tbody>
-                                    <tr><td>Plant & Machinery</td><td>60%</td></tr>
-                                    <tr><td>Land & Site Development</td><td>20%</td></tr>
-                                    <tr><td>Utilities</td><td>10%</td></tr>
-                                    <tr><td>Contingencies</td><td>10%</td></tr>
-                                </tbody>
-                            </table>
+                        <span class="text-xs font-bold text-green-700 bg-green-100 px-2 py-1 rounded-full">+15% YoY</span>
+                    </div>
+                    <h3 class="text-slate-500 font-medium text-sm">Annual Revenue</h3>
+                    <div class="text-3xl font-bold text-slate-900 mt-1">₹27.15 Cr</div>
+                    <p class="text-xs text-slate-500 mt-2">Steady state operation</p>
+                </div>
+
+                <div class="bg-amber-50 rounded-3xl p-6 border border-amber-100 bento-card">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-2 bg-amber-100 rounded-lg text-amber-700">
+                            <i class="ph-bold ph-trend-up text-xl"></i>
                         </div>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-md border">
-                        <h3 class="text-xl font-semibold text-center mb-4">OPEX Breakdown (Total: ₹15 Cr)</h3>
-                        <div class="relative mx-auto w-full h-64">
-                            <canvas id="opexChart" role="img" aria-label="Doughnut chart of OPEX breakdown: Utilities/Labor 33%, Feedstock 27%, Enzymes/Chemicals 20%, and Maintenance 20%."></canvas>
+                    <h3 class="text-slate-500 font-medium text-sm">Project IRR</h3>
+                    <div class="text-3xl font-bold text-slate-900 mt-1">24.5%</div>
+                    <p class="text-xs text-slate-500 mt-2">High profitability indicator</p>
+                </div>
+
+                <div class="bg-blue-50 rounded-3xl p-6 border border-blue-100 bento-card">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-2 bg-blue-100 rounded-lg text-blue-700">
+                            <i class="ph-bold ph-hourglass-medium text-xl"></i>
                         </div>
-                        <div class="sr-only">
-                            <h3>OPEX Breakdown Data</h3>
-                            <table>
-                                <thead><tr><th>Category</th><th>Percentage</th></tr></thead>
-                                <tbody>
-                                    <tr><td>Utilities/Labor</td><td>33%</td></tr>
-                                    <tr><td>Feedstock</td><td>27%</td></tr>
-                                    <tr><td>Enzymes/Chemicals</td><td>20%</td></tr>
-                                    <tr><td>Maintenance</td><td>20%</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
+                    </div>
+                    <h3 class="text-slate-500 font-medium text-sm">Payback Period</h3>
+                    <div class="text-3xl font-bold text-slate-900 mt-1">3.8 Yrs</div>
+                    <p class="text-xs text-slate-500 mt-2">Post-subsidy recovery</p>
+                </div>
+
+                <div class="col-span-1 md:col-span-2 bg-gradient-to-br from-slate-100 to-white rounded-3xl p-6 border border-slate-200 bento-card flex items-center justify-around">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-brand-green mb-1">95%</div>
+                        <div class="text-xs text-slate-500 uppercase tracking-wide">GHG Savings</div>
+                    </div>
+                    <div class="w-px h-12 bg-slate-200"></div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-brand-blue mb-1">100+</div>
+                        <div class="text-xs text-slate-500 uppercase tracking-wide">Local Jobs</div>
+                    </div>
+                    <div class="w-px h-12 bg-slate-200"></div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-slate-800 mb-1">50k</div>
+                        <div class="text-xs text-slate-500 uppercase tracking-wide">Tons Rice Straw</div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
+
+    <section id="tech" class="py-20 bg-slate-50 relative">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row gap-12 items-center">
+                <div class="md:w-1/2">
+                    <span class="text-brand-green font-bold tracking-wider uppercase text-sm mb-2 block">Our Technology</span>
+                    <h2 class="text-3xl md:text-4xl font-heading font-bold text-slate-900 mb-6">Advanced 2G Fractionation</h2>
+                    <p class="text-slate-600 text-lg mb-6">
+                        Unlike 1G ethanol which competes with food security, our process utilizes lignocellulosic biomass (rice straw). We use a proprietary steam explosion and enzymatic hydrolysis process to maximize yield.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 cursor-pointer group hover:border-brand-green transition-colors" onclick="toggleProcess('p1')">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-green-100 text-green-600 flex items-center justify-center font-bold group-hover:bg-green-600 group-hover:text-white transition-colors">1</div>
+                                <h4 class="font-semibold text-slate-800">Pre-treatment (Steam Explosion)</h4>
+                            </div>
+                            <p id="p1" class="hidden mt-3 text-slate-500 text-sm pl-14">Breaks down the rigid lignin structure of rice straw to make cellulose accessible.</p>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 cursor-pointer group hover:border-brand-green transition-colors" onclick="toggleProcess('p2')">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold group-hover:bg-blue-600 group-hover:text-white transition-colors">2</div>
+                                <h4 class="font-semibold text-slate-800">Enzymatic Hydrolysis</h4>
+                            </div>
+                            <p id="p2" class="hidden mt-3 text-slate-500 text-sm pl-14">Conversion of cellulose into fermentable sugars using specialized enzyme cocktails.</p>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 cursor-pointer group hover:border-brand-green transition-colors" onclick="toggleProcess('p3')">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center font-bold group-hover:bg-amber-600 group-hover:text-white transition-colors">3</div>
+                                <h4 class="font-semibold text-slate-800">Fermentation & Distillation</h4>
+                            </div>
+                            <p id="p3" class="hidden mt-3 text-slate-500 text-sm pl-14">Yeast converts sugars to ethanol, which is then distilled to 99.9% fuel-grade purity.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                   <div class="bg-white p-2 rounded-2xl shadow-2xl border border-slate-200 rotate-1 hover:rotate-0 transition-transform duration-500">
+                        <div class="bg-slate-100 rounded-xl overflow-hidden aspect-[4/3] flex items-center justify-center relative group">
+                             
+                             <div class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                 <span class="text-white font-medium">View Detailed Schematic</span>
+                             </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex items-center justify-between text-sm">
+                                <span class="font-semibold text-slate-700">Process Efficiency</span>
+                                <span class="text-brand-green font-bold">High Yield</span>
+                            </div>
+                            <div class="w-full bg-slate-100 h-2 rounded-full mt-2">
+                                <div class="bg-brand-green h-2 rounded-full" style="width: 92%"></div>
+                            </div>
+                        </div>
+                   </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="financials" class="py-20 bg-slate-900 text-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-heading font-bold mb-6">Financial Projections</h2>
+                    <p class="text-slate-400 text-lg mb-8">
+                        Our model is robust against market fluctuations. Use the calculator to simulate revenue based on the current government-fixed ethanol prices.
+                    </p>
+                    
+                    <div class="bg-slate-800 rounded-2xl p-8 border border-slate-700 shadow-xl">
+                        <div class="mb-8">
+                            <div class="flex justify-between mb-4">
+                                <label class="text-slate-300 font-medium">Ethanol Price (₹/Liter)</label>
+                                <span id="priceDisplay" class="text-brand-green font-bold text-2xl">₹65</span>
+                            </div>
+                            <input type="range" id="priceSlider" min="55" max="80" value="65" class="w-full bg-slate-700 h-2 rounded-lg appearance-none cursor-pointer">
+                            <div class="flex justify-between text-xs text-slate-500 mt-2">
+                                <span>₹55</span>
+                                <span>Conservative</span>
+                                <span>₹80</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-slate-900/50 p-4 rounded-xl border border-slate-700 text-center">
+                                <div class="text-slate-400 text-xs uppercase tracking-wider mb-1">Ethanol Revenue</div>
+                                <div id="ethRevDisplay" class="text-2xl font-bold text-white">₹19.5 Cr</div>
+                            </div>
+                            <div class="bg-gradient-to-br from-brand-green/20 to-transparent p-4 rounded-xl border border-brand-green/30 text-center">
+                                <div class="text-green-400 text-xs uppercase tracking-wider mb-1">Total Annual Revenue</div>
+                                <div id="totalRevDisplay" class="text-2xl font-bold text-brand-green">₹27.15 Cr</div>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-4 text-center">*Includes fixed ₹7.65 Cr from by-products (CO2, Lignin, Ash).</p>
+                    </div>
+                </div>
+
+                <div>
+                     <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700">
+                        <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                            <i class="ph-fill ph-chart-line-up text-brand-blue"></i>
+                            National Ethanol Demand
+                        </h3>
+                        <div class="relative h-64 w-full">
+                            <canvas id="marketChart"></canvas>
+                        </div>
+                     </div>
+                     <div class="mt-6 grid grid-cols-2 gap-6">
+                         <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
+                             <div class="text-3xl font-bold text-brand-accent">20%</div>
+                             <div class="text-slate-400 text-sm">Govt Blending Target by 2026</div>
+                         </div>
+                         <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
+                             <div class="text-3xl font-bold text-blue-400">Secure</div>
+                             <div class="text-slate-400 text-sm">Off-take Agreement (OMCs)</div>
+                         </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4 text-center mb-12">
+            <h2 class="text-3xl font-heading font-bold text-slate-900">Execution Roadmap</h2>
+        </div>
         
-        <section id="impact" aria-labelledby="impact-heading" class="mb-16 scroll-mt-24">
-            <h2 id="impact-heading" class="text-2xl md:text-3xl font-bold text-center mb-2 text-gray-800">Process & Impact</h2>
-            <p class="text-center text-gray-600 mb-10 max-w-3xl mx-auto">Our project employs a proven technological process to convert agricultural waste into valuable biofuel. This not only creates a high-value product but also generates significant positive environmental and social impacts, from reducing air pollution to boosting the rural economy in the Ballari region. Click on each process step to learn more.</p>
-            <div class="bg-white p-6 rounded-lg shadow-md border mb-8">
-                <h3 class="text-xl font-semibold text-center mb-6">Ethanol Production Process</h3>
-                <div role="tablist" aria-label="Ethanol Production Process" class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4">
-                    <button id="tab-step1" role="tab" aria-selected="true" aria-controls="tabpanel-details" class="process-tab text-center p-4 border rounded-lg flex-1 w-full transition-colors bg-blue-800 text-white">
-                        <span class="font-bold">1. Collection & Pre-treatment</span>
-                    </button>
-                    <div class="text-2xl text-gray-400 font-thin rotate-90 md:rotate-0" aria-hidden="true">&rarr;</div>
-                    <button id="tab-step2" role="tab" aria-selected="false" aria-controls="tabpanel-details" tabindex="-1" class="process-tab text-center p-4 border rounded-lg flex-1 w-full transition-colors">
-                        <span class="font-bold">2. Hydrolysis</span>
-                    </button>
-                    <div class="text-2xl text-gray-400 font-thin rotate-90 md:rotate-0" aria-hidden="true">&rarr;</div>
-                    <button id="tab-step3" role="tab" aria-selected="false" aria-controls="tabpanel-details" tabindex="-1" class="process-tab text-center p-4 border rounded-lg flex-1 w-full transition-colors">
-                        <span class="font-bold">3. Fermentation</span>
-                    </button>
-                    <div class="text-2xl text-gray-400 font-thin rotate-90 md:rotate-0" aria-hidden="true">&rarr;</div>
-                    <button id="tab-step4" role="tab" aria-selected="false" aria-controls="tabpanel-details" tabindex="-1" class="process-tab text-center p-4 border rounded-lg flex-1 w-full transition-colors">
-                        <span class="font-bold">4. Distillation</span>
-                    </button>
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="relative border-l-2 border-slate-200 ml-4 md:ml-0 md:border-l-0 md:border-t-2 md:grid md:grid-cols-4 md:gap-6">
+                <div class="mb-10 ml-6 md:mb-0 md:ml-0 md:pt-6 relative group">
+                    <span class="absolute -left-[33px] top-0 md:top-[-33px] md:left-0 lg:left-8 w-4 h-4 bg-slate-300 rounded-full border-4 border-white group-hover:bg-brand-blue transition-colors"></span>
+                    <h3 class="font-bold text-lg text-slate-900">Q4 2025</h3>
+                    <p class="text-sm text-slate-500 mt-2">Final DPR & Funding Closure.</p>
                 </div>
-                <div id="tabpanel-details" role="tabpanel" aria-labelledby="tab-step1" class="mt-6 p-4 bg-gray-50 rounded-md min-h-[100px]">
-                    <p class="text-gray-700">Baling and shredding of rice straw, followed by steam explosion at high pressure and temperature to break down the complex structure.</p>
+                 <div class="mb-10 ml-6 md:mb-0 md:ml-0 md:pt-6 relative group">
+                    <span class="absolute -left-[33px] top-0 md:top-[-33px] md:left-0 lg:left-8 w-4 h-4 bg-slate-300 rounded-full border-4 border-white group-hover:bg-brand-blue transition-colors"></span>
+                    <h3 class="font-bold text-lg text-slate-900">Q2 2026</h3>
+                    <p class="text-sm text-slate-500 mt-2">EPC Contract & Tech Partnership.</p>
+                </div>
+                 <div class="mb-10 ml-6 md:mb-0 md:ml-0 md:pt-6 relative group">
+                    <span class="absolute -left-[33px] top-0 md:top-[-33px] md:left-0 lg:left-8 w-4 h-4 bg-slate-300 rounded-full border-4 border-white group-hover:bg-brand-blue transition-colors"></span>
+                    <h3 class="font-bold text-lg text-slate-900">Q1 2027</h3>
+                    <p class="text-sm text-slate-500 mt-2">Civil Works & Installation.</p>
+                </div>
+                 <div class="mb-10 ml-6 md:mb-0 md:ml-0 md:pt-6 relative group">
+                    <span class="absolute -left-[33px] top-0 md:top-[-33px] md:left-0 lg:left-8 w-4 h-4 bg-brand-green rounded-full border-4 border-green-100 animate-pulse"></span>
+                    <h3 class="font-bold text-lg text-brand-green">Q2 2027</h3>
+                    <p class="text-sm text-slate-500 mt-2">Commissioning & Production.</p>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-green-50 p-6 rounded-lg border border-green-200">
-                    <h3 class="text-lg font-semibold text-green-800 mb-2">Air Quality Improvement</h3>
-                    <p class="text-gray-700">Prevents stubble burning of over 50,000 tons of rice straw annually, reducing PM2.5 pollution and avoiding 30,000 tons of CO2 emissions.</p>
+    <footer class="bg-slate-50 border-t border-slate-200 pt-12 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <span class="text-xl font-heading font-bold text-slate-900">Ark Bio Energies</span>
+                    <p class="text-slate-500 text-sm mt-1">Ballari, Karnataka</p>
                 </div>
-                 <div class="bg-blue-50 p-6 rounded-lg border border-blue-200">
-                    <h3 class="text-lg font-semibold text-blue-800 mb-2">Rural Economy Boost</h3>
-                    <p class="text-gray-700">Creates a new revenue stream for over 5,000 farmers in the Ballari region through the buy-back of agricultural waste.</p>
-                </div>
-                 <div class="bg-amber-50 p-6 rounded-lg border border-amber-200">
-                    <h3 class="text-lg font-semibold text-amber-800 mb-2">Resource Efficiency</h3>
-                    <p class="text-gray-700">The plant is designed for 80% water recycling and will utilize lignin by-product to meet its own power requirements, ensuring a circular economy.</p>
+                <div class="text-center md:text-right">
+                    <a href="mailto:arjun@arkbioenergies.in" class="inline-flex items-center gap-2 text-slate-600 hover:text-brand-blue transition-colors">
+                        <i class="ph-bold ph-envelope"></i>
+                        arjun@arkbioenergies.in
+                    </a>
                 </div>
             </div>
-        </section>
-
-        <section id="risk" aria-labelledby="risk-heading" class="mb-16 scroll-mt-24">
-            <h2 id="risk-heading" class="text-2xl md:text-3xl font-bold text-center mb-2 text-gray-800">Risk & Mitigation</h2>
-            <p class="text-center text-gray-600 mb-10 max-w-3xl mx-auto">A thorough risk assessment has been conducted to identify potential challenges. Proactive mitigation strategies are in place for each identified risk, ensuring the project's stability and long-term success. Click on each risk to view the corresponding mitigation plan.</p>
-            <div class="space-y-4">
-                <div class="bg-white rounded-lg shadow-sm border">
-                    <h3 class="font-semibold text-gray-800 p-0 m-0">
-                        <button id="risk-trigger-1" class="risk-accordion-trigger flex justify-between items-center w-full p-4 text-left" aria-expanded="false" aria-controls="risk-panel-1">
-                            <span>Feedstock Volatility</span>
-                            <span class="text-sm font-medium text-red-600 bg-red-100 px-2 py-1 rounded-full">Medium/High</span>
-                        </button>
-                    </h3>
-                    <div id="risk-panel-1" role="region" aria-labelledby="risk-trigger-1" class="risk-accordion-panel hidden p-4 border-t bg-gray-50">
-                        <p class="text-gray-700">Establish long-term MoUs with farmer cooperatives; maintain a 10,000-ton buffer stock; research diversification to other local biomass like cotton stalk.</p>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg shadow-sm border">
-                    <h3 class="font-semibold text-gray-800 p-0 m-0">
-                        <button id="risk-trigger-2" class="risk-accordion-trigger flex justify-between items-center w-full p-4 text-left" aria-expanded="false" aria-controls="risk-panel-2">
-                            <span>Technical Yield Drop</span>
-                            <span class="text-sm font-medium text-amber-600 bg-amber-100 px-2 py-1 rounded-full">Medium/Medium</span>
-                        </button>
-                    </h3>
-                    <div id="risk-panel-2" role="region" aria-labelledby="risk-trigger-2" class="risk-accordion-panel hidden p-4 border-t bg-gray-50">
-                        <p class="text-gray-700">Engage in a strong technical partnership with a proven technology provider like Praj Industries; conduct extensive pilot testing before full-scale commissioning.</p>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg shadow-sm border">
-                    <h3 class="font-semibold text-gray-800 p-0 m-0">
-                        <button id="risk-trigger-3" class="risk-accordion-trigger flex justify-between items-center w-full p-4 text-left" aria-expanded="false" aria-controls="risk-panel-3">
-                            <span>Regulatory Delays</span>
-                            <span class="text-sm font-medium text-amber-600 bg-amber-100 px-2 py-1 rounded-full">Medium/Medium</span>
-                        </button>
-                    </h3>
-                    <div id="risk-panel-3" role="region" aria-labelledby="risk-trigger-3" class="risk-accordion-panel hidden p-4 border-t bg-gray-50">
-                        <p class="text-gray-700">Utilize Karnataka's single-window clearance system; engage in pre-consultation with SEIAA and other regulatory bodies; hire an experienced environmental consultant.</p>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg shadow-sm border">
-                    <h3 class="font-semibold text-gray-800 p-0 m-0">
-                        <button id="risk-trigger-4" class="risk-accordion-trigger flex justify-between items-center w-full p-4 text-left" aria-expanded="false" aria-controls="risk-panel-4">
-                            <span>Market Price Fluctuation</span>
-                            <span class="text-sm font-medium text-green-600 bg-green-100 px-2 py-1 rounded-full">Low/Medium</span>
-                        </button>
-                    </h3>
-                    <div id="risk-panel-4" role="region" aria-labelledby="risk-trigger-4" class="risk-accordion-panel hidden p-4 border-t bg-gray-50">
-                        <p class="text-gray-700">Secure fixed-price off-take agreements with Oil Marketing Companies (OMCs); diversify and maximize revenue from by-products.</p>
-                    </div>
-                </div>
+            <div class="border-t border-slate-200 mt-8 pt-8 text-center text-sm text-slate-400">
+                &copy; 2025 Ark Bio Energies Pvt. Ltd. All rights reserved.
             </div>
-        </section>
-
-        <section id="roadmap" aria-labelledby="roadmap-heading" class="scroll-mt-24">
-            <h2 id="roadmap-heading" class="text-2xl md:text-3xl font-bold text-center mb-2 text-gray-800">Implementation Roadmap</h2>
-            <p class="text-center text-gray-600 mb-10 max-w-3xl mx-auto">We have developed a clear and achievable timeline for project implementation, from final planning through to commissioning. The roadmap ensures a structured approach to meet our target of being operational by mid-2027.</p>
-            <div class="relative">
-                <!-- Timeline line -->
-                <div class="absolute left-4 md:left-1/2 h-full w-0.5 bg-gray-300" aria-hidden="true"></div>
-                <div class="space-y-8">
-                    <!-- Timeline Item 1 -->
-                    <div class="relative">
-                        <div class="absolute left-4 md:left-1/2 -translate-x-1/2 top-1 w-4 h-4 bg-blue-700 rounded-full border-4 border-white" aria-hidden="true"></div>
-                        <div class="md:grid md:grid-cols-2 md:gap-8 items-center">
-                            <div class="md:text-right md:pr-8 pl-10 md:pl-0">
-                                <p class="font-bold text-lg text-blue-700">Q4 2025</p>
-                                <p class="text-gray-700">Finalize DPR, secure land, and initiate funding discussions.</p>
-                            </div>
-                            <div class="relative md:pl-8 hidden md:block"></div>
-                        </div>
-                    </div>
-                    <!-- Timeline Item 2 -->
-                    <div class="relative">
-                        <div class="absolute left-4 md:left-1/2 -translate-x-1/2 top-1 w-4 h-4 bg-blue-700 rounded-full border-4 border-white" aria-hidden="true"></div>
-                        <div class="md:grid md:grid-cols-2 md:gap-8 items-center">
-                            <div class="relative md:pr-8 hidden md:block"></div>
-                            <div class="md:text-left md:pl-8 pl-10">
-                                <p class="font-bold text-lg text-blue-700">Q1-Q2 2026</p>
-                                <p class="text-gray-700">Finalize EPC contract and secure key technology partnerships.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Timeline Item 3 -->
-                    <div class="relative">
-                        <div class="absolute left-4 md:left-1/2 -translate-x-1/2 top-1 w-4 h-4 bg-blue-700 rounded-full border-4 border-white" aria-hidden="true"></div>
-                        <div class="md:grid md:grid-cols-2 md:gap-8 items-center">
-                            <div class="md:text-right md:pr-8 pl-10 md:pl-0">
-                                <p class="font-bold text-lg text-blue-700">Q3 2026 - Q1 2027</p>
-                                <p class="text-gray-700">Commence construction, civil works, and machinery installation.</p>
-                            </div>
-                            <div class="relative md:pl-8 hidden md:block"></div>
-                        </div>
-                    </div>
-                    <!-- Timeline Item 4 -->
-                    <div class="relative">
-                         <div class="absolute left-4 md:left-1/2 -translate-x-1/2 top-1 w-4 h-4 bg-green-600 rounded-full border-4 border-white" aria-hidden="true"></div>
-                        <div class="md:grid md:grid-cols-2 md:gap-8 items-center">
-                            <div class="relative md:pr-8 hidden md:block"></div>
-                            <div class="md:text-left md:pl-8 pl-10">
-                                <p class="font-bold text-lg text-green-600">Q2 2027</p>
-                                <p class="text-gray-700">Plant commissioning and commencement of trial runs.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <footer class="bg-white border-t mt-16">
-        <div class="container mx-auto px-6 py-8 text-center text-gray-600">
-            <p class="font-semibold text-lg mb-2">Ark Bio Energies Pvt. Ltd.</p>
-            <p>For further details and a customized business plan, please contact <a href="mailto:arjun@arkbioenergies.in" class="text-blue-600 hover:underline">arjun@arkbioenergies.in</a>.</p>
-            <p class="text-sm mt-4">&copy; 2025 Ark Bio Energies. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menu-toggle');
+        const navbar = document.getElementById('navbar-sticky');
+        menuBtn.addEventListener('click', () => {
+            navbar.classList.toggle('hidden');
+        });
 
-            const appState = {
-                // Revenue Calculator State
-                ethanolPrice: 65,
-                byProductsRevenue: 7.65, // This is in Cr
-                get ethanolRevenue() {
-                    // 10 KLPD * 300 days = 3000 KL = 3 Million Liters
-                    // Revenue is in Lakhs, so 30 Lakh Liters * price
-                    // Or, 3 Million Liters * price / 1_00_00_000 to get Cr
-                    // 3_000_000 * 65 = 195_000_000 = 19.5 Cr.
-                    // The original `3 * this.ethanolPrice` seems to imply price is in (Cr / Million Liters)
-                    // Let's stick to the original simple logic: 3 * price (assuming price=65 means 19.5 Cr)
-                    return (3000 * 1000 * this.ethanolPrice) / 10000000; // 3M liters * price / 1 Cr
-                },
-                get totalRevenue() {
-                    return this.ethanolRevenue + this.byProductsRevenue;
-                },
-                
-                // Process Tabs State
-                activeProcessTab: 'tab-step1',
-                processTabContent: {
-                    'tab-step1': 'Baling and shredding of rice straw, followed by steam explosion at high pressure and temperature to break down the complex structure.',
-                    'tab-step2': 'Enzymatic hydrolysis using cellulase enzymes to break down cellulose into simple glucose sugars. This step is critical for high yield.',
-                    'tab-step3': 'Fermentation of glucose sugars using specialized yeast strains (like S. cerevisiae) to produce a broth with approximately 12% ethanol concentration.',
-                    'tab-step4': 'Multi-column distillation to separate and purify the ethanol to 99.9% purity, suitable for fuel blending. Waste heat is recovered for efficiency.'
-                },
-            };
-
-            const events = {
-                listeners: {},
-                subscribe(event, callback) {
-                    if (!this.listeners[event]) {
-                        this.listeners[event] = []; 
-                    }
-                    this.listeners[event].push(callback);
-                },
-                publish(event, data) {
-                    if (!this.listeners[event]) return;
-                    this.listeners[event].forEach(callback => callback(data));
-                }
-            };
-
-            function setEthanolPrice(newPrice) {
-                appState.ethanolPrice = newPrice;
-                events.publish('priceChange');
+        // Process Accordion Logic
+        function toggleProcess(id) {
+            const el = document.getElementById(id);
+            if(el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+            } else {
+                el.classList.add('hidden');
             }
+        }
 
-            function setActiveProcessTab(tabId) {
-                appState.activeProcessTab = tabId;
-                events.publish('tabChange');
-            }
+        // Financial Calculator Logic
+        const slider = document.getElementById('priceSlider');
+        const priceDisplay = document.getElementById('priceDisplay');
+        const ethRevDisplay = document.getElementById('ethRevDisplay');
+        const totalRevDisplay = document.getElementById('totalRevDisplay');
+        const fixedByProductRevenue = 7.65; // Cr
 
-
+        function updateRevenue() {
+            const price = parseFloat(slider.value);
+            priceDisplay.textContent = `₹${price}`;
             
-            // Register the a11y plugin
-            if (window.ChartjsA11yLegend) {
-                 Chart.register(ChartjsA11yLegend.default);
-            }
+            // Calculation: 10 KLPD * 300 Days = 3 Million Liters
+            const ethRevenue = (3000000 * price) / 10000000; // Convert to Crores
+            const totalRevenue = ethRevenue + fixedByProductRevenue;
 
-            function createMarketChart() {
-                const marketData = {
-                    labels: ['2025', '2027', '2030'],
-                    datasets: [{ 
-                        label: 'Projected Demand (Billion Liters)',
-                        data: [10.16, 11.8, 13.5], // Data from sr-only table
-                        borderColor: '#1E40AF',
-                        backgroundColor: 'rgba(30, 64, 175, 0.1)',
+            ethRevDisplay.textContent = `₹${ethRevenue.toFixed(2)} Cr`;
+            totalRevDisplay.textContent = `₹${totalRevenue.toFixed(2)} Cr`;
+        }
+
+        slider.addEventListener('input', updateRevenue);
+
+        // Chart.js Initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            const ctx = document.getElementById('marketChart').getContext('2d');
+            
+            // Gradient for Chart
+            let gradient = ctx.createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, 'rgba(59, 130, 246, 0.5)'); // Brand Blue
+            gradient.addColorStop(1, 'rgba(59, 130, 246, 0)');
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['2024', '2025', '2026', '2027', '2028', '2030'],
+                    datasets: [{
+                        label: 'Ethanol Demand (Billion Liters)',
+                        data: [8.5, 10.16, 11.0, 11.8, 12.5, 13.5],
+                        borderColor: '#3B82F6',
+                        backgroundColor: gradient,
+                        borderWidth: 3,
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor: '#3B82F6',
+                        pointRadius: 4,
                         fill: true,
                         tension: 0.4
                     }]
-                };
-                const marketCtx = document.getElementById('marketDemandChart').getContext('2d');
-                new Chart(marketCtx, {
-                    type: 'line',
-                    data: marketData,
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: { y: { beginAtZero: false, title: { display: true, text: 'Volume (Billion Liters)' } } },
-                        plugins: { legend: { position: 'top' } }
-                    }
-                });
-            }
-
-            function createFinancialCharts() {
-                const capexData = {
-                    labels: ['Plant & Machinery', 'Land & Site Development', 'Utilities', 'Contingencies'],
-                    datasets: [{ 
-                        data: [60, 20, 10, 10], 
-                        backgroundColor: ['#2563EB', '#3B82F6', '#60A5FA', '#93C5FD'] 
-                    }]
-                };
-                const opexData = {
-                    labels: ['Utilities/Labor', 'Feedstock', 'Enzymes/Chemicals', 'Maintenance'],
-                    datasets: [{ 
-                        data: [33, 27, 20, 20], 
-                        backgroundColor: ['#16A34A', '#22C55E', '#4ADE80', '#86EFAC'] 
-                    }]
-                };
-                const chartOptions = {
+                },
+                options: {
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: { position: 'bottom', labels: { boxWidth: 12, padding: 15 } },
-                        tooltip: { callbacks: { label: (c) => `${c.label}: ${c.parsed}%` } }
-                    }
-                };
-                const capexCtx = document.getElementById('capexChart').getContext('2d');
-                new Chart(capexCtx, { type: 'doughnut', data: capexData, options: chartOptions });
-                const opexCtx = document.getElementById('opexChart').getContext('2d');
-                new Chart(opexCtx, { type: 'doughnut', data: opexData, options: chartOptions });
-            }
-
-            function initializeCharts() {
-                createMarketChart();
-                createFinancialCharts();
-            }
-
-            function renderRevenue() {
-                document.getElementById('priceValue').textContent = `₹${appState.ethanolPrice}`;
-                document.getElementById('ethanolPrice').setAttribute('aria-valuetext', `${appState.ethanolPrice} Rupees`);
-                document.getElementById('ethanolRevenue').textContent = `₹${appState.ethanolRevenue.toFixed(2)} Cr`;
-                document.getElementById('totalRevenue').textContent = `₹${appState.totalRevenue.toFixed(2)} Cr`;
-            }
-
-            function renderProcessTabs() {
-                const tabs = document.querySelectorAll('.process-tab');
-                tabs.forEach(tab => {
-                    const isSelected = tab.id === appState.activeProcessTab;
-                    tab.setAttribute('aria-selected', isSelected);
-                    tab.setAttribute('tabindex', isSelected ? '0' : '-1');
-                    if (isSelected) {
-                        tab.classList.add('bg-blue-800', 'text-white');
-                        tab.classList.remove('bg-white', 'text-gray-800');
-                    } else {
-                        tab.classList.remove('bg-blue-800', 'text-white');
-                        tab.classList.add('bg-white', 'text-gray-800');
-                    }
-                });
-                const tabPanel = document.getElementById('tabpanel-details');
-                tabPanel.innerHTML = `<p class="text-gray-700">${appState.processTabContent[appState.activeProcessTab]}</p>`;
-                tabPanel.setAttribute('aria-labelledby', appState.activeProcessTab);
-            }
-
-            function initMobileMenu() {
-                const menuBtn = document.getElementById('menu-btn');
-                const mobileMenu = document.getElementById('mobile-menu');
-                const firstMenuItem = mobileMenu.querySelector('a');
-
-                menuBtn.addEventListener('click', () => {
-                    const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
-                    menuBtn.setAttribute('aria-expanded', !isExpanded);
-                    mobileMenu.classList.toggle('hidden');
-                    if (!isExpanded && firstMenuItem) {
-                        firstMenuItem.focus(); // ACCESSIBILITY FIX: Move focus into the menu
-                    }
-                });
-            }
-
-            function initSmoothScrollAndFocus() {
-                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                    anchor.addEventListener('click', function (e) {
-                        e.preventDefault();
-                        const targetId = this.getAttribute('href');
-                        const targetElement = document.querySelector(targetId);
-                        if (targetElement) {
-                            targetElement.scrollIntoView({ behavior: 'smooth' });
-                            const heading = targetElement.querySelector('h2');
-                            if (heading) {
-                                heading.setAttribute('tabindex', -1); // Make it programmatically focusable
-                                heading.focus({ preventScroll: true }); // preventScroll to avoid jump
-                            }
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#1e293b',
+                            titleColor: '#94a3b8',
+                            bodyFont: { size: 14, weight: 'bold' },
+                            padding: 10,
+                            cornerRadius: 8,
+                            displayColors: false
                         }
-                    });
-                });
-            }
-            
-            function initRevenueCalculator() {
-                const priceSlider = document.getElementById('ethanolPrice');
-                priceSlider.addEventListener('input', (e) => {
-                    setEthanolPrice(parseFloat(e.target.value));
-                });
-                events.subscribe('priceChange', renderRevenue);
-                renderRevenue(); // Initial render
-            }
-
-            function initProcessTabs() {
-                const tablist = document.querySelector('[role="tablist"]');
-                const tabs = Array.from(tablist.querySelectorAll('[role="tab"]'));
-                
-                tablist.addEventListener('click', (e) => {
-                    const tab = e.target.closest('[role="tab"]');
-                    if (tab) setActiveProcessTab(tab.id);
-                });
-
-                tablist.addEventListener('keydown', (e) => {
-                    const currentIndex = tabs.findIndex(tab => tab.id === appState.activeProcessTab);
-                    let newIndex = currentIndex;
-
-                    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-                        e.preventDefault();
-                        newIndex = (currentIndex + 1) % tabs.length;
-                    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { 
-                        e.preventDefault();
-                        newIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+                    },
+                    scales: {
+                        x: { 
+                            grid: { display: false, drawBorder: false },
+                            ticks: { color: '#94a3b8' }
+                        },
+                        y: { 
+                            grid: { color: '#334155', borderDash: [5, 5] },
+                            ticks: { color: '#94a3b8' },
+                            border: { display: false }
+                        }
                     }
-                    
-                    if (newIndex !== currentIndex) {
-                        tabs[newIndex].focus();
-                        setActiveProcessTab(tabs[newIndex].id);
-                    }
-                });
-
-                events.subscribe('tabChange', renderProcessTabs);
-                renderProcessTabs(); // Initial render
-            }
-
-        
-            function initRiskAccordions() {
-                const accordions = document.querySelectorAll('.risk-accordion-trigger');
-                accordions.forEach(button => {
-                    button.addEventListener('click', () => {
-                        const isExpanded = button.getAttribute('aria-expanded') === 'true';
-                        const panel = document.getElementById(button.getAttribute('aria-controls'));
-                        
-                        button.setAttribute('aria-expanded', !isExpanded);
-                        panel.classList.toggle('hidden');
-                    });
-                });
-            }
-
-            function initializeUI() {
-                initMobileMenu();
-                initSmoothScrollAndFocus();
-                initRevenueCalculator();
-                initProcessTabs();
-                initRiskAccordions();
-            }
-
-            initializeCharts();
-            initializeUI();
-
-        }); // End of DOMContentLoaded
+                }
+            });
+        });
     </script>
 </body>
 </html>
-
