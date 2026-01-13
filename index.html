@@ -3,390 +3,397 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ark Bio Energies | Strategic Border Unit Dashboard</title>
+    <title>Ark Bioenergies | 60 KLPD Greenfield Ethanol Project</title>
     
-    <!-- Tech Stack: Tailwind CSS + Chart.js + Phosphor Icons + Google Fonts -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js for Financial Data -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
 
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Manrope', 'sans-serif'],
-                        display: ['Space Grotesk', 'sans-serif'],
-                    },
                     colors: {
-                        ark: {
-                            900: '#022c22', // Deep Jungle
-                            800: '#064e3b',
-                            500: '#10b981',
-                            accent: '#bef264', // Electric Lime
-                            light: '#f0fdf4',
+                        brand: {
+                            green: '#2E7D32',
+                            dark: '#1B5E20',
+                            light: '#E8F5E9',
+                            accent: '#FFD700'
                         },
-                        surface: {
-                            50: '#fafafa',
-                            100: '#f4f4f5',
-                            200: '#e4e4e7',
-                            900: '#18181b',
+                        slate: {
+                            800: '#1e293b',
+                            900: '#0f172a'
                         }
                     },
-                    animation: {
-                        'float': 'float 6s ease-in-out infinite',
-                        'fade-in': 'fadeIn 0.8s ease-out forwards',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-10px)' },
-                        },
-                        fadeIn: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        }
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Oswald', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
+
     <style>
-        /* Custom Utilities */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
-        .glass-dark {
-            background: rgba(24, 24, 27, 0.8);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: white;
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        .bento-card {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .bento-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1);
-        }
-        /* Custom Range Slider */
-        input[type=range] {
-            -webkit-appearance: none;
-            background: transparent;
-        }
-        input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            height: 24px;
-            width: 24px;
-            border-radius: 50%;
-            background: #bef264;
-            cursor: pointer;
-            margin-top: -10px;
-            box-shadow: 0 0 10px rgba(190, 242, 100, 0.5);
-        }
-        input[type=range]::-webkit-slider-runnable-track {
-            width: 100%;
-            height: 4px;
-            cursor: pointer;
-            background: #3f3f46;
-            border-radius: 2px;
+        .gradient-text {
+            background: linear-gradient(to right, #2E7D32, #43A047);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
     </style>
 </head>
-<body class="bg-surface-50 text-surface-900 antialiased selection:bg-ark-accent selection:text-ark-900">
+<body class="bg-gray-50 text-gray-800 font-sans">
 
-    <!-- Floating Navigation -->
-    <nav class="fixed top-6 left-1/2 -translate-x-1/2 w-[90%] max-w-5xl z-50 glass-panel rounded-full px-6 py-3 shadow-lg flex justify-between items-center transition-all duration-300">
-        <div class="flex items-center gap-2">
-            <div class="w-8 h-8 bg-ark-900 rounded-lg flex items-center justify-center text-ark-accent">
-                <i class="ph-bold ph-plant text-xl"></i>
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-leaf text-brand-green text-3xl"></i>
+                    <span class="font-heading text-2xl font-bold text-gray-900 tracking-wide">ARK <span class="text-brand-green">BIOENERGIES</span></span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#vision" class="text-gray-600 hover:text-brand-green font-medium transition">Vision 2026</a>
+                    <a href="#location" class="text-gray-600 hover:text-brand-green font-medium transition">Location</a>
+                    <a href="#process" class="text-gray-600 hover:text-brand-green font-medium transition">Technology</a>
+                    <a href="#financials" class="text-gray-600 hover:text-brand-green font-medium transition">Financials</a>
+                    <a href="#contact" class="px-5 py-2 bg-brand-green text-white rounded-full font-bold hover:bg-brand-dark transition shadow-lg">Contact Us</a>
+                </div>
             </div>
-            <span class="font-display font-bold text-lg tracking-tight">Ark<span class="text-ark-800">Bio</span></span>
         </div>
-        <div class="hidden md:flex gap-8 text-sm font-medium text-gray-600">
-            <a href="#overview" class="hover:text-ark-900 transition-colors">Vision</a>
-            <a href="#location" class="hover:text-ark-900 transition-colors">Location Strategy</a>
-            <a href="#tech-specs" class="hover:text-ark-900 transition-colors">Tech Specs</a>
-            <a href="#financials" class="hover:text-ark-900 transition-colors">Financials</a>
-        </div>
-        <button class="bg-ark-900 text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-ark-800 transition-colors flex items-center gap-2">
-            <span>Contact</span>
-            <i class="ph-bold ph-arrow-right"></i>
-        </button>
     </nav>
 
     <!-- Hero Section -->
-    <header id="overview" class="relative pt-32 pb-20 px-6 overflow-hidden">
-        <!-- Background Decor -->
-        <div class="absolute top-0 left-0 w-full h-full -z-10">
-            <div class="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-ark-accent/20 rounded-full blur-[120px]"></div>
-            <div class="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-ark-500/10 rounded-full blur-[100px]"></div>
-        </div>
-
-        <div class="container mx-auto max-w-6xl text-center">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-gray-200 shadow-sm mb-6 animate-fade-in">
-                <span class="w-2 h-2 rounded-full bg-ark-500 animate-pulse"></span>
-                <span class="text-xs font-semibold uppercase tracking-wide text-gray-500">Executive Dashboard | Updated Report</span>
+    <section class="hero-bg h-screen flex items-center justify-center text-white relative">
+        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-90"></div>
+        <div class="relative max-w-7xl mx-auto px-4 text-center">
+            <div class="inline-block px-4 py-1 border border-brand-green/50 bg-brand-dark/30 rounded-full mb-6 backdrop-blur-sm">
+                <span class="text-brand-accent font-bold text-sm tracking-wider uppercase"><i class="fa-solid fa-bolt mr-2"></i> ESY 2025-26: E20 Achieved</span>
             </div>
-            
-            <h1 class="font-display text-5xl md:text-7xl font-bold leading-[1.1] mb-6 tracking-tight animate-fade-in" style="animation-delay: 0.1s">
-                The New Energy Hub: <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-ark-900 to-ark-500">Karnataka-Andhra Border.</span>
+            <h1 class="font-heading text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                Fueling India's Energy <br> Independence
             </h1>
-            
-            <p class="text-xl text-gray-500 max-w-2xl mx-auto mb-12 font-light animate-fade-in" style="animation-delay: 0.2s">
-                Establishing a <strong>10 KLPD 2G Ethanol Unit</strong> strategically positioned to leverage the rice-straw surplus of both the Ballari (KA) and Kurnool (AP) agricultural belts.
+            <p class="text-xl md:text-2xl text-gray-200 mb-10 max-w-3xl mx-auto font-light">
+                Proposed 60 KLPD Grain-Based Ethanol Distillery & 2.5 MW Co-Generation Plant in Kurnool, AP.
             </p>
-
-            <!-- Bento Grid Summary -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 animate-fade-in" style="animation-delay: 0.3s">
-                <!-- Card 1: Feedstock Security -->
-                <div class="bento-card bg-white p-6 rounded-3xl shadow-sm border border-gray-100 text-left relative overflow-hidden group">
-                    <div class="absolute right-0 top-0 p-6 text-gray-100 group-hover:text-ark-accent transition-colors duration-500">
-                        <i class="ph-duotone ph-map-pin-line text-6xl transform rotate-12"></i>
-                    </div>
-                    <h3 class="text-gray-500 font-medium text-sm mb-1 uppercase tracking-wider">Dual-State Access</h3>
-                    <p class="font-display text-4xl font-bold text-ark-900">80%</p>
-                    <div class="mt-4 inline-flex items-center gap-1 text-xs font-bold text-ark-800 bg-ark-100 px-2 py-1 rounded-md">
-                        <i class="ph-bold ph-check"></i> Biomass Surplus
-                    </div>
-                    <p class="text-xs text-gray-400 mt-2">Sourcing from KA & AP Borders</p>
-                </div>
-
-                <!-- Card 2: Technology -->
-                <div class="bento-card bg-ark-900 p-6 rounded-3xl shadow-lg border border-ark-800 text-left relative overflow-hidden text-white">
-                    <div class="absolute right-0 top-0 p-6 text-ark-800">
-                        <i class="ph-duotone ph-flask text-6xl transform -rotate-12"></i>
-                    </div>
-                    <h3 class="text-ark-accent font-medium text-sm mb-1 uppercase tracking-wider">Process Tech</h3>
-                    <p class="font-display text-3xl font-bold text-white leading-tight">Enzymatic<br>Hydrolysis</p>
-                    <p class="mt-2 text-sm text-gray-400">Praj Industries License</p>
-                </div>
-
-                <!-- Card 3: Financials -->
-                <div class="bento-card bg-white p-6 rounded-3xl shadow-sm border border-gray-100 text-left relative overflow-hidden group">
-                    <div class="absolute right-0 top-0 p-6 text-gray-100 group-hover:text-green-500 transition-colors duration-500">
-                        <i class="ph-duotone ph-trend-up text-6xl"></i>
-                    </div>
-                    <h3 class="text-gray-500 font-medium text-sm mb-1 uppercase tracking-wider">Target IRR</h3>
-                    <p class="font-display text-4xl font-bold text-ark-900">23-25%</p>
-                    <div class="mt-4 inline-flex items-center gap-1 text-xs font-bold text-green-700 bg-green-100 px-2 py-1 rounded-md">
-                        <i class="ph-bold ph-currency-inr"></i> 3.5 Yr Payback
-                    </div>
-                </div>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="#executive-summary" class="px-8 py-4 bg-brand-green hover:bg-brand-dark text-white rounded-lg font-bold transition transform hover:-translate-y-1 shadow-xl">
+                    Executive Summary
+                </a>
+                <a href="#financials" class="px-8 py-4 bg-transparent border-2 border-white hover:bg-white hover:text-brand-green text-white rounded-lg font-bold transition">
+                    Investment Metrics
+                </a>
             </div>
         </div>
-    </header>
+    </section>
 
-    <!-- Location Strategy Section -->
-    <section id="location" class="py-16 bg-white">
-        <div class="container mx-auto px-6 max-w-6xl">
-            <div class="bg-ark-light border border-ark-200 rounded-[2.5rem] p-8 md:p-12 flex flex-col md:flex-row items-center gap-12">
-                <div class="md:w-1/2">
-                    <div class="inline-flex items-center gap-2 mb-4">
-                        <span class="bg-ark-900 text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Strategic Update</span>
-                    </div>
-                    <h2 class="font-display text-3xl md:text-4xl font-bold text-ark-900 mb-6">Why the KA-AP Border?</h2>
-                    <p class="text-gray-600 mb-6 leading-relaxed">
-                        Moving the plant to the Andhra-Karnataka border is a masterstroke in supply chain resilience. This location sits at the intersection of two major "Rice Bowls" of the Deccan Plateau.
+    <!-- Executive Summary / Metrics -->
+    <section id="executive-summary" class="py-20 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                
+                <!-- Text Content -->
+                <div>
+                    <h2 class="font-heading text-4xl font-bold text-gray-900 mb-6">Strategic Alignment in the <span class="gradient-text">2026 Context</span></h2>
+                    <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                        As of January 2026, India has successfully operationalized the E20 mandate. The focus has now shifted to sustaining feedstock security and regional capacity balance. Ark Bioenergies proposes a state-of-the-art bio-refinery in the Alur-Aspari belt.
                     </p>
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        This project is not just a distillery; it is an agro-industrial node integrating the surplus of Andhra Pradesh and Karnataka, backed by the <strong>AP Industrial Development Policy 4.0</strong>.
+                    </p>
+                    
                     <ul class="space-y-4">
-                        <li class="flex items-start gap-3">
-                            <div class="bg-white p-2 rounded-lg shadow-sm text-ark-500"><i class="ph-bold ph-grains"></i></div>
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-circle-check text-brand-green mt-1 mr-3"></i>
                             <div>
-                                <h4 class="font-bold text-ark-900">Double Feedstock Catchment</h4>
-                                <p class="text-sm text-gray-500">Access to 2.36 lakh hectares of paddy in Ballari (KA) plus massive output from Kurnool/Anantapur (AP).</p>
+                                <h4 class="font-bold text-gray-800">Multi-Feedstock Capability</h4>
+                                <p class="text-sm text-gray-500">Designed for Maize, Broken Rice, and FCI Surplus Rice.</p>
                             </div>
                         </li>
-                        <li class="flex items-start gap-3">
-                            <div class="bg-white p-2 rounded-lg shadow-sm text-ark-500"><i class="ph-bold ph-truck"></i></div>
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-circle-check text-brand-green mt-1 mr-3"></i>
                             <div>
-                                <h4 class="font-bold text-ark-900">Logistic Optimization</h4>
-                                <p class="text-sm text-gray-500">Excellent connectivity via National Highways connecting Hyderabad and Bengaluru, ensuring smooth ethanol dispatch to OMCs.</p>
+                                <h4 class="font-bold text-gray-800">ESG Compliant</h4>
+                                <p class="text-sm text-gray-500">Zero Liquid Discharge (ZLD) & Biomass Co-generation.</p>
                             </div>
                         </li>
                     </ul>
                 </div>
-                <div class="md:w-1/2 w-full h-80 bg-surface-200 rounded-3xl relative overflow-hidden flex items-center justify-center border border-gray-300">
-                    <!-- Conceptual Map Visual -->
-                    <div class="absolute inset-0 bg-[url('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/India_Karnataka_Andhra_Pradesh_locator_map.svg/1024px-India_Karnataka_Andhra_Pradesh_locator_map.svg.png')] bg-cover bg-center opacity-20 grayscale"></div>
-                    <div class="relative z-10 text-center">
-                        <div class="w-4 h-4 bg-red-500 rounded-full mx-auto animate-ping absolute top-0 left-1/2"></div>
-                        <div class="w-6 h-6 bg-red-600 border-4 border-white rounded-full mx-auto shadow-xl"></div>
-                        <div class="bg-white px-4 py-2 rounded-lg shadow-lg mt-3">
-                            <p class="text-xs font-bold text-gray-500 uppercase">Site Location</p>
-                            <p class="font-bold text-ark-900">Border Zone</p>
-                        </div>
+
+                <!-- Metrics Grid -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-white p-6 rounded-2xl shadow-lg border-l-4 border-brand-green transform hover:-translate-y-1 transition">
+                        <div class="text-brand-green text-3xl mb-2"><i class="fa-solid fa-industry"></i></div>
+                        <div class="text-3xl font-bold text-gray-900">60 KLPD</div>
+                        <div class="text-sm text-gray-500 font-medium">Daily Production Capacity</div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-lg border-l-4 border-brand-green transform hover:-translate-y-1 transition">
+                        <div class="text-brand-green text-3xl mb-2"><i class="fa-solid fa-bolt"></i></div>
+                        <div class="text-3xl font-bold text-gray-900">2.5 MW</div>
+                        <div class="text-sm text-gray-500 font-medium">Captive Co-Generation</div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-lg border-l-4 border-brand-green transform hover:-translate-y-1 transition">
+                        <div class="text-brand-green text-3xl mb-2"><i class="fa-solid fa-sack-dollar"></i></div>
+                        <div class="text-3xl font-bold text-gray-900">25%</div>
+                        <div class="text-sm text-gray-500 font-medium">Projected Post-Tax IRR</div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-lg border-l-4 border-brand-green transform hover:-translate-y-1 transition">
+                        <div class="text-brand-green text-3xl mb-2"><i class="fa-solid fa-calendar-check"></i></div>
+                        <div class="text-3xl font-bold text-gray-900">4.5 Yrs</div>
+                        <div class="text-sm text-gray-500 font-medium">Estimated Payback Period</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Technical Deep Dive (Dark Mode Section) -->
-    <section id="tech-specs" class="bg-surface-900 text-white py-24 rounded-t-[3rem] relative z-10 -mt-12">
-        <div class="container mx-auto px-6 max-w-6xl">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
-                <div>
-                    <h2 class="font-display text-4xl font-bold mb-4">Engineering Specifications</h2>
-                    <p class="text-gray-400 max-w-md">Proprietary pretreatment and C5/C6 co-fermentation process designed for high-silica Rice Straw.</p>
-                </div>
-                <button class="mt-4 md:mt-0 text-ark-accent hover:text-white transition-colors flex items-center gap-2 text-sm font-bold uppercase tracking-widest">
-                    Download Schematic <i class="ph-bold ph-download-simple"></i>
-                </button>
-            </div>
-
-            <!-- Tech Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-                
-                <!-- Process Visualizer -->
-                <div class="col-span-1 md:col-span-8 bg-surface-900 border border-white/10 rounded-3xl p-8 shadow-2xl">
-                    <div class="flex gap-4 mb-8 overflow-x-auto pb-2 border-b border-white/10" id="techTabs">
-                        <button onclick="switchTech('pretreat')" class="tech-tab active text-ark-accent border-b-2 border-ark-accent pb-2 font-bold whitespace-nowrap">01. Steam Explosion</button>
-                        <button onclick="switchTech('hydro')" class="tech-tab text-gray-500 hover:text-white pb-2 font-medium whitespace-nowrap transition-colors">02. Hydrolysis</button>
-                        <button onclick="switchTech('ferment')" class="tech-tab text-gray-500 hover:text-white pb-2 font-medium whitespace-nowrap transition-colors">03. Fermentation</button>
-                    </div>
-
-                    <div id="techContent" class="min-h-[200px] flex flex-col md:flex-row gap-8 items-center">
-                        <div class="w-full md:w-1/2">
-                            <h3 class="text-2xl font-display font-bold mb-4 text-white">Pre-Treatment</h3>
-                            <p class="text-gray-400 leading-relaxed mb-6">
-                                Biomass is subjected to high-pressure steam (15-20 bar) followed by rapid decompression. This physically disrupts the lignin seal, exposing cellulose fibers for enzymatic attack.
-                            </p>
-                            <ul class="space-y-3">
-                                <li class="flex items-center gap-3 text-sm text-gray-300">
-                                    <i class="ph-fill ph-check-circle text-ark-accent"></i> 
-                                    Temp: 190°C - 210°C
-                                </li>
-                                <li class="flex items-center gap-3 text-sm text-gray-300">
-                                    <i class="ph-fill ph-check-circle text-ark-accent"></i> 
-                                    Residence Time: 5-10 mins
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="w-full md:w-1/2 bg-white/5 rounded-2xl h-48 flex items-center justify-center border border-dashed border-white/20">
-                           <i class="ph-duotone ph-engine text-6xl text-gray-600"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Key Yield Metrics -->
-                <div class="col-span-1 md:col-span-4 space-y-6">
-                    <div class="glass-dark p-6 rounded-3xl">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h4 class="text-gray-400 text-xs font-bold uppercase">Ethanol Yield</h4>
-                                <p class="text-3xl font-display font-bold text-white mt-1">300 <span class="text-lg text-gray-500">L/Ton</span></p>
-                            </div>
-                            <div class="bg-ark-500/20 p-2 rounded-lg text-ark-500">
-                                <i class="ph-bold ph-drop"></i>
-                            </div>
-                        </div>
-                        <div class="w-full bg-white/10 rounded-full h-1.5 mt-2">
-                            <div class="bg-ark-500 h-1.5 rounded-full" style="width: 90%"></div>
-                        </div>
-                        <p class="text-xs text-gray-500 mt-2">Best-in-class recovery</p>
-                    </div>
-
-                    <div class="glass-dark p-6 rounded-3xl">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h4 class="text-gray-400 text-xs font-bold uppercase">Water Recycling</h4>
-                                <p class="text-3xl font-display font-bold text-white mt-1">92%</p>
-                            </div>
-                            <div class="bg-blue-500/20 p-2 rounded-lg text-blue-400">
-                                <i class="ph-bold ph-waves"></i>
-                            </div>
-                        </div>
-                        <p class="text-sm text-gray-400">Zero Liquid Discharge (ZLD) design.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Financial Simulator -->
-    <section id="financials" class="py-24 bg-surface-50">
-        <div class="container mx-auto px-6 max-w-6xl">
+    <!-- Location Advantage -->
+    <section id="location" class="py-20 bg-slate-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="font-display text-4xl font-bold text-ark-900 mb-4">Financial Projections</h2>
-                <p class="text-gray-500">Explore the sensitivity of the project based on Feedstock prices and Ethanol market rates.</p>
+                <span class="text-brand-green font-bold tracking-wider uppercase text-sm">Strategic Placement</span>
+                <h2 class="font-heading text-4xl md:text-5xl font-bold mt-2">The "Border Advantage"</h2>
+                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Leveraging the agricultural surplus of two states: Andhra Pradesh and Karnataka.</p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <!-- Controls -->
-                <div class="bg-white p-8 rounded-[2.5rem] shadow-xl border border-gray-100">
-                    <h3 class="font-bold text-lg mb-8 flex items-center gap-2">
-                        <i class="ph-duotone ph-sliders-horizontal text-ark-500"></i> Variable Inputs
-                    </h3>
-                    
-                    <!-- Slider 1 -->
-                    <div class="mb-8">
-                        <div class="flex justify-between mb-4">
-                            <label class="text-sm font-bold text-gray-600">Ethanol Selling Price</label>
-                            <span class="text-ark-900 font-bold bg-ark-100 px-3 py-1 rounded-lg">₹<span id="ethPriceVal">65</span>/L</span>
-                        </div>
-                        <input type="range" id="ethPrice" min="60" max="75" value="65" step="0.5" class="w-full">
-                        <div class="flex justify-between mt-2 text-xs text-gray-400 font-medium">
-                            <span>Conservative (₹60)</span>
-                            <span>Optimistic (₹75)</span>
-                        </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Advantage 1 -->
+                <div class="bg-slate-800 p-8 rounded-xl border border-slate-700 hover:border-brand-green transition group">
+                    <div class="w-14 h-14 bg-brand-green/20 rounded-full flex items-center justify-center text-brand-green mb-6 group-hover:bg-brand-green group-hover:text-white transition">
+                        <i class="fa-solid fa-map-location-dot text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Alur / Aspari Hub</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Located just 25-35km from Ballari (Karnataka). Provides access to the Tungabhadra "Rice Bowl" while securing incentives from the AP Industrial Policy.
+                    </p>
+                </div>
+
+                <!-- Advantage 2 -->
+                <div class="bg-slate-800 p-8 rounded-xl border border-slate-700 hover:border-brand-green transition group">
+                    <div class="w-14 h-14 bg-brand-green/20 rounded-full flex items-center justify-center text-brand-green mb-6 group-hover:bg-brand-green group-hover:text-white transition">
+                        <i class="fa-solid fa-wheat-awn text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Feedstock Security</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        <strong>Maize:</strong> Kurnool & Anantapur.<br>
+                        <strong>Broken Rice:</strong> Raichur & Sindhanur.<br>
+                        <strong>FCI Rice:</strong> Close proximity to Guntakal logistics hub.
+                    </p>
+                </div>
+
+                <!-- Advantage 3 -->
+                <div class="bg-slate-800 p-8 rounded-xl border border-slate-700 hover:border-brand-green transition group">
+                    <div class="w-14 h-14 bg-brand-green/20 rounded-full flex items-center justify-center text-brand-green mb-6 group-hover:bg-brand-green group-hover:text-white transition">
+                        <i class="fa-solid fa-water text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Infrastructure</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        <strong>Water:</strong> 50,000 KL on-site reservoir + Air Cooled Condensers.<br>
+                        <strong>Power:</strong> Rice Husk based Co-Gen (Fuel available @ ₹3,500/ton).
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology & Process -->
+    <section id="process" class="py-20 bg-brand-light/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="font-heading text-4xl font-bold text-gray-900">Technical Architecture</h2>
+                <p class="text-gray-600 mt-2">Dry Milling Process with Zero Liquid Discharge</p>
+            </div>
+
+            <div class="relative">
+                <!-- Connecting Line -->
+                <div class="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-gray-200 -z-10 transform -translate-y-1/2"></div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+                    <!-- Step 1 -->
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center group hover:-translate-y-2 transition duration-300">
+                        <div class="w-16 h-16 mx-auto bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4 text-2xl font-bold">1</div>
+                        <h4 class="font-bold text-gray-800 mb-2">Milling</h4>
+                        <p class="text-xs text-gray-500">Grain cleaning and Hammer Milling to fine flour.</p>
                     </div>
 
-                    <!-- Slider 2 -->
-                    <div class="mb-8">
-                        <div class="flex justify-between mb-4">
-                            <label class="text-sm font-bold text-gray-600">Biomass Cost (Landed)</label>
-                            <span class="text-ark-900 font-bold bg-surface-200 px-3 py-1 rounded-lg">₹<span id="bioCostVal">2500</span>/Ton</span>
-                        </div>
-                        <input type="range" id="bioCost" min="1500" max="4000" value="2500" step="100" class="w-full accent-gray-600">
-                        <div class="flex justify-between mt-2 text-xs text-gray-400 font-medium">
-                            <span>Low (₹1500)</span>
-                            <span>High (₹4000)</span>
-                        </div>
+                    <!-- Step 2 -->
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center group hover:-translate-y-2 transition duration-300">
+                        <div class="w-16 h-16 mx-auto bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4 text-2xl font-bold">2</div>
+                        <h4 class="font-bold text-gray-800 mb-2">Liquefaction</h4>
+                        <p class="text-xs text-gray-500">Jet Cooking at 110°C with Alpha-amylase.</p>
                     </div>
 
-                    <div class="p-4 bg-blue-50 border border-blue-100 rounded-xl text-sm text-blue-800 flex gap-3">
-                        <i class="ph-fill ph-info text-xl"></i>
-                        <p>Calculation assumes 330 operational days/year and 90% capacity utilization.</p>
+                    <!-- Step 3 -->
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center group hover:-translate-y-2 transition duration-300">
+                        <div class="w-16 h-16 mx-auto bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4 text-2xl font-bold">3</div>
+                        <h4 class="font-bold text-gray-800 mb-2">Fermentation</h4>
+                        <p class="text-xs text-gray-500">SSF process with Yeast to convert starch to alcohol.</p>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center group hover:-translate-y-2 transition duration-300">
+                        <div class="w-16 h-16 mx-auto bg-brand-green text-white rounded-full flex items-center justify-center mb-4 text-2xl font-bold">4</div>
+                        <h4 class="font-bold text-gray-800 mb-2">Distillation</h4>
+                        <p class="text-xs text-gray-500">Multipressure Distillation & Molecular Sieves for 99.8% purity.</p>
+                    </div>
+
+                    <!-- Step 5 -->
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center group hover:-translate-y-2 transition duration-300">
+                        <div class="w-16 h-16 mx-auto bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-4 text-2xl font-bold">5</div>
+                        <h4 class="font-bold text-gray-800 mb-2">ZLD (DDGS)</h4>
+                        <p class="text-xs text-gray-500">Effluent to MEE & Dryer -> High Protein Cattle Feed.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Financials -->
+    <section id="financials" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-12">
+                <h2 class="font-heading text-4xl font-bold text-gray-900">Financial Analysis <span class="text-sm font-normal text-gray-500 ml-2">(Revised Jan 2026)</span></h2>
+                <p class="text-gray-600 mt-2">Robust viability supported by DFPD Interest Subvention & AP Policy 4.0.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                
+                <!-- Chart 1: Project Cost -->
+                <div class="bg-gray-50 p-6 rounded-2xl shadow-sm">
+                    <h3 class="font-bold text-xl mb-6 text-center">Project Cost Breakdown (₹145 Cr)</h3>
+                    <div class="relative h-64 w-full">
+                        <canvas id="costChart"></canvas>
+                    </div>
+                    <div class="mt-6 grid grid-cols-2 gap-4 text-sm">
+                         <div class="flex justify-between border-b py-2"><span>Land & Dev:</span> <span class="font-mono font-bold">₹12 Cr</span></div>
+                         <div class="flex justify-between border-b py-2"><span>Civil Works:</span> <span class="font-mono font-bold">₹28 Cr</span></div>
+                         <div class="flex justify-between border-b py-2"><span>Plant & Mach:</span> <span class="font-mono font-bold">₹68 Cr</span></div>
+                         <div class="flex justify-between border-b py-2"><span>Utilities:</span> <span class="font-mono font-bold">₹15 Cr</span></div>
                     </div>
                 </div>
 
-                <!-- Output Cards -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div class="bg-ark-900 text-white p-8 rounded-[2.5rem] flex flex-col justify-between h-64 relative overflow-hidden">
-                        <div class="absolute -right-4 -top-4 text-white/5">
-                            <i class="ph-fill ph-coins text-9xl"></i>
+                <!-- Chart 2: Means of Finance & Profitability -->
+                <div class="flex flex-col gap-6">
+                    <div class="bg-gray-50 p-6 rounded-2xl shadow-sm flex-1">
+                        <h3 class="font-bold text-xl mb-4 text-center">Means of Finance</h3>
+                        <div class="relative h-48 w-full flex justify-center">
+                            <canvas id="financeChart"></canvas>
                         </div>
-                        <div>
-                            <p class="text-ark-accent text-sm font-bold uppercase tracking-wider mb-2">Annual Revenue</p>
-                            <h4 class="text-4xl font-display font-bold">₹<span id="totalRev">27.0</span> Cr</h4>
-                        </div>
-                        <div class="border-t border-white/10 pt-4">
-                            <div class="flex justify-between text-sm text-gray-400">
-                                <span>Ethanol</span>
-                                <span class="text-white font-bold">70%</span>
+                        <p class="text-center text-sm text-gray-500 mt-4">
+                            *Includes 6% Interest Subvention benefit
+                        </p>
+                    </div>
+
+                    <div class="bg-brand-dark text-white p-6 rounded-2xl shadow-lg">
+                        <h3 class="font-bold text-xl mb-4 border-b border-white/20 pb-2">Year 1 Projections</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span>Revenue (Ethanol + DDGS)</span>
+                                <span class="font-mono text-lg font-bold">₹162.00 Cr</span>
                             </div>
-                            <div class="flex justify-between text-sm text-gray-400 mt-1">
-                                <span>By-products</span>
-                                <span class="text-white font-bold">30%</span>
+                            <div class="flex justify-between items-center text-brand-accent">
+                                <span>EBITDA (29% Margin)</span>
+                                <span class="font-mono text-lg font-bold">₹47.00 Cr</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span>Net Profit (PAT)</span>
+                                <span class="font-mono text-lg font-bold">₹25.08 Cr</span>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                    <div class="bg-white p-8 rounded-[2.5rem] shadow-lg border border-gray-100 flex flex-col justify-between h-64">
+    <!-- Policy Banner -->
+    <section class="py-10 bg-gradient-to-r from-brand-green to-brand-dark text-white">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between">
+            <div class="mb-6 md:mb-0">
+                <h3 class="text-2xl font-heading font-bold">AP Industrial Policy 4.0 (2024-29)</h3>
+                <p class="opacity-90">Project eligible for 100% Net SGST Reimbursement & ₹1.00/unit Power Subsidy.</p>
+            </div>
+            <a href="#contact" class="px-6 py-3 bg-white text-brand-green font-bold rounded shadow hover:bg-gray-100 transition">
+                Request Detailed DPR
+            </a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-100">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2">
+                    <div class="p-10 bg-slate-900 text-white flex flex-col justify-between">
                         <div>
-                            <p class="text-gray-400 text-sm font-bold uppercase tracking-wider mb-2">Projected EBITDA</p>
-                            <h4 class="text-4xl font-display font-bold text-ark-800">₹<span id="ebitda">10.5</span> Cr</h4>
+                            <h2 class="font-heading text-3xl font-bold mb-4">Get in Touch</h2>
+                            <p class="text-gray-400 mb-8">Discuss investment opportunities or feedstock partnerships.</p>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 bg-white/10 rounded flex items-center justify-center mr-4">
+                                        <i class="fa-solid fa-envelope"></i>
+                                    </div>
+                                    <span>Arjun@arkbioenergies.in</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 bg-white/10 rounded flex items-center justify-center mr-4">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                    </div>
+                                    <span>Alur/Aspari Mandal,<br>Kurnool District, AP</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="h-24 w-full">
-                            <canvas id="miniChart"></canvas>
+                        <div class="mt-8">
+                             <div class="text-xs text-gray-500 uppercase tracking-widest mb-2">Follow Us</div>
+                             <div class="flex space-x-4">
+                                 <a href="#" class="hover:text-brand-green transition"><i class="fa-brands fa-linkedin text-xl"></i></a>
+                                 <a href="#" class="hover:text-brand-green transition"><i class="fa-brands fa-twitter text-xl"></i></a>
+                             </div>
                         </div>
+                    </div>
+                    
+                    <div class="p-10">
+                        <form onsubmit="event.preventDefault(); alert('Thank you. Arjun will contact you shortly.');">
+                            <div class="mb-4">
+                                <label class="block text-gray-700 text-sm font-bold mb-2">Name</label>
+                                <input type="text" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-brand-green" placeholder="Your Name">
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                                <input type="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-brand-green" placeholder="john@company.com">
+                            </div>
+                            <div class="mb-6">
+                                <label class="block text-gray-700 text-sm font-bold mb-2">Interest</label>
+                                <select class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-brand-green">
+                                    <option>Investment Inquiry</option>
+                                    <option>Feedstock Supply (Maize/Rice)</option>
+                                    <option>DDGS Procurement</option>
+                                </select>
+                            </div>
+                            <button class="w-full bg-brand-green text-white font-bold py-3 rounded-lg hover:bg-brand-dark transition">
+                                Send Message
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -394,158 +401,78 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-ark-900 text-white py-12 text-center">
-        <div class="container mx-auto px-6">
-            <div class="flex items-center justify-center gap-2 mb-6">
-                <div class="w-6 h-6 bg-ark-accent rounded flex items-center justify-center text-ark-900">
-                    <i class="ph-bold ph-plant"></i>
-                </div>
-                <span class="font-display font-bold text-lg">Ark Bio Energies</span>
+    <footer class="bg-slate-900 text-gray-400 py-8 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center text-sm">
+            <div class="mb-4 md:mb-0">
+                &copy; 2026 Ark Bioenergies Pvt Ltd. All rights reserved.
             </div>
-            <p class="text-gray-500 text-sm mb-8">Fueling India's self-reliance in energy.</p>
-            <div class="text-xs text-gray-600">
-                &copy; 2026 Ark Bio Energies Pvt Ltd. Confidential.
+            <div class="flex space-x-6">
+                <a href="#" class="hover:text-white transition">Privacy Policy</a>
+                <a href="#" class="hover:text-white transition">Disclaimer</a>
             </div>
         </div>
     </footer>
 
-    <!-- Logic Script -->
+    <!-- Chart Logic -->
     <script>
-        // --- Tab Switching Logic ---
-        const techData = {
-            pretreat: {
-                title: "Steam Explosion",
-                desc: "Biomass is subjected to high-pressure steam (15-20 bar) followed by rapid decompression. This physically disrupts the lignin seal, exposing cellulose fibers for enzymatic attack.",
-                points: ["Temp: 190°C - 210°C", "Residence Time: 5-10 mins", "Solid Loading: >20%"],
-                icon: "ph-engine"
-            },
-            hydro: {
-                title: "Enzymatic Hydrolysis",
-                desc: "Specific cellulase enzyme cocktails are added to the pretreated slurry. We utilize a split-feeding strategy to maintain high solid loading without viscosity issues.",
-                points: ["Conversion Efficiency: >85%", "Time: 48-72 Hours", "pH: 4.8 - 5.0"],
-                icon: "ph-flask"
-            },
-            ferment: {
-                title: "C5/C6 Co-Fermentation",
-                desc: "Genetically Modified Yeast (GMO) strains capable of fermenting both Glucose (C6) and Xylose (C5) sugars simultaneously, boosting overall ethanol yield.",
-                points: ["Strain: S. cerevisiae (Mod)", "Temp: 32°C", "Ethanol Tolerance: 12% v/v"],
-                icon: "ph-dna"
-            }
-        };
-
-        function switchTech(key) {
-            // Update UI Tabs
-            document.querySelectorAll('.tech-tab').forEach(t => {
-                t.classList.remove('active', 'text-ark-accent', 'border-b-2', 'border-ark-accent', 'font-bold');
-                t.classList.add('text-gray-500', 'font-medium');
-            });
-            event.target.classList.add('active', 'text-ark-accent', 'border-b-2', 'border-ark-accent', 'font-bold');
-            event.target.classList.remove('text-gray-500', 'font-medium');
-
-            // Update Content
-            const data = techData[key];
-            const html = `
-                <div class="w-full md:w-1/2 animate-fade-in">
-                    <h3 class="text-2xl font-display font-bold mb-4 text-white">${data.title}</h3>
-                    <p class="text-gray-400 leading-relaxed mb-6">${data.desc}</p>
-                    <ul class="space-y-3">
-                        ${data.points.map(p => `
-                        <li class="flex items-center gap-3 text-sm text-gray-300">
-                            <i class="ph-fill ph-check-circle text-ark-accent"></i> ${p}
-                        </li>`).join('')}
-                    </ul>
-                </div>
-                <div class="w-full md:w-1/2 bg-white/5 rounded-2xl h-48 flex items-center justify-center border border-dashed border-white/20 animate-fade-in">
-                    <i class="ph-duotone ${data.icon} text-6xl text-gray-600"></i>
-                </div>
-            `;
-            document.getElementById('techContent').innerHTML = html;
-        }
-
-        // --- Financial Calculator Logic ---
-        const inputs = {
-            ethPrice: document.getElementById('ethPrice'),
-            bioCost: document.getElementById('bioCost')
-        };
-        const displays = {
-            ethPriceVal: document.getElementById('ethPriceVal'),
-            bioCostVal: document.getElementById('bioCostVal'),
-            totalRev: document.getElementById('totalRev'),
-            ebitda: document.getElementById('ebitda')
-        };
-
-        function calculate() {
-            const price = parseFloat(inputs.ethPrice.value);
-            const cost = parseFloat(inputs.bioCost.value);
-            
-            // Constants based on 10 KLPD capacity
-            const annualVolume = 3300000; // 3.3 Million Liters
-            const biomassReq = 12000; // Tons per year approx
-            const fixedOpex = 45000000; // 4.5 Cr
-            const byproductRev = 76500000; // ~7.65 Cr (from report)
-
-            // Calc
-            const revEth = price * annualVolume;
-            const revTotal = revEth + byproductRev;
-            const costBio = cost * biomassReq;
-            const costTotal = costBio + fixedOpex; 
-            const ebitdaVal = revTotal - costTotal;
-
-            // Display
-            displays.ethPriceVal.innerText = price;
-            displays.bioCostVal.innerText = cost;
-            displays.totalRev.innerText = (revTotal / 10000000).toFixed(2);
-            displays.ebitda.innerText = (ebitdaVal / 10000000).toFixed(2);
-            
-            updateMiniChart((ebitdaVal / 10000000));
-        }
-
-        inputs.ethPrice.addEventListener('input', calculate);
-        inputs.bioCost.addEventListener('input', calculate);
-
-        // --- Mini Chart.js ---
-        let miniChart;
-        function initChart() {
-            const ctx = document.getElementById('miniChart').getContext('2d');
-            miniChart = new Chart(ctx, {
+        document.addEventListener('DOMContentLoaded', function() {
+            // Chart 1: Project Cost Breakdown
+            const ctxCost = document.getElementById('costChart').getContext('2d');
+            new Chart(ctxCost, {
                 type: 'bar',
                 data: {
-                    labels: ['Yr 1', 'Yr 2', 'Yr 3', 'Yr 4'],
+                    labels: ['Land & Dev', 'Civil', 'Plant & Mach', 'Utilities', 'Electrical', 'Pre-Op/Cont'],
                     datasets: [{
-                        label: 'EBITDA Growth',
-                        data: [5, 6.5, 8.2, 9.1], 
-                        backgroundColor: '#10b981',
-                        borderRadius: 4
+                        label: 'Cost (₹ Crores)',
+                        data: [12, 28, 68, 15, 8, 14], // 6+3+5 grouped in last
+                        backgroundColor: [
+                            '#81C784', '#66BB6A', '#2E7D32', '#43A047', '#1B5E20', '#A5D6A7'
+                        ],
+                        borderRadius: 6
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
+                    plugins: {
+                        legend: { display: false }
+                    },
                     scales: {
-                        x: { display: false },
-                        y: { display: false, min: 0 }
+                        y: {
+                            beginAtZero: true,
+                            grid: { display: false }
+                        },
+                        x: {
+                            grid: { display: false }
+                        }
                     }
                 }
             });
-        }
-        
-        function updateMiniChart(currentEbitda) {
-            const data = [
-                currentEbitda * 0.6, 
-                currentEbitda * 0.8, 
-                currentEbitda, 
-                currentEbitda * 1.1
-            ];
-            miniChart.data.datasets[0].data = data;
-            miniChart.update();
-        }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            initChart();
-            calculate();
+            // Chart 2: Means of Finance
+            const ctxFinance = document.getElementById('financeChart').getContext('2d');
+            new Chart(ctxFinance, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Debt (Banks)', 'Equity (Promoters)'],
+                    datasets: [{
+                        data: [101.5, 43.5],
+                        backgroundColor: ['#2E7D32', '#FFD700'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
         });
-
     </script>
 </body>
 </html>
