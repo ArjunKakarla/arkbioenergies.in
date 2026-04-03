@@ -28,9 +28,39 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        html { scroll-behavior: smooth; }
+        
+        /* MOVE THAT BOTTOM CSS BLOCK HERE */
+        body {
+            background: var(--coal);
+            color: var(--text);
+            font-family: var(--ff-body);
+            font-size: 16px;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-html { scroll-behavior: smooth; }
+        /* ... your widget styles ... */
+    </style>
+</head>
 
+<body>
+    <header>...</header>
+    <main>...</main>
+
+    <button id="ark-bubble">🌿</button>
+    <div id="ark-panel"> ... </div>
+    
+    <script>
+        // ... your ark widget JS logic ...
+        const ARK_API_BASE = 'http://localhost:8000';
+    </script>
+
+</body> </html> 
 body {
   background: var(--coal);
   color: var(--text);
