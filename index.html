@@ -28,39 +28,9 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <style>
-        html { scroll-behavior: smooth; }
-        
-        /* MOVE THAT BOTTOM CSS BLOCK HERE */
-        body {
-            background: var(--coal);
-            color: var(--text);
-            font-family: var(--ff-body);
-            font-size: 16px;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
 
-        /* ... your widget styles ... */
-    </style>
-</head>
+html { scroll-behavior: smooth; }
 
-<body>
-    <header>...</header>
-    <main>...</main>
-
-    <button id="ark-bubble">🌿</button>
-    <div id="ark-panel"> ... </div>
-    
-    <script>
-        // ... your ark widget JS logic ...
-        const ARK_API_BASE = 'http://localhost:8000';
-    </script>
-
-</body> </html> 
 body {
   background: var(--coal);
   color: var(--text);
@@ -2438,7 +2408,7 @@ footer {
 
       <div class="contact-detail">
         <div class="contact-detail-icon">📧</div>
-        <span>arjun@arkbioenergies.in</span>
+        <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a5c4d7cfd0cbe5c4d7cec7cccac0cbc0d7c2ccc0d68bcccb">[email&#160;protected]</a></span>
       </div>
       <div class="contact-detail">
         <div class="contact-detail-icon">📍</div>
@@ -2492,7 +2462,7 @@ footer {
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ─── CHARTS ──────────────────────────────────
 Chart.defaults.color = '#8C8C94';
 Chart.defaults.font.family = 'Plus Jakarta Sans';
@@ -2585,14 +2555,601 @@ function selectInterest(btn) {
 
 // ─── FORM SUBMIT ──────────────────────────────
 function submitForm(btn) {
-  const original = btn.textContent;
-  btn.textContent = 'Message Sent ✓';
-  btn.style.background = '#2A6B3C';
+ 
+
+<!--
+  ╔══════════════════════════════════════════════════════╗
+  ║   ARK BIOENERGIES — AI AGENT CHAT WIDGET             ║
+  ║   Paste this entire block just before </body>        ║
+  ║   Set ARK_API_BASE to your FastAPI server URL        ║
+  ╚══════════════════════════════════════════════════════╝
+-->
+<style>
+  /* ── Widget Variables ─────────────────────────────── */
+  :root {
+    --ark-gold: #C8901A;
+    --ark-gold-l: #E8A82A;
+    --ark-green: #2A6B3C;
+    --ark-coal: #0E0E0F;
+    --ark-slate: #1A1A1C;
+    --ark-panel: #212124;
+    --ark-border: rgba(200,144,26,0.22);
+    --ark-text: #F0EDE8;
+    --ark-muted: #8C8C94;
+    --ark-ff: 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+
+  /* ── Bubble Button ────────────────────────────────── */
+  #ark-bubble {
+    position: fixed;
+    bottom: 28px; right: 28px;
+    width: 62px; height: 62px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--ark-gold), var(--ark-green));
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 8px 32px rgba(200,144,26,0.45);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 9998;
+    transition: transform 0.25s, box-shadow 0.25s;
+    font-size: 26px;
+  }
+  #ark-bubble:hover {
+    transform: scale(1.1) translateY(-3px);
+    box-shadow: 0 14px 40px rgba(200,144,26,0.55);
+  }
+  #ark-bubble .ark-notif {
+    position: absolute;
+    top: 2px; right: 2px;
+    width: 14px; height: 14px;
+    background: #E74C3C;
+    border: 2px solid var(--ark-coal);
+    border-radius: 50%;
+    animation: ark-notif-pulse 2s infinite;
+    display: none;
+  }
+  @keyframes ark-notif-pulse {
+    0%,100% { transform: scale(1); }
+    50%      { transform: scale(1.3); }
+  }
+
+  /* ── Panel ────────────────────────────────────────── */
+  #ark-panel {
+    position: fixed;
+    bottom: 102px; right: 28px;
+    width: 390px;
+    max-height: 580px;
+    border-radius: 20px;
+    background: var(--ark-panel);
+    border: 1px solid var(--ark-border);
+    box-shadow: 0 24px 80px rgba(0,0,0,0.65), 0 0 0 1px rgba(200,144,26,0.08);
+    display: flex; flex-direction: column;
+    z-index: 9999;
+    overflow: hidden;
+    transform: scale(0.88) translateY(20px);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), opacity 0.25s;
+    font-family: var(--ark-ff);
+  }
+  #ark-panel.open {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  @media (max-width: 480px) {
+    #ark-panel { width: calc(100vw - 20px); right: 10px; bottom: 90px; max-height: 72vh; border-radius: 16px; }
+    #ark-bubble { bottom: 18px; right: 18px; }
+  }
+
+  /* ── Header ───────────────────────────────────────── */
+  #ark-header {
+    padding: 18px 20px 14px;
+    background: linear-gradient(135deg, rgba(200,144,26,0.12), rgba(42,107,60,0.08));
+    border-bottom: 1px solid var(--ark-border);
+    display: flex; align-items: center; gap: 12px;
+    flex-shrink: 0;
+  }
+  .ark-avatar {
+    width: 42px; height: 42px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--ark-gold), var(--ark-green));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(200,144,26,0.3);
+  }
+  .ark-header-text { flex: 1; }
+  .ark-header-name {
+    font-size: 0.9rem; font-weight: 700;
+    color: var(--ark-text); line-height: 1.2;
+  }
+  .ark-header-sub {
+    font-size: 0.7rem; color: var(--ark-muted);
+    display: flex; align-items: center; gap: 5px; margin-top: 2px;
+  }
+  .ark-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #2ECC71;
+    animation: ark-notif-pulse 2.5s infinite;
+  }
+  #ark-close {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    color: var(--ark-muted);
+    cursor: pointer;
+    font-size: 16px;
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  #ark-close:hover { background: rgba(255,255,255,0.12); color: var(--ark-text); }
+
+  /* ── Messages ─────────────────────────────────────── */
+  #ark-messages {
+    flex: 1; overflow-y: auto; padding: 16px 16px 4px;
+    display: flex; flex-direction: column; gap: 12px;
+    scrollbar-width: thin; scrollbar-color: var(--ark-border) transparent;
+  }
+  #ark-messages::-webkit-scrollbar { width: 4px; }
+  #ark-messages::-webkit-scrollbar-thumb { background: var(--ark-border); border-radius: 4px; }
+
+  .ark-msg { display: flex; flex-direction: column; gap: 4px; max-width: 88%; }
+  .ark-msg.user { align-self: flex-end; align-items: flex-end; }
+  .ark-msg.bot  { align-self: flex-start; }
+
+  .ark-bubble-msg {
+    padding: 11px 14px;
+    border-radius: 14px;
+    font-size: 0.83rem;
+    line-height: 1.55;
+    word-break: break-word;
+  }
+  .ark-msg.bot .ark-bubble-msg {
+    background: var(--ark-slate);
+    border: 1px solid rgba(200,144,26,0.12);
+    color: var(--ark-text);
+    border-bottom-left-radius: 4px;
+  }
+  .ark-msg.user .ark-bubble-msg {
+    background: linear-gradient(135deg, var(--ark-gold), #A07010);
+    color: #0E0E0F;
+    font-weight: 600;
+    border-bottom-right-radius: 4px;
+  }
+  .ark-msg-time { font-size: 0.65rem; color: var(--ark-muted); padding: 0 4px; }
+
+  /* Typing indicator */
+  .ark-typing {
+    display: flex; align-items: center; gap: 5px;
+    padding: 12px 14px;
+    background: var(--ark-slate);
+    border: 1px solid rgba(200,144,26,0.12);
+    border-radius: 14px; border-bottom-left-radius: 4px;
+    width: fit-content;
+  }
+  .ark-typing span {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--ark-muted);
+    animation: ark-bounce 1.2s infinite;
+  }
+  .ark-typing span:nth-child(2) { animation-delay: 0.2s; }
+  .ark-typing span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes ark-bounce {
+    0%,60%,100% { transform: translateY(0); }
+    30%          { transform: translateY(-5px); background: var(--ark-gold); }
+  }
+
+  /* ── Lead / Handoff Forms ─────────────────────────── */
+  .ark-form-card {
+    margin: 6px 0;
+    padding: 16px;
+    background: rgba(200,144,26,0.06);
+    border: 1px solid var(--ark-border);
+    border-radius: 14px;
+    font-size: 0.82rem;
+  }
+  .ark-form-title {
+    font-weight: 700; color: var(--ark-gold-l);
+    font-size: 0.85rem; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .ark-field {
+    width: 100%; padding: 9px 12px;
+    background: var(--ark-slate);
+    border: 1px solid rgba(200,144,26,0.18);
+    border-radius: 8px;
+    color: var(--ark-text);
+    font-family: var(--ark-ff);
+    font-size: 0.8rem;
+    margin-bottom: 8px;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+  }
+  .ark-field:focus { border-color: var(--ark-gold); }
+  .ark-field::placeholder { color: var(--ark-muted); }
+  .ark-submit {
+    width: 100%; padding: 10px;
+    background: var(--ark-gold);
+    color: var(--ark-coal);
+    border: none; border-radius: 8px;
+    font-family: var(--ark-ff);
+    font-size: 0.8rem; font-weight: 800;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .ark-submit:hover { background: var(--ark-gold-l); }
+  .ark-submit:disabled { opacity: 0.55; cursor: not-allowed; }
+
+  /* ── Suggestion Chips ─────────────────────────────── */
+  #ark-chips {
+    padding: 6px 14px 0;
+    display: flex; flex-wrap: wrap; gap: 6px; flex-shrink: 0;
+  }
+  .ark-chip {
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--ark-border);
+    background: rgba(200,144,26,0.05);
+    color: var(--ark-gold-l);
+    font-size: 0.72rem; font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .ark-chip:hover {
+    background: rgba(200,144,26,0.12);
+    border-color: var(--ark-gold);
+  }
+
+  /* ── Input Area ───────────────────────────────────── */
+  #ark-input-wrap {
+    padding: 12px 14px 16px;
+    border-top: 1px solid var(--ark-border);
+    display: flex; gap: 10px; align-items: flex-end;
+    flex-shrink: 0;
+  }
+  #ark-input {
+    flex: 1;
+    padding: 11px 14px;
+    background: var(--ark-slate);
+    border: 1px solid rgba(200,144,26,0.18);
+    border-radius: 12px;
+    color: var(--ark-text);
+    font-family: var(--ark-ff);
+    font-size: 0.84rem;
+    outline: none;
+    resize: none;
+    max-height: 100px;
+    overflow-y: auto;
+    line-height: 1.4;
+    transition: border-color 0.2s;
+  }
+  #ark-input:focus { border-color: var(--ark-gold); }
+  #ark-input::placeholder { color: var(--ark-muted); }
+  #ark-send {
+    width: 42px; height: 42px;
+    border-radius: 12px;
+    background: var(--ark-gold);
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+  #ark-send:hover { background: var(--ark-gold-l); transform: scale(1.05); }
+  #ark-send:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+</style>
+
+<!-- ── Bubble Button ──────────────────────────────────── -->
+<button id="ark-bubble" onclick="arkToggle()" title="Chat with Ark AI Assistant">
+  🌿
+  <div class="ark-notif" id="ark-notif"></div>
+</button>
+
+<!-- ── Chat Panel ────────────────────────────────────── -->
+<div id="ark-panel">
+
+  <!-- Header -->
+  <div id="ark-header">
+    <div class="ark-avatar">🌿</div>
+    <div class="ark-header-text">
+      <div class="ark-header-name">Ark Bioenergies Assistant</div>
+      <div class="ark-header-sub">
+        <div class="ark-dot"></div>
+        Powered by Claude AI · 60 KLPD Ethanol Project
+      </div>
+    </div>
+    <button id="ark-close" onclick="arkToggle()">✕</button>
+  </div>
+
+  <!-- Messages -->
+  <div id="ark-messages"></div>
+
+  <!-- Suggestion Chips -->
+  <div id="ark-chips">
+    <button class="ark-chip" onclick="arkSendChip(this)">What is the IRR?</button>
+    <button class="ark-chip" onclick="arkSendChip(this)">Tell me about feedstock</button>
+    <button class="ark-chip" onclick="arkSendChip(this)">Investment opportunity?</button>
+    <button class="ark-chip" onclick="arkSendChip(this)">What is DDGS?</button>
+  </div>
+
+  <!-- Input -->
+  <div id="ark-input-wrap">
+    <textarea id="ark-input" placeholder="Ask about the ethanol project..." rows="1"
+      onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();arkSend();}"></textarea>
+    <button id="ark-send" onclick="arkSend()" title="Send">➤</button>
+  </div>
+</div>
+
+<script>
+(function() {
+  // ── Config ──────────────────────────────────────────
+  const ARK_API_BASE = 'http://localhost:8000';   // ← change to your deployed URL
+  const WELCOME_MSG  = `Welcome to **Ark Bioenergies**. I'm your project assistant for the **60 KLPD Greenfield Ethanol Plant** near Bellary, Karnataka.\n\nI can answer questions about the technology, feedstock strategy, financial projections, policy incentives, and partnership opportunities. How can I help you today?`;
+
+  // ── State ────────────────────────────────────────────
+  let arkOpen        = false;
+  let arkSessionId   = localStorage.getItem('ark_session') || null;
+  let arkStreaming    = false;
+  let arkWelcomeDone = false;
+
+  // ── Toggle ───────────────────────────────────────────
+  window.arkToggle = function() {
+    arkOpen = !arkOpen;
+    const panel = document.getElementById('ark-panel');
+    const notif = document.getElementById('ark-notif');
+    panel.classList.toggle('open', arkOpen);
+    notif.style.display = 'none';
+    if (arkOpen && !arkWelcomeDone) {
+      arkWelcomeDone = true;
+      setTimeout(() => arkAddBot(WELCOME_MSG), 300);
+    }
+  };
+
+  // ── Show notification after 4 seconds ───────────────
   setTimeout(() => {
-    btn.textContent = original;
-    btn.style.background = '';
-  }, 3000);
-}
+    if (!arkOpen) document.getElementById('ark-notif').style.display = 'block';
+  }, 4000);
+
+  // ── Helpers ──────────────────────────────────────────
+  function now() {
+    return new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+  }
+
+  function scrollBottom() {
+    const el = document.getElementById('ark-messages');
+    el.scrollTop = el.scrollHeight;
+  }
+
+  function arkAddUser(text) {
+    const msgs = document.getElementById('ark-messages');
+    msgs.innerHTML += `
+      <div class="ark-msg user">
+        <div class="ark-bubble-msg">${escHtml(text)}</div>
+        <div class="ark-msg-time">${now()}</div>
+      </div>`;
+    scrollBottom();
+  }
+
+  function arkAddBot(md) {
+    const msgs = document.getElementById('ark-messages');
+    msgs.innerHTML += `
+      <div class="ark-msg bot">
+        <div class="ark-bubble-msg">${renderMd(md)}</div>
+        <div class="ark-msg-time">${now()}</div>
+      </div>`;
+    scrollBottom();
+  }
+
+  function arkAddTyping() {
+    const msgs = document.getElementById('ark-messages');
+    const el = document.createElement('div');
+    el.id = 'ark-typing-ind';
+    el.className = 'ark-msg bot';
+    el.innerHTML = `<div class="ark-typing"><span></span><span></span><span></span></div>`;
+    msgs.appendChild(el);
+    scrollBottom();
+    return el;
+  }
+
+  function arkAddStreaming() {
+    const msgs = document.getElementById('ark-messages');
+    const el = document.createElement('div');
+    el.className = 'ark-msg bot';
+    el.innerHTML = `<div class="ark-bubble-msg" id="ark-stream-bubble"></div>`;
+    msgs.appendChild(el);
+    scrollBottom();
+    return el;
+  }
+
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  // Minimal markdown renderer (bold, italic, bullets, line-breaks)
+  function renderMd(text) {
+    // Remove special signal tokens from display
+    text = text.replace(/\*\*CAPTURE_LEAD\*\*/g,'').replace(/\*\*OWNER_HANDOFF\*\*/g,'');
+    return text
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
+      .replace(/\*(.*?)\*/g,'<em>$1</em>')
+      .replace(/^[•\-] (.+)$/gm,'<li>$1</li>')
+      .replace(/(<li>.*<\/li>)/gs,'<ul style="margin:6px 0 6px 14px;padding:0;">$1</ul>')
+      .replace(/\n/g,'<br>');
+  }
+
+  // ── Lead Capture Form ───────────────────────────────
+  function arkShowLeadForm(interest = 'Investment / Partnership') {
+    const msgs = document.getElementById('ark-messages');
+    const formId = 'ark-lead-' + Date.now();
+    msgs.innerHTML += `
+      <div class="ark-msg bot" style="max-width:100%; width:100%;">
+        <div class="ark-form-card">
+          <div class="ark-form-title">📋 Share Your Details</div>
+          <input class="ark-field" id="${formId}-name" placeholder="Your Name" type="text">
+          <input class="ark-field" id="${formId}-org" placeholder="Organisation / Company" type="text">
+          <input class="ark-field" id="${formId}-email" placeholder="Email Address" type="email">
+          <input class="ark-field" id="${formId}-int" value="${escHtml(interest)}" placeholder="Interest (Investment / Supply...)" type="text">
+          <button class="ark-submit" onclick="arkSubmitLead('${formId}')">Send to Arjun K. →</button>
+        </div>
+      </div>`;
+    scrollBottom();
+  }
+
+  window.arkSubmitLead = async function(formId) {
+    const name  = document.getElementById(formId+'-name').value.trim();
+    const org   = document.getElementById(formId+'-org').value.trim();
+    const email = document.getElementById(formId+'-email').value.trim();
+    const int_  = document.getElementById(formId+'-int').value.trim();
+
+    if (!name || !email) {
+      document.getElementById(formId+'-name').style.borderColor = '#E74C3C';
+      document.getElementById(formId+'-email').style.borderColor = '#E74C3C';
+      return;
+    }
+
+    const btn = document.querySelector(`#${formId}-name`).closest('.ark-form-card').querySelector('.ark-submit');
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+
+    try {
+      const res = await fetch(`${ARK_API_BASE}/capture-lead`, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({
+          session_id: arkSessionId, name, email, organisation: org, interest: int_
+        })
+      });
+      const data = await res.json();
+
+      // Replace form with success
+      const card = btn.closest('.ark-form-card');
+      card.innerHTML = `
+        <div style="text-align:center; padding:10px 0;">
+          <div style="font-size:1.8rem; margin-bottom:8px;">✅</div>
+          <div style="color:var(--ark-gold-l); font-weight:700; margin-bottom:6px;">Details Received!</div>
+          <div style="color:var(--ark-muted); font-size:0.78rem;">Arjun K. will reach out to you at <strong style="color:var(--ark-text);">${escHtml(email)}</strong> shortly.</div>
+        </div>`;
+
+      if (data.follow_up) setTimeout(() => arkAddBot(data.follow_up), 600);
+    } catch (e) {
+      btn.textContent = 'Error — try arjun@arkbioenergies.in';
+      btn.style.background = '#C0392B';
+    }
+    scrollBottom();
+  };
+
+  // ── Send Message ─────────────────────────────────────
+  window.arkSend = async function() {
+    const input = document.getElementById('ark-input');
+    const text  = input.value.trim();
+    if (!text || arkStreaming) return;
+
+    input.value = '';
+    input.style.height = 'auto';
+    document.getElementById('ark-chips').style.display = 'none';  // hide chips after first send
+    arkAddUser(text);
+    document.getElementById('ark-send').disabled = true;
+    arkStreaming = true;
+
+    const typing = arkAddTyping();
+
+    try {
+      const resp = await fetch(`${ARK_API_BASE}/chat`, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ message: text, session_id: arkSessionId })
+      });
+
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+
+      const reader = resp.body.getReader();
+      const decoder = new TextDecoder();
+      let streamEl = null;
+      let buffer = '';
+      let signal = null;
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n\n');
+        buffer = lines.pop();
+
+        for (const line of lines) {
+          if (!line.startsWith('data:')) continue;
+          try {
+            const ev = JSON.parse(line.slice(5).trim());
+
+            if (ev.type === 'session') {
+              arkSessionId = ev.session_id;
+              localStorage.setItem('ark_session', arkSessionId);
+            }
+
+            if (ev.type === 'token') {
+              // Remove typing indicator on first token
+              if (typing && typing.parentNode) typing.remove();
+              if (!streamEl) {
+                streamEl = arkAddStreaming();
+              }
+              const bubble = document.getElementById('ark-stream-bubble');
+              if (bubble) {
+                bubble._raw = (bubble._raw || '') + ev.text;
+                bubble.innerHTML = renderMd(bubble._raw);
+              }
+              scrollBottom();
+            }
+
+            if (ev.type === 'done') {
+              signal = ev.signal;
+            }
+
+            if (ev.type === 'error') {
+              if (typing && typing.parentNode) typing.remove();
+              arkAddBot('⚠️ ' + ev.text);
+            }
+
+          } catch (e) { /* skip malformed lines */ }
+        }
+      }
+
+      // Handle signals after streaming ends
+      if (signal === 'capture_lead') {
+        setTimeout(() => arkShowLeadForm('Investment / Partnership'), 400);
+      } else if (signal === 'owner_handoff') {
+        setTimeout(() => arkShowLeadForm('Technical / Specific Enquiry'), 400);
+      }
+
+    } catch (err) {
+      if (typing && typing.parentNode) typing.remove();
+      arkAddBot('⚠️ Connection error. Please try again or email arjun@arkbioenergies.in directly.');
+    }
+
+    document.getElementById('ark-send').disabled = false;
+    arkStreaming = false;
+    scrollBottom();
+  };
+
+  window.arkSendChip = function(btn) {
+    document.getElementById('ark-input').value = btn.textContent;
+    arkSend();
+  };
+
+  // ── Auto-resize textarea ─────────────────────────────
+  document.getElementById('ark-input').addEventListener('input', function() {
+    this.style.height = 'auto';
+    this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+  });
+
+})();
 </script>
+
+
 </body>
 </html>
