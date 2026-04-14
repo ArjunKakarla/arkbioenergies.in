@@ -2979,7 +2979,7 @@ Never invent data. Only answer questions about Ark Bioenergies project, ethanol 
     scroll();
   };
 
-  // ── Call Groq API directly from browser ────────────────────────────────────
+  // ── Call AI via Cloudflare Worker proxy ────────────────────────────────────
   async function callGroq(userMessage){
     history.push({role:'user', content: userMessage});
     if(history.length > 20) history = history.slice(-20);
@@ -2988,9 +2988,6 @@ Never invent data. Only answer questions about Ark Bioenergies project, ethanol 
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
-      },
-    body: JSON.stringify({...})
-   });
       },
       body: JSON.stringify({
         model: MODEL,
@@ -3007,7 +3004,7 @@ Never invent data. Only answer questions about Ark Bioenergies project, ethanol 
     }
     return response;
   }
-
+    
   window.arkSend=async function(){
     const inp=document.getElementById('ark-input');
     const txt=inp.value.trim();
