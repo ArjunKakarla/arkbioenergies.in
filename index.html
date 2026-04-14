@@ -2873,7 +2873,11 @@ function submitForm(btn) {
 <script>
 (function(){
   // ── Config: Groq free tier, called directly from browser (no backend needed) ──
-  const GROQ_KEY = 'gsk_' + 'ypPTOaCHLte4U2p8l8NjWGdyb3FY5XSzbQCchg3zrMAvE35BcWMN';  // paste your key from console.groq.com
+  window.ARK_CONFIG = {
+  BOT_NAME: 'Ark AI',
+  COMPANY_INFO: `Ark Bioenergies is developing...`
+  // The API key is completely gone from here!
+ };
   const MODEL    = 'llama-3.3-70b-versatile';
   const WELCOME  = 'Welcome to **Ark Bioenergies**. I\'m your project assistant for the **60 KLPD Greenfield Ethanol Plant** near Bellary, Karnataka.\n\nAsk me about the technology, feedstock, financials, or partnership opportunities.';
 
@@ -2980,11 +2984,13 @@ Never invent data. Only answer questions about Ark Bioenergies project, ethanol 
     history.push({role:'user', content: userMessage});
     if(history.length > 20) history = history.slice(-20);
 
-    const response = await fetch('https://api.groq.com/openai/v1/chat/completions',{
+    const response = await fetch('https://837f9b6c.ark-ai-backend.pages.dev/', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${GROQ_KEY}`
+        'Content-Type': 'application/json'
+      },
+    body: JSON.stringify({...})
+   });
       },
       body: JSON.stringify({
         model: MODEL,
